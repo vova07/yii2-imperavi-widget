@@ -145,7 +145,7 @@ echo \vova07\imperavi\Widget::widget([
 ]);
 ```
 
-### File image ###
+### Upload file ###
 
 ```php
 // DefaultController.php
