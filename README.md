@@ -154,7 +154,7 @@ public function actions()
     return [
         'file-upload' => [
             'class' => 'vova07\imperavi\actions\UploadAction',
-            'url' => 'http://my-site.com/images/', // Directory URL address, where files are stored.
+            'url' => 'http://my-site.com/files/', // Directory URL address, where files are stored.
             'path' => '@alias/to/my/path' // Or absolute path to directory where files are stored.
         ],
     ];
