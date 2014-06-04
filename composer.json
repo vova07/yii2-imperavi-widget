@@ -1,0 +1,34 @@
+{
+    "name": "vova07/yii2-imperavi-widget",
+    "description": "The imperavi redactor widget for Yii framework.",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "yii 2", "imperavi", "redactor", "wysiwyg", "widget"],
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Crudu Vasile",
+            "email": "bazillio07@yandex.ru"
+        },
+        {
+			"name": "Veaceslav Medvedev",
+			"email": "slavcopost@gmail.com"
+		},
+		{
+			"name": "Alexander Makarov",
+			"email": "sam@rmcreative.ru",
+			"homepage": "http://rmcreative.ru/"
+		}
+    ],
+    "support": {
+        "issues": "https://github.com/vova07/yii2-imperavi-widget/issues?state=open",
+        "source": "https://github.com/vova07/yii2-imperavi-widget"
+    },
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "vova07\\imperavi\\": ""
+        }
+    }
+}
