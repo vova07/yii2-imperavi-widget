@@ -4,12 +4,15 @@ namespace vova07\imperavi\actions;
 
 use Yii;
 use yii\base\Action;
+use yii\base\InvalidCallException;
 use yii\base\InvalidConfigException;
 use yii\helpers\FileHelper;
 use yii\validators\Validator;
+use yii\web\BadRequestHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
 use vova07\imperavi\models\Upload;
+use vova07\imperavi\Widget;
 
 /**
  * UploadAction for images and files.
@@ -277,6 +280,8 @@ class UploadAction extends Action
 
             Yii::$app->response->format = Response::FORMAT_JSON;
             return $result;
+        } else {
+            throw new BadRequestHttpException('Only POST is allowed');
         }
     }
 }
