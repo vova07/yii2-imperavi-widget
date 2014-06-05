@@ -12,7 +12,6 @@ use yii\web\BadRequestHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
 use vova07\imperavi\models\Upload;
-use vova07\imperavi\Widget;
 
 /**
  * UploadAction for images and files.
@@ -269,7 +268,7 @@ class UploadAction extends Action
                     }
                 } else {
                     $result = [
-                        'error' => Widget::t('ERROR_CAN_NOT_UPLOAD_FILE')
+                        'error' => Yii::t('imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
                     ];
                 }
             } else {

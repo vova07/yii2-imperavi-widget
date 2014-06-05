@@ -51,6 +51,7 @@ class Widget extends InputWidget
     {
         parent::init();
 
+        $this->registerTranslations();
         if (isset($this->settings['plugins']) && !is_array($this->settings['plugins'])) {
             throw new InvalidConfigException('The "plugins" property must be an array.');
         }
@@ -79,6 +80,18 @@ class Widget extends InputWidget
                 return Html::textarea($this->name, $this->value, $this->options);
             }
         }
+    }
+
+    /**
+     * Register widget translations.
+     */
+    public function registerTranslations()
+    {
+        Yii::$app->i18n->translations['imperavi'] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'basePath' => '@vova07/imperavi/messages',
+            'forceTranslation' => true
+        ];
     }
 
     /**
