@@ -11,6 +11,21 @@ use vova07\imperavi\helpers\FileHelper;
 /**
  * GetAction returns a JSON array of the files found under the specified directory and subdirectories.
  * This array can be used in Imperavi Redactor to insert some files that have already been uploaded.
+ *
+ * Usage:
+ *
+ * ```php
+ * public function actions()
+ * {
+ *     return [
+ *         'image-upload' => [
+ *             'class' => 'vova07\imperavi\actions\GetAction',
+ *             'url' => 'http://my-site.com/statics/',
+ *             'path' => '/var/www/my-site.com/web/statics'
+ *         ]
+ *     ];
+ * }
+ * ```
  */
 class GetAction extends Action
 {
