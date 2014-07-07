@@ -9,17 +9,14 @@ use yii\helpers\Json;
 use yii\widgets\InputWidget;
 
 /**
- * ImperaviRedactor class file.
+ * Imperavi Redactor widget.
  *
- * @property string $assetsPath
- * @property string $assetsUrl
- * @property array $plugins
+ * @property string $settings
+ * @property string $selector
  *
  * @author Vasile Crudu <bazillio07@yandex.ru>
- * @author Veaceslav Medvedev <slavcopost@gmail.com>
- * @author Alexander Makarov <sam@rmcreative.ru>
  *
- * @version 1.2.14
+ * @version 1.0.1
  *
  * @link https://github.com/vova07/yii2-imperavi-widget
  * @link http://imperavi.com/redactor
@@ -56,7 +53,7 @@ class Widget extends InputWidget
             throw new InvalidConfigException('The "plugins" property must be an array.');
         }
         if (!isset($this->settings['lang']) && Yii::$app->language !== 'en') {
-            $this->settings['lang'] = Yii::$app->language;
+            $this->settings['lang'] = substr(Yii::$app->language, 0, 2);
         }
         if ($this->selector === null) {
             $this->selector = $this->hasModel() ? '#' . Html::getInputId($this->model, $this->attribute) : '#' . $this->getId();
