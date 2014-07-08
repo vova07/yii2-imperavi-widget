@@ -56,7 +56,7 @@ class Widget extends InputWidget
             $this->settings['lang'] = substr(Yii::$app->language, 0, 2);
         }
         if ($this->selector === null) {
-            $this->selector = $this->hasModel() ? '#' . Html::getInputId($this->model, $this->attribute) : '#' . $this->getId();
+            $this->selector = '#' . $this->options['id'];
         } else {
             $this->_renderTextarea = false;
         }
