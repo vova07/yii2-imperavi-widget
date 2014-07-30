@@ -28,6 +28,11 @@ class Widget extends InputWidget
      * @var array {@link http://imperavi.com/redactor/docs/ redactor options}.
      */
     public $settings = [];
+    
+    /**
+     * @var array custom plugins
+     */
+    public $customplugins=[];
 
     /**
      * @var string|null Selector pointing to textarea to initialize redactor for.
@@ -52,6 +57,11 @@ class Widget extends InputWidget
         if (isset($this->settings['plugins']) && !is_array($this->settings['plugins'])) {
             throw new InvalidConfigException('The "plugins" property must be an array.');
         }
+        
+         if (isset($this->customplugins) && !is_array($this->customplugins)) {
+            throw new InvalidConfigException('The "customplugins" property must be an array.');
+        }
+        
         if (!isset($this->settings['lang']) && Yii::$app->language !== 'en-US') {
             $this->settings['lang'] = substr(Yii::$app->language, 0, 2);
         }
@@ -97,7 +107,7 @@ class Widget extends InputWidget
     public function registerClientScript()
     {
         $view = $this->getView();
-        $settings = !empty($this->settings) ? Json::encode($this->settings) : '';
+        
         $selector = Json::encode($this->selector);
         $asset = Asset::register($view);
 
@@ -106,7 +116,11 @@ class Widget extends InputWidget
         }
         if (isset($this->settings['plugins'])) {
             $asset->plugins = $this->settings['plugins'];
+            $this->settings['plugins']=array_merge($this->settings['plugins'], $this->customplugins);
+        }elseif(isset($this->customplugins)){
+            $this->settings['plugins']= $this->customplugins;
         }
+        $settings = !empty($this->settings) ? Json::encode($this->settings) : '';
 
         $view->registerJs("jQuery($selector).redactor($settings);");
     }
