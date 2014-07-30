@@ -179,3 +179,32 @@ echo \vova07\imperavi\Widget::widget([
     ]
 ]);
 ```
+
+### Регистрация своих плагинов ###
+
+### Add custom plugins ###
+
+```php
+echo \vova07\imperavi\Widget::widget([
+    'selector' => '#my-textarea-id',
+    'settings' => [
+        'lang' => 'ru',
+        'minHeight' => 200,
+        'pastePlainText' => true,
+        'plugins' => [
+            'clips',
+            'fullscreen'
+        ]
+    ],
+    'plugins' => [
+        'my-custom-plugin' => [
+            'sourcePath' => '@app/assets/my-custom-plugin',
+            'css' => 'css/my-custom-plugin.css',
+            'js' => 'js/my-custom-plugin.js',
+            'depends' => [
+                'yii\web\JqueryAsset'
+            ]
+        ]
+    ]
+]);
+```

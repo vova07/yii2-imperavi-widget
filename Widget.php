@@ -2,11 +2,12 @@
 
 namespace vova07\imperavi;
 
-use Yii;
 use yii\base\InvalidConfigException;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\AssetBundle;
 use yii\widgets\InputWidget;
+use Yii;
 
 /**
  * Imperavi Redactor widget.
@@ -37,6 +38,13 @@ class Widget extends InputWidget
     public $selector;
 
     /**
+     * This property must be used only for registering widget custom plugins.
+     * The key is the name of the plugin, and the value must be the configuration array of the plugin bundle.
+     * @var array Widget custom plugins key => value array
+     */
+    public $plugins = [];
+
+    /**
      * @var boolean Depends on this attribute textarea will be rendered or not
      */
     private $_renderTextarea = true;
@@ -64,6 +72,18 @@ class Widget extends InputWidget
     }
 
     /**
+     * Register widget translations.
+     */
+    public function registerTranslations()
+    {
+        Yii::$app->i18n->translations['imperavi'] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'basePath' => '@vova07/imperavi/messages',
+            'forceTranslation' => true
+        ];
+    }
+
+    /**
      * @inheritdoc
      */
     public function run()
@@ -80,24 +100,11 @@ class Widget extends InputWidget
     }
 
     /**
-     * Register widget translations.
-     */
-    public function registerTranslations()
-    {
-        Yii::$app->i18n->translations['imperavi'] = [
-            'class' => 'yii\i18n\PhpMessageSource',
-            'basePath' => '@vova07/imperavi/messages',
-            'forceTranslation' => true
-        ];
-    }
-
-    /**
      * Register widget asset.
      */
     public function registerClientScript()
     {
         $view = $this->getView();
-        $settings = !empty($this->settings) ? Json::encode($this->settings) : '';
         $selector = Json::encode($this->selector);
         $asset = Asset::register($view);
 
@@ -107,6 +114,16 @@ class Widget extends InputWidget
         if (isset($this->settings['plugins'])) {
             $asset->plugins = $this->settings['plugins'];
         }
+        if (!empty($this->plugins)) {
+            foreach ($this->plugins as $name => $plugin) {
+                $this->settings['plugins'][] = $name;
+                $bundle = new AssetBundle($plugin);
+                $bundle::register($view);
+                unset($bundle);
+            }
+        }
+
+        $settings = !empty($this->settings) ? Json::encode($this->settings) : '';
 
         $view->registerJs("jQuery($selector).redactor($settings);");
     }
