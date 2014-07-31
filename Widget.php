@@ -39,7 +39,7 @@ class Widget extends InputWidget
 
     /**
      * This property must be used only for registering widget custom plugins.
-     * The key is the name of the plugin, and the value must be the configuration array of the plugin bundle.
+     * The key is the name of the plugin, and the value must be the class name of the plugin bundle.
      * @var array Widget custom plugins key => value array
      */
     public $plugins = [];
@@ -115,11 +115,9 @@ class Widget extends InputWidget
             $asset->plugins = $this->settings['plugins'];
         }
         if (!empty($this->plugins)) {
-            foreach ($this->plugins as $name => $plugin) {
-                $this->settings['plugins'][] = $name;
-                $bundle = new AssetBundle($plugin);
+            foreach ($this->plugins as $plugin => $bundle) {
+                $this->settings['plugins'][] = $plugin;
                 $bundle::register($view);
-                unset($bundle);
             }
         }
 

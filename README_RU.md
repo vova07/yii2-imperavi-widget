@@ -197,14 +197,7 @@ echo \vova07\imperavi\Widget::widget([
         ]
     ],
     'plugins' => [
-        'my-custom-plugin' => [
-            'sourcePath' => '@app/assets/my-custom-plugin',
-            'css' => 'css/my-custom-plugin.css',
-            'js' => 'js/my-custom-plugin.js',
-            'depends' => [
-                'yii\web\JqueryAsset'
-            ]
-        ]
+        'my-custom-plugin' => 'app\assets\MyPluginBundle'
     ]
 ]);
 ```
