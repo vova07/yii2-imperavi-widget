@@ -54,7 +54,7 @@ class FileHelper extends BaseFileHelper
             if (static::filterPath($path, $options)) {
                 if (is_file($path)) {
                     if (isset($options['url'])) {
-                        $url = str_replace($options['basePath'], $options['url'], $path);
+                        $url = str_replace([$options['basePath'], '\\'], [$options['url'], '/'], $path);
                         $list[] = [
                             'thumb' => $url,
                             'image' => $url,
