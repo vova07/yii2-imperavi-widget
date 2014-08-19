@@ -93,7 +93,7 @@ class UploadAction extends Action
         if ($this->path === null) {
             throw new InvalidConfigException('The "path" attribute must be set.');
         } else {
-            $this->path = FileHelper::normalizePath($this->path) . DIRECTORY_SEPARATOR;
+            $this->path = FileHelper::normalizePath(Yii::getAlias($this->path)) . DIRECTORY_SEPARATOR;
 
             if (!FileHelper::createDirectory($this->path)) {
                 throw new InvalidCallException("Directory specified in 'path' attribute doesn't exist or cannot be created.");

@@ -58,7 +58,7 @@ class GetAction extends Action
         if ($this->path === null) {
             throw new InvalidConfigException('The "path" attribute must be set.');
         } else {
-            $this->path = FileHelper::normalizePath($this->path);
+            $this->path = FileHelper::normalizePath(Yii::getAlias($this->path));
         }
     }
 
