@@ -1,3 +1,7 @@
+1.1.1
+-----
+- Imperavi redactor updated to 10.0.1 (vova07)
+
 1.1.0
 -----
 - Imperavi redactor updated to 10.0.0 (vova07)
