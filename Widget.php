@@ -68,7 +68,8 @@ class Widget extends InputWidget
         } else {
             $this->_renderTextarea = false;
         }
-        $this->settings['uploadFields'][Yii::$app->request->csrfParam] = Yii::$app->request->getCsrfToken();
+        $this->settings['uploadImageFields'][Yii::$app->request->csrfParam] = Yii::$app->request->getCsrfToken();
+        $this->settings['uploadFileFields'][Yii::$app->request->csrfParam] = Yii::$app->request->getCsrfToken();
     }
 
     /**
