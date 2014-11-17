@@ -19,9 +19,10 @@ use vova07\imperavi\helpers\FileHelper;
  * {
  *     return [
  *         'image-upload' => [
- *             'class' => 'vova07\imperavi\actions\GetAction',
+ *             'class' => GetAction::className(),
  *             'url' => 'http://my-site.com/statics/',
- *             'path' => '/var/www/my-site.com/web/statics'
+ *             'path' => '/var/www/my-site.com/web/statics',
+ *             'type' => GetAction::TYPE_IMAGES,
  *         ]
  *     ];
  * }
