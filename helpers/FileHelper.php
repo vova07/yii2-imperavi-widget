@@ -2,6 +2,7 @@
 
 namespace vova07\imperavi\helpers;
 
+use vova07\imperavi\actions\GetAction;
 use yii\base\InvalidParamException;
 use yii\helpers\BaseFileHelper;
 use yii\helpers\StringHelper;
@@ -14,7 +15,7 @@ class FileHelper extends BaseFileHelper
     /**
      * @inheritdoc
      */
-    public static function findFiles($dir, $options = [])
+    public static function findFiles($dir, $options = [], $type = GetAction::TYPE_IMAGES)
     {
         if (!is_dir($dir)) {
             throw new InvalidParamException('The dir argument must be a directory.');
@@ -54,12 +55,25 @@ class FileHelper extends BaseFileHelper
             if (static::filterPath($path, $options)) {
                 if (is_file($path)) {
                     if (isset($options['url'])) {
-                        $url = str_replace([$options['basePath'], '\\'], [$options['url'], '/'], $path);
-                        $list[] = [
-                            'thumb' => $url,
-                            'image' => $url,
-                            'title' => $file
-                        ];
+                        if ($type === GetAction::TYPE_IMAGES) {
+                            $url = str_replace([$options['basePath'], '\\'], [$options['url'], '/'], $path);
+                            $list[] = [
+                                'thumb' => $url,
+                                'image' => $url,
+                                'title' => $file,
+                            ];
+                        } elseif ($type === GetAction::TYPE_FILES) {
+                            $link = str_replace([$options['basePath'], '\\'], [$options['url'], '/'], $path);
+                            $size = filesize($path);
+                            $list[] = [
+                                'title' => $file,
+                                'name' => $file,
+                                'link' => $link,
+                                'size' => $size,
+                            ];
+                        } else {
+                            $list[] = $path;
+                        }
                     } else {
                         $list[] = $path;
                     }

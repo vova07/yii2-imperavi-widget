@@ -83,17 +83,18 @@ echo \vova07\imperavi\Widget::widget([
 ]);
 ```
 
-### Add files that have already been uploaded ###
+### Add images that have already been uploaded ###
 
 ```php
 // DefaultController.php
 public function actions()
 {
     return [
-        'get' => [
+        'images-get' => [
             'class' => 'vova07\imperavi\actions\GetAction',
             'url' => 'http://my-site.com/images/', // Directory URL address, where files are stored.
-            'path' => '@alias/to/my/path' // Or absolute path to directory where files are stored.
+            'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
+            'type' => GetAction::TYPE_IMAGES,
         ]
     ];
 }
@@ -109,7 +110,39 @@ echo \vova07\imperavi\Widget::widget([
             'clips',
             'fullscreen'
         ],
-        'imageGetJson' => Url::to(['/default/get'])
+        'imageManagerJson' => Url::to(['/default/images-get'])
+    ]
+]);
+```
+
+### Add files that have already been uploaded ###
+
+```php
+// DefaultController.php
+public function actions()
+{
+    return [
+        'files-get' => [
+            'class' => 'vova07\imperavi\actions\GetAction',
+            'url' => 'http://my-site.com/files/', // Directory URL address, where files are stored.
+            'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
+            'type' => GetAction::TYPE_FILES,
+        ]
+    ];
+}
+
+// View.php
+echo \vova07\imperavi\Widget::widget([
+    'selector' => '#my-textarea-id',
+    'settings' => [
+        'lang' => 'ru',
+        'minHeight' => 200,
+        'pastePlainText' => true,
+        'plugins' => [
+            'clips',
+            'fullscreen'
+        ],
+        'fileManagerJson' => Url::to(['/default/files-get'])
     ]
 ]);
 ```
