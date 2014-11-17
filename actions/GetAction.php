@@ -29,6 +29,9 @@ use vova07\imperavi\helpers\FileHelper;
  */
 class GetAction extends Action
 {
+    const TYPE_IMAGES = 0;
+    const TYPE_FILES = 1;
+
     /**
      * @var string Files directory
      */
@@ -40,10 +43,15 @@ class GetAction extends Action
     public $url;
 
     /**
-     * [\yii\helpers\FileHelper::findFiles()|FileHelper::findFiles()] options argument.
+     * [\vova07\imperavi\helpers\FileHelper::findFiles()|FileHelper::findFiles()] options argument.
      * @var array Options
      */
     public $options = [];
+
+    /**
+     * @var int return type (images or files)
+     */
+    public $type = self::TYPE_IMAGES;
 
     /**
      * @inheritdoc
@@ -68,6 +76,6 @@ class GetAction extends Action
     public function run()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        return FileHelper::findFiles($this->path, $this->options);
+        return FileHelper::findFiles($this->path, $this->options, $this->type);
     }
 }
