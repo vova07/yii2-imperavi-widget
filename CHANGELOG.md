@@ -1,4 +1,8 @@
-1.1.2
+1.1.4
+-----
+- Fixes for use GetAction with fileManager plugin (maxmirazh33)
+
+1.1.3
 -----
 - Imperavi redactor updated to 10.0.3 (vova07)
 
