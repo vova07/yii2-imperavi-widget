@@ -107,11 +107,10 @@ echo \vova07\imperavi\Widget::widget([
         'lang' => 'ru',
         'minHeight' => 200,
         'pastePlainText' => true,
+        'imageManagerJson' => Url::to(['/default/images-get']),
         'plugins' => [
-            'clips',
-            'fullscreen'
-        ],
-        'imageManagerJson' => Url::to(['/default/images-get'])
+            'imagemanager'
+        ]
     ]
 ]);
 ```
@@ -139,11 +138,10 @@ echo \vova07\imperavi\Widget::widget([
         'lang' => 'ru',
         'minHeight' => 200,
         'pastePlainText' => true,
+        'fileManagerJson' => Url::to(['/default/files-get']),
         'plugins' => [
-            'clips',
-            'fullscreen'
-        ],
-        'fileManagerJson' => Url::to(['/default/files-get'])
+            'filemanager'
+        ]
     ]
 ]);
 ```
@@ -170,10 +168,6 @@ echo \vova07\imperavi\Widget::widget([
         'lang' => 'ru',
         'minHeight' => 200,
         'pastePlainText' => true,
-        'plugins' => [
-            'clips',
-            'fullscreen'
-        ],
         'imageUpload' => Url::to(['/default/image-upload'])
     ]
 ]);
@@ -201,10 +195,6 @@ echo \vova07\imperavi\Widget::widget([
         'lang' => 'ru',
         'minHeight' => 200,
         'pastePlainText' => true,
-        'plugins' => [
-            'clips',
-            'fullscreen'
-        ],
         'fileUpload' => Url::to(['/default/file-upload'])
     ]
 ]);
