@@ -110,6 +110,12 @@ class UploadAction extends Action
     public function run()
     {
         if (Yii::$app->request->isPost) {
+            $imageDir = '/' . date('d-m-Y') . '/';
+            $this->path = $this->path . $imageDir;
+            $this->url = $this->url . $imageDir;
+            if (!is_dir($this->path)) {
+                mkdir($this->path, 0777, true);
+            }
             $file = UploadedFile::getInstanceByName($this->uploadParam);
             $model = new DynamicModel(compact('file'));
             $model->addRule('file', $this->_validator, $this->validatorOptions)->validate();
