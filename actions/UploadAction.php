@@ -54,6 +54,11 @@ class UploadAction extends Action
      * @var string URL path to directory where files will be uploaded
      */
     public $url;
+    
+    /**
+     * @var string Directory name where files will be uploaded
+     */
+    public $fileDirectory;
 
     /**
      * @var string Validator name
@@ -88,13 +93,20 @@ class UploadAction extends Action
         if ($this->url === null) {
             throw new InvalidConfigException('The "url" attribute must be set.');
         } else {
-            $this->url = rtrim($this->url, '/') . '/';
+            if ($this->fileDirectory === null) {
+                $this->url = rtrim($this->url, '/') . '/';
+            } else {
+                $this->url = rtrim($this->url . $this->fileDirectory, '/') . '/';
+            }
         }
         if ($this->path === null) {
             throw new InvalidConfigException('The "path" attribute must be set.');
         } else {
-            $this->path = FileHelper::normalizePath(Yii::getAlias($this->path)) . DIRECTORY_SEPARATOR;
-
+            if ($this->fileDirectory === null)  {
+                $this->path = FileHelper::normalizePath(Yii::getAlias($this->path)) . DIRECTORY_SEPARATOR;
+            } else {
+                $this->path = FileHelper::normalizePath(Yii::getAlias($this->path . $this->fileDirectory)) . DIRECTORY_SEPARATOR;
+            }
             if (!FileHelper::createDirectory($this->path)) {
                 throw new InvalidCallException("Directory specified in 'path' attribute doesn't exist or cannot be created.");
             }
@@ -110,12 +122,6 @@ class UploadAction extends Action
     public function run()
     {
         if (Yii::$app->request->isPost) {
-            $imageDir = '/' . date('d-m-Y') . '/';
-            $this->path = $this->path . $imageDir;
-            $this->url = $this->url . $imageDir;
-            if (!is_dir($this->path)) {
-                mkdir($this->path, 0777, true);
-            }
             $file = UploadedFile::getInstanceByName($this->uploadParam);
             $model = new DynamicModel(compact('file'));
             $model->addRule('file', $this->_validator, $this->validatorOptions)->validate();
