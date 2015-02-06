@@ -1,6 +1,6 @@
 /*
 	Redactor v10.0.6
-	Updated: January 7, 2015
+	Updated: February 5, 2015
 
 	http://imperavi.com/redactor/
 
@@ -8,8 +8,9 @@
 	License: http://imperavi.com/redactor/license/
 
 	Usage: $('#content').redactor();
+	
+	little bugfixed by amilna
 */
-
 (function($)
 {
 	'use strict';
@@ -2865,7 +2866,7 @@
 						var left = keyPosition.left + 'px';
 						if (this.$toolbar.hasClass('toolbar-fixed-box'))
 						{
-							var top = this.$toolbar.innerHeight() + this.opts.toolbarFixedTopOffset;
+							var top = this.$toolbar.innerHeight() + this.opts.toolbarFixedTopOffset;							
 							var position = 'fixed';
 							if (this.opts.toolbarFixedTarget !== document)
 							{
@@ -7410,10 +7411,11 @@
 
 					if (this.opts.toolbarFixedTarget === document)
 					{
-						boxTop = this.$box.offset().top;
+						boxTop = this.$box.offset().top;						
 					}
-
-					if (scrollTop > boxTop)
+					
+					//if (scrollTop > boxTop) // fixed to become below line by amilna on February 5, 2015
+					if (scrollTop > (boxTop-this.opts.toolbarFixedTopOffset))
 					{
 						this.toolbar.observeScrollEnable(scrollTop, boxTop);
 					}
@@ -7423,8 +7425,22 @@
 					}
 				},
 				observeScrollEnable: function(scrollTop, boxTop)
-				{
-					var top = this.opts.toolbarFixedTopOffset + scrollTop - boxTop;
+				{										
+					var top = this.opts.toolbarFixedTopOffset + scrollTop - boxTop;					
+					
+					// fixed by adding below line
+					if (typeof this.fullscreen !== "undefined") {
+						if (this.fullscreen.isOpen) {
+							top = 0;
+							this.$editor.css('paddingTop','40px');
+						}
+						else
+						{
+							this.$editor.css('paddingTop','20px');
+						}									
+					}
+					// end of addition script
+						
 					var left = 0;
 					var end = boxTop + this.$box.height() + 30;
 					var width = this.$box.innerWidth();
@@ -7442,6 +7458,10 @@
 				},
 				observeScrollDisable: function()
 				{
+					// fixed by adding below line
+					this.$editor.css('paddingTop','20px');
+					// end of addition script
+					
 					this.$toolbar.css({
 						position: 'relative',
 						width: 'auto',
@@ -7456,11 +7476,12 @@
 				},
 				setDropdownsFixed: function()
 				{
-					var top = this.$toolbar.innerHeight() + this.opts.toolbarFixedTopOffset;
+					var top = this.$toolbar.innerHeight() + this.opts.toolbarFixedTopOffset;					
 					var position = 'fixed';
 					if (this.opts.toolbarFixedTarget !== document)
 					{
-						top = (this.$toolbar.innerHeight() + this.$toolbar.offset().top) + this.opts.toolbarFixedTopOffset;
+						//top = (this.$toolbar.innerHeight() + this.$toolbar.offset().top) + this.opts.toolbarFixedTopOffset;
+						top = (this.$toolbar.innerHeight() + this.$toolbar.offset().top);
 						position = 'absolute';
 					}
 
