@@ -81,6 +81,11 @@ class UploadAction extends Action
     private $_validator = 'image';
 
     /**
+     * @var string Prefix for cropped image
+     */
+    private $croppingPrefix = 'crop_';
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -110,32 +115,42 @@ class UploadAction extends Action
     public function run()
     {
         if (Yii::$app->request->isPost) {
-            $file = UploadedFile::getInstanceByName($this->uploadParam);
-            $model = new DynamicModel(compact('file'));
-            $model->addRule('file', $this->_validator, $this->validatorOptions)->validate();
-
-            if ($model->hasErrors()) {
-                $result = [
-                    'error' => $model->getFirstError('file')
-                ];
+            if (!empty(Yii::$app->request->post()['src']) && !empty(Yii::$app->request->post()['data'])) {
+                $croppingData = json_decode(Yii::$app->request->post()['data']);
+                $imageName = basename(Yii::$app->request->post()['src']);
+                FileHelper::cropImage($this->path, $imageName, $this->croppingPrefix, $croppingData);
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                $result['filelink'] = $this->url . $this->croppingPrefix . $imageName;
+                
+                return $result;
             } else {
-                if ($this->unique === true && $model->file->extension) {
-                    $model->file->name = uniqid() . '.' . $model->file->extension;
-                }
-                if ($model->file->saveAs($this->path . $model->file->name)) {
-                    $result = ['filelink' => $this->url . $model->file->name];
-                    if ($this->uploadOnlyImage !== true) {
-                        $result['filename'] = $model->file->name;
-                    }
-                } else {
-                    $result = [
-                        'error' => Yii::t('imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
-                    ];
-                }
-            }
-            Yii::$app->response->format = Response::FORMAT_JSON;
+                $file = UploadedFile::getInstanceByName($this->uploadParam);
+                $model = new DynamicModel(compact('file'));
+                $model->addRule('file', $this->_validator, $this->validatorOptions)->validate();
 
-            return $result;
+                if ($model->hasErrors()) {
+                    $result = [
+                        'error' => $model->getFirstError('file')
+                    ];
+                } else {
+                    if ($this->unique === true && $model->file->extension) {
+                        $model->file->name = uniqid() . '.' . $model->file->extension;
+                    }
+                    if ($model->file->saveAs($this->path . $model->file->name)) {
+                        $result = ['filelink' => $this->url . $model->file->name];
+                        if ($this->uploadOnlyImage !== true) {
+                            $result['filename'] = $model->file->name;
+                        }
+                    } else {
+                        $result = [
+                            'error' => Yii::t('imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
+                        ];
+                    }
+                }
+                Yii::$app->response->format = Response::FORMAT_JSON;
+
+                return $result;
+            }
         } else {
             throw new BadRequestHttpException('Only POST is allowed');
         }

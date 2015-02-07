@@ -28,14 +28,17 @@ class Asset extends AssetBundle
 	 * @inheritdoc
 	 */
 	public $css = [
-		'redactor.css'
+		'redactor.css',
+		'cropper.css',
+		'http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css'
 	];
 
 	/**
 	 * @inheritdoc
 	 */
 	public $js = [
-	    'redactor.min.js'
+	    'redactor.min.js',
+   	    'cropper.js'
 	];
 
 	/**
