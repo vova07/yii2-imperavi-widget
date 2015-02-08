@@ -10,7 +10,10 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 	RedactorPlugins.imagecropper = function()
 	{
 		return {
-			cropped : false,
+			cropped: false,
+			modalWidth: 700,
+			buttonCropText: 'Crop',
+			buttonSaveText: 'Save without cropping',
 
 			init: function() {
 				var button = this.button.add('imagecropper', 'Cropper');
@@ -18,7 +21,9 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 				this.button.addCallback(button, this.imagecropper.showModal);
 			},
 			showModal: function() {
-				this.opts.imagecropper.modalWidth = this.opts.imagecropper.modalWidth || 700;
+				this.opts.imagecropper.modalWidth = this.opts.imagecropper.modalWidth || this.imagecropper.modalWidth;
+				this.opts.imagecropper.buttonCropText = this.opts.imagecropper.buttonCropText || this.imagecropper.buttonCropText;
+				this.opts.imagecropper.buttonSaveText = this.opts.imagecropper.buttonSaveText || this.imagecropper.buttonSaveText;
 
 				this.modal.load('image', this.lang.get('image'), this.opts.imagecropper.modalWidth);
 				this.upload.init('#redactor-modal-image-droparea', this.opts.imagecropper.imageUpload, this.imagecropper.crop);
@@ -32,10 +37,10 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 							'<form class="js-crop-form" style="margin:2rem">' +
 								'<div class="img-container">' +
 									'<a class="js-crop" style="margin:0.5rem" href="#">' +
-										'<i class="fa fa-crop fa-lg"></i> Crop' +
+										'<i class="fa fa-crop fa-lg"></i> ' + this.opts.imagecropper.buttonCropText  +
 									'</a>' +
 									'<a class="js-save" style="margin:0.5rem" href="#">' +
-										'<i class="fa fa-floppy-o fa-lg"></i> Save without cropping' +
+										'<i class="fa fa-floppy-o fa-lg"></i> ' + this.opts.imagecropper.buttonSaveText +
 									'</a>' +
 									'<img class="js-image" src="' + json.filelink + '">' +
 									'<input class="js-crop-data" name="data" type="hidden">' +
