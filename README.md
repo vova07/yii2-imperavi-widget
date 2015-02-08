@@ -190,7 +190,7 @@ echo \vova07\imperavi\Widget::widget([
         'imagecropper' => [
 			'imageUpload' => Url::to(['/images/image-upload']),
 			'options' => [
-			    //options for cropping
+			    //options for cropping. Can be used all options from Image Cropper
 				'autoCropArea' => 0.6, // Center 60%
 				'multiple' => false,
 				'dragCrop' => false,
