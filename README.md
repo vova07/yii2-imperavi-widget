@@ -166,6 +166,42 @@ echo \vova07\imperavi\Widget::widget([
 ]);
 ```
 
+### Upload and crop image ###
+For cropping used [Image Cropper](https://github.com/fengyuanchen/cropper). To configure imagecropper see [here](https://github.com/denar90).
+
+```php
+// DefaultController.php
+public function actions()
+{
+    return [
+        'image-upload' => [
+            'class' => 'vova07\imperavi\actions\UploadAction',
+            'url' => 'http://my-site.com/images/', // Directory URL address, where files are stored.
+            'path' => '@alias/to/my/path' // Or absolute path to directory where files are stored.
+        ],
+    ];
+}
+
+// View.php
+echo \vova07\imperavi\Widget::widget([
+    'selector' => '#my-textarea-id',
+    'settings' => [
+        'lang' => 'ru',
+        'minHeight' => 200,
+        'imagecropper' => [
+			'imageUpload' => Url::to(['/images/image-upload']),
+			'options' => [
+	    			//options for cropping. Can be used all options from Image Cropper
+				'autoCropArea' => 0.6, // Center 60%
+			]
+		],
+        'plugins' => [
+            'imagecropper'
+        ]
+    ]
+]);
+```
+
 ### Upload file ###
 
 ```php
