@@ -167,7 +167,8 @@ echo \vova07\imperavi\Widget::widget([
 ```
 
 ### Upload and crop image ###
-For cropping used [Image Cropper](https://github.com/fengyuanchen/cropper)
+For cropping used [Image Cropper](https://github.com/fengyuanchen/cropper). To configure imagecropper see [here](https://github.com/denar90).
+
 ```php
 // DefaultController.php
 public function actions()
@@ -190,14 +191,8 @@ echo \vova07\imperavi\Widget::widget([
         'imagecropper' => [
 			'imageUpload' => Url::to(['/images/image-upload']),
 			'options' => [
-			    //options for cropping. Can be used all options from Image Cropper
+	    			//options for cropping. Can be used all options from Image Cropper
 				'autoCropArea' => 0.6, // Center 60%
-				'multiple' => false,
-				'dragCrop' => false,
-				'dashed' => false,
-				'zoomable' => false,
-				'movable' => true,
-				'resizable' => true
 			]
 		],
         'plugins' => [
