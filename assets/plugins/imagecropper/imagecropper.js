@@ -48,7 +48,7 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 								'</div>' +
 							'</form>';
 
-					self.imagecropper.cropped = true;
+					this.imagecropper.cropped = true;
 
 					this.upload.$droparea.find('.js-crop-form').remove();
 					this.upload.$droparea.append(template);
@@ -72,7 +72,7 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 
 					this.upload.$droparea.on('click', '.js-crop', function (e) {
 						e.preventDefault();
-						if (self.imagecropper.imagecropped()) {
+						if (self.imagecropper.imageCropped()) {
 							var formData = new FormData($('.js-crop-form')[0]);
 							self.upload.sendData(formData);
 						} else {
@@ -88,7 +88,7 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 					this.imagecropper.insertImage(json);
 				}
 			},
-			imagecropped: function() {
+			imageCropped: function() {
 				var cropData = JSON.parse($('.js-crop-data').val()),
 					imageHeight = $('.js-image').height(),
 					imageWidth = $('.js-image').width();
@@ -105,6 +105,7 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 				$img.attr('src', json.filelink).attr('data-redactor-inserted-image', 'true');
 				this.modal.close();
 				this.insert.html(this.utils.getOuterHtml($img), false);
+				this.core.setCallback('imageUpload', $img, json);
 			}
 		};
 	};
