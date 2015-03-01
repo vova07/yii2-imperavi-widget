@@ -1,5 +1,11 @@
-Imperavi Redactor Widget for Yii 2
-==================================
+# Imperavi Redactor Widget for Yii 2
+
+[![Latest Version](https://img.shields.io/github/release/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://github.com/vova07/yii2-imperavi-widget/releases)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Build Status](https://img.shields.io/travis/vova07/yii2-imperavi-widget/master.svg?style=flat-square)](https://travis-ci.org/vova07/yii2-imperavi-widget)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://scrutinizer-ci.com/g/vova07/yii2-imperavi-widget/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://scrutinizer-ci.com/g/vova07/yii2-imperavi-widget)
+[![Total Downloads](https://img.shields.io/packagist/dt/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://packagist.org/packages/vova07/yii2-imperavi-widget)
 
 `Imperavi Redactor Widget` is a wrapper for [Imperavi Redactor](http://imperavi.com/redactor/),
 a high quality WYSIWYG editor.
@@ -7,28 +13,26 @@ a high quality WYSIWYG editor.
 Note that Imperavi Redactor itself is a proprietary commercial copyrighted software
 but since Yii community bought OEM license you can use it for free with Yii.
 
-Installation
-------------
+## Install
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
 Either run
 
-```
-php composer.phar require --prefer-dist vova07/yii2-imperavi-widget "*"
+```bash
+$ php composer.phar require --prefer-dist vova07/yii2-imperavi-widget "*"
 ```
 
 or add
 
-```
+```json
 "vova07/yii2-imperavi-widget": "*"
 ```
 
 to the require section of your `composer.json` file.
 
 
-Usage
------
+## Usage
 
 Once the extension is installed, simply use it in your code:
 
@@ -210,3 +214,21 @@ echo \vova07\imperavi\Widget::widget([
     ]
 ]);
 ```
+
+## Testing
+
+``` bash
+$ phpunit
+```
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Credits
+
+- [vova07](https://github.com/vova07)
+
+## License
+
+The BSD License (BSD). Please see [License File](LICENSE.md) for more information.
