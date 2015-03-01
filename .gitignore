@@ -1,5 +1,25 @@
-# phpstorm project files
+build
+composer.lock
+docs
+vendor
+
+# cache directories
+Thumbs.db
+*.DS_Store
+*.empty
+
+#phpstorm project files
 .idea
 
-# Mac DS_Store Files
-.DS_Store
+#netbeans project files
+nbproject
+
+#eclipse, zend studio, aptana or other eclipse like project files
+.buildpath
+.project
+.settings
+
+
+# mac deployment helpers
+switch
+index

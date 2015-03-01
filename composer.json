@@ -1,23 +1,26 @@
 {
     "name": "vova07/yii2-imperavi-widget",
-    "description": "The imperavi redactor widget for Yii framework.",
+    "description": "The imperavi redactor widget for Yii 2 framework.",
     "type": "yii2-extension",
-    "keywords": ["yii2", "yii 2", "imperavi", "redactor", "wysiwyg", "widget"],
-    "license": "proprietary",
+    "keywords": [
+        "yii",
+        "extension",
+        "imperavi",
+        "widget",
+        "yii2",
+        "yii 2",
+        "redactor",
+        "wysiwyg"
+    ],
+    "homepage": "https://github.com/vova07/yii2-imperavi-widget",
+    "license": "BSD-3-Clause",
     "authors": [
         {
             "name": "Crudu Vasile",
-            "email": "bazillio07@yandex.ru"
-        },
-        {
-			"name": "Veaceslav Medvedev",
-			"email": "slavcopost@gmail.com"
-		},
-		{
-			"name": "Alexander Makarov",
-			"email": "sam@rmcreative.ru",
-			"homepage": "http://rmcreative.ru/"
-		}
+            "email": "bazillio07@yandex.ru",
+            "homepage": "https://github.com/vova07",
+            "role": "Developer"
+        }
     ],
     "support": {
         "issues": "https://github.com/vova07/yii2-imperavi-widget/issues?state=open",
@@ -26,9 +29,22 @@
     "require": {
         "yiisoft/yii2": "*"
     },
+    "require-dev": {
+        "phpunit/phpunit": "4.*"
+    },
     "autoload": {
         "psr-4": {
-            "vova07\\imperavi\\": ""
+            "vova07\\imperavi\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "vova07\\imperavi\\test\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
         }
     }
 }
