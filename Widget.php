@@ -61,7 +61,7 @@ class Widget extends InputWidget
             throw new InvalidConfigException('The "plugins" property must be an array.');
         }
         if (!isset($this->settings['lang']) && Yii::$app->language !== 'en-US') {
-            $this->settings['lang'] = substr(Yii::$app->language, 0, 2);
+            $this->settings['lang'] = Yii::$app->language;
         }
         if ($this->selector === null) {
             $this->selector = '#' . $this->options['id'];
