@@ -1,3 +1,7 @@
+1.1.11
+------
+- Added 'pt-BR' language. (vova07, lcidral)
+
 1.1.10
 ------
 - Imperavi redactor updated to 10.0.7 (vova07)
