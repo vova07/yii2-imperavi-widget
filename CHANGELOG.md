@@ -1,3 +1,11 @@
+1.1.10
+------
+- Imperavi redactor updated to 10.0.7 (vova07)
+
+1.1.9
+-----
+- Added 'DE' language. (vova07, tonwi)
+
 1.1.8
 -----
 - Fixed README file (vova07)

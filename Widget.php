@@ -17,7 +17,7 @@ use Yii;
  *
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
- * @version 1.1.8
+ * @version 1.1.10
  *
  * @link https://github.com/vova07/yii2-imperavi-widget
  * @link http://imperavi.com/redactor
