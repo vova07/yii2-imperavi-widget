@@ -64,7 +64,7 @@ class FileHelper extends BaseFileHelper
                             ];
                         } elseif ($type === GetAction::TYPE_FILES) {
                             $link = str_replace([$options['basePath'], '\\'], [$options['url'], '/'], $path);
-                            $size = filesize($path);
+                            $size = static::getFileSize($path);
                             $list[] = [
                                 'title' => $file,
                                 'name' => $file,
@@ -78,13 +78,26 @@ class FileHelper extends BaseFileHelper
                         $list[] = $path;
                     }
                 } elseif (!isset($options['recursive']) || $options['recursive']) {
-                    $list = array_merge($list, static::findFiles($path, $options));
+                    $list = array_merge($list, static::findFiles($path, $options, $type));
                 }
             }
         }
         closedir($handle);
 
         return $list;
+    }
+
+    /**
+     * @param string $path
+     * @return string filesize in(B|KB|MB|GB)
+     */
+    private static function getFileSize($path)
+    {
+        $size = filesize($path);
+        $labels = ['B', 'KB', 'MB', 'GB'];
+        $factor = floor((strlen($size) - 1) / 3);
+
+        return sprintf("%.1f ", $size / pow(1024, $factor)) . $labels[$factor];
     }
 
     /**
