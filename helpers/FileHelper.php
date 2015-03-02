@@ -78,7 +78,7 @@ class FileHelper extends BaseFileHelper
                         $list[] = $path;
                     }
                 } elseif (!isset($options['recursive']) || $options['recursive']) {
-                    $list = array_merge($list, static::findFiles($path, $options));
+                    $list = array_merge($list, static::findFiles($path, $options, $type));
                 }
             }
         }
