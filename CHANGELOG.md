@@ -1,3 +1,7 @@
+1.1.12
+------
+- Added human readable file size and fix `findFiles()` method in `FileHelper` class. (maxmirazh33)
+
 1.1.11
 ------
 - Added 'pt-BR' language. (vova07, lcidral)
