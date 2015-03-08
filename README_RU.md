@@ -1,5 +1,11 @@
-Imperavi Redactor Widget для Yii 2
-==================================
+# Imperavi Redactor Widget для Yii 2
+
+[![Latest Version](https://img.shields.io/github/release/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://github.com/vova07/yii2-imperavi-widget/releases)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Build Status](https://img.shields.io/travis/vova07/yii2-imperavi-widget/master.svg?style=flat-square)](https://travis-ci.org/vova07/yii2-imperavi-widget)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://scrutinizer-ci.com/g/vova07/yii2-imperavi-widget/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://scrutinizer-ci.com/g/vova07/yii2-imperavi-widget)
+[![Total Downloads](https://img.shields.io/packagist/dt/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://packagist.org/packages/vova07/yii2-imperavi-widget)
 
 `Imperavi Redactor Widget` — обёртка для [Imperavi Redactor](http://imperavi.com/redactor/),
 довольно неплохого WYSIWYG редактора.
@@ -8,28 +14,26 @@ Imperavi Redactor Widget для Yii 2
 OpenSource, но так как сообщество Yii купило OEM-лицензию, то вы можете бесплатно
 пользоваться им в проектах на Yii.
 
-Установка
----------
+## Установка
 
 Желательно устанавливать расширение через [composer](http://getcomposer.org/download/).
 
 Просто запустите в консоли команду:
 
-```
-php composer.phar require --prefer-dist vova07/yii2-imperavi-widget "*"
+```bash
+$ php composer.phar require --prefer-dist vova07/yii2-imperavi-widget "*"
 ```
 
 или добавьте
 
-```
+```json
 "vova07/yii2-imperavi-widget": "*"
 ```
 
 в `require` секцию вашего `composer.json` файла.
 
 
-Использование
--------------
+## Использование
 
 Как только вы установили расширение, вы можете её использовать в своём коде:
 
@@ -213,3 +217,21 @@ echo \vova07\imperavi\Widget::widget([
     ]
 ]);
 ```
+
+## Тестирование
+
+``` bash
+$ phpunit
+```
+
+## Хотите помочь?
+
+Пожалуйста проверьте [CONTRIBUTING файл](CONTRIBUTING.md) для подробной информации.
+
+## Авторство
+
+- [vova07](https://github.com/vova07)
+
+## Лицензия
+
+BSD Лицензия (BSD). Пожалуйста проверьте [License файл](LICENSE.md) для подробной информации.
