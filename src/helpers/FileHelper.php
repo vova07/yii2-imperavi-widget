@@ -64,7 +64,7 @@ class FileHelper extends BaseFileHelper
                             ];
                         } elseif ($type === GetAction::TYPE_FILES) {
                             $link = str_replace([$options['basePath'], '\\'], [$options['url'], '/'], $path);
-                            $size = static::getFileSize($path);
+                            $size = self::getFileSize($path);
                             $list[] = [
                                 'title' => $file,
                                 'name' => $file,
@@ -91,7 +91,7 @@ class FileHelper extends BaseFileHelper
      * @param string $path
      * @return string filesize in(B|KB|MB|GB)
      */
-    private static function getFileSize($path)
+    protected static function getFileSize($path)
     {
         $size = filesize($path);
         $labels = ['B', 'KB', 'MB', 'GB'];
