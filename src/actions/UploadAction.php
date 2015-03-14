@@ -93,7 +93,11 @@ class UploadAction extends Action
         if ($this->path === null) {
             throw new InvalidConfigException('The "path" attribute must be set.');
         } else {
-            $this->path = FileHelper::normalizePath(Yii::getAlias($this->path)) . DIRECTORY_SEPARATOR;
+            if (($alias = Yii::getAlias($this->path)) === false) {
+                throw new InvalidCallException("The root alias from 'path' attribute was not previously registered.");
+            } else {
+                $this->path = FileHelper::normalizePath($alias) . DIRECTORY_SEPARATOR;
+            }
 
             if (!FileHelper::createDirectory($this->path)) {
                 throw new InvalidCallException("Directory specified in 'path' attribute doesn't exist or cannot be created.");

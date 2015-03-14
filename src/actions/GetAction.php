@@ -4,6 +4,7 @@ namespace vova07\imperavi\actions;
 
 use Yii;
 use yii\base\Action;
+use yii\base\InvalidCallException;
 use yii\base\InvalidConfigException;
 use yii\web\Response;
 use vova07\imperavi\helpers\FileHelper;
@@ -30,7 +31,9 @@ use vova07\imperavi\helpers\FileHelper;
  */
 class GetAction extends Action
 {
+    /** Image type */
     const TYPE_IMAGES = 0;
+    /** File type */
     const TYPE_FILES = 1;
 
     /**
@@ -67,7 +70,11 @@ class GetAction extends Action
         if ($this->path === null) {
             throw new InvalidConfigException('The "path" attribute must be set.');
         } else {
-            $this->path = FileHelper::normalizePath(Yii::getAlias($this->path));
+            if (($alias = Yii::getAlias($this->path)) === false) {
+                throw new InvalidCallException("The root alias from 'path' attribute was not previously registered.");
+            } else {
+                $this->path = FileHelper::normalizePath($alias) . DIRECTORY_SEPARATOR;
+            }
         }
     }
 
