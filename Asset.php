@@ -28,24 +28,22 @@ class Asset extends AssetBundle
 	 * @inheritdoc
 	 */
 	public $css = [
-		'redactor.css',
-		'cropper.css',
-		'http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css'
+		'redactor.css'
 	];
 
 	/**
 	 * @inheritdoc
 	 */
 	public $js = [
-	    'redactor.min.js',
-   	    'cropper.js'
+	    'redactor.min.js'
 	];
 
 	/**
 	 * @inheritdoc
 	 */
 	public $depends = [
-		'yii\web\JqueryAsset'
+		'yii\web\JqueryAsset',
+		'vova07\imperavi\CroppAsset'
 	];
 
 	/**
