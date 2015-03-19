@@ -30,21 +30,20 @@
         "yiisoft/yii2": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.*"
+        "phpunit/phpunit": "4.*",
+        "scrutinizer/ocular": "~1.1"
     },
     "autoload": {
         "psr-4": {
             "vova07\\imperavi\\": "src"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "vova07\\imperavi\\tests\\": "tests"
-        }
-    },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "1.0.x-dev"
+        },
+        "asset-installer-paths": {
+            "bower-asset-library": "vendor/bower"
         }
     }
 }

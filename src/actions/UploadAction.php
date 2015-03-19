@@ -13,6 +13,9 @@ use yii\web\UploadedFile;
 use Yii;
 
 /**
+ * Class UploadAction
+ * @package vova07\imperavi\actions
+ *
  * UploadAction for images and files.
  *
  * Usage:
@@ -42,6 +45,10 @@ use Yii;
  *     ];
  * }
  * ```
+ *
+ * @author Vasile Crudu <bazillio07@yandex.ru>
+ *
+ * @link https://github.com/vova07
  */
 class UploadAction extends Action
 {

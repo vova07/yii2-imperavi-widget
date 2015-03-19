@@ -41,6 +41,7 @@ $ php composer.phar require --prefer-dist vova07/yii2-imperavi-widget "*"
 
 ```php
 echo \vova07\imperavi\Widget::widget([
+    'name' => 'redactor',
     'settings' => [
         'lang' => 'ru',
         'minHeight' => 200,

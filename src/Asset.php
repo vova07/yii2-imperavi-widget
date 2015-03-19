@@ -6,6 +6,10 @@ use yii\web\AssetBundle;
 
 /**
  * Widget asset bundle
+ *
+ * @author Vasile Crudu <bazillio07@yandex.ru>
+ *
+ * @link https://github.com/vova07
  */
 class Asset extends AssetBundle
 {

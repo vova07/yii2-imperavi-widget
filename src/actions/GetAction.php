@@ -10,6 +10,9 @@ use yii\web\Response;
 use vova07\imperavi\helpers\FileHelper;
 
 /**
+ * Class GetAction
+ * @package vova07\imperavi\actions
+ *
  * GetAction returns a JSON array of the files found under the specified directory and subdirectories.
  * This array can be used in Imperavi Redactor to insert some files that have already been uploaded.
  *
@@ -28,6 +31,10 @@ use vova07\imperavi\helpers\FileHelper;
  *     ];
  * }
  * ```
+ *
+ * @author Vasile Crudu <bazillio07@yandex.ru>
+ *
+ * @link https://github.com/vova07
  */
 class GetAction extends Action
 {

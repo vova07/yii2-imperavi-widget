@@ -1,6 +1,6 @@
 # Imperavi Redactor Widget for Yii 2
 
-[![Latest Version](https://img.shields.io/github/release/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://github.com/vova07/yii2-imperavi-widget/releases)
+[![Latest Version](https://img.shields.io/github/tag/vova07/yii2-imperavi-widget.svg?style=flat-square&label=release)](https://github.com/vova07/yii2-imperavi-widget/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/vova07/yii2-imperavi-widget/master.svg?style=flat-square)](https://travis-ci.org/vova07/yii2-imperavi-widget)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://scrutinizer-ci.com/g/vova07/yii2-imperavi-widget/code-structure)
@@ -40,6 +40,7 @@ Once the extension is installed, simply use it in your code:
 
 ```php
 echo \vova07\imperavi\Widget::widget([
+    'name' => 'redactor',
     'settings' => [
         'lang' => 'ru',
         'minHeight' => 200,

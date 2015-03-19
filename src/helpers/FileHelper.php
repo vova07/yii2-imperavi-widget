@@ -9,6 +9,10 @@ use yii\helpers\StringHelper;
 
 /**
  * File system helper
+ *
+ * @author Vasile Crudu <bazillio07@yandex.ru>
+ *
+ * @link https://github.com/vova07
  */
 class FileHelper extends BaseFileHelper
 {
