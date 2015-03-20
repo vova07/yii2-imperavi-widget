@@ -2,10 +2,11 @@
 
 namespace tests;
 
+use ReflectionClass;
 use tests\data\models\Model;
 use tests\data\overrides\TestWidget;
-use yii\web\View;
 use Yii;
+use yii\web\View;
 
 /**
  * Class WidgetTest
@@ -112,7 +113,7 @@ class WidgetTest extends TestCase
      */
     public function testRegisterClientScriptMethod()
     {
-        $class = new \ReflectionClass(TestWidget::className());
+        $class = new ReflectionClass(TestWidget::className());
         $method = $class->getMethod('registerClientScript');
         $method->setAccessible(true);
         $model = new Model();
@@ -136,7 +137,7 @@ class WidgetTest extends TestCase
      */
     public function testRegisterClientScriptMethodWithSettings()
     {
-        $class = new \ReflectionClass(TestWidget::className());
+        $class = new ReflectionClass(TestWidget::className());
         $method = $class->getMethod('registerClientScript');
         $method->setAccessible(true);
         $model = new Model();
@@ -168,7 +169,7 @@ class WidgetTest extends TestCase
      */
     public function testRegisterTranslationsMethod()
     {
-        $class = new \ReflectionClass(TestWidget::className());
+        $class = new ReflectionClass(TestWidget::className());
         $method = $class->getMethod('registerTranslations');
         $method->setAccessible(true);
         $model = new Model();

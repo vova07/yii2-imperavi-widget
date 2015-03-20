@@ -2,6 +2,7 @@
 
 namespace tests;
 
+use ReflectionClass;
 use vova07\imperavi\actions\GetAction;
 use vova07\imperavi\helpers\FileHelper;
 use Yii;
@@ -57,5 +58,17 @@ class FileHelperTest extends TestCase
     {
         $list = FileHelper::findFiles(Yii::getAlias('@tests/data/statics'), ['only' => ['*.png']]);
         $this->assertEquals(1, count($list));
+    }
+
+    /**
+     * Test get file size method.
+     */
+    public function testGetFileSize()
+    {
+        $class = new ReflectionClass('vova07\imperavi\helpers\FileHelper');
+        $method = $class->getMethod('getFileSize');
+        $method->setAccessible(true);
+        $output = $method->invokeArgs(new FileHelper(), [Yii::getAlias('@tests/data/statics/3.png')]);
+        $this->assertEquals('95.0 B', $output);
     }
 }
