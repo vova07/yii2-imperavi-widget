@@ -3,6 +3,7 @@
 namespace tests;
 
 use ReflectionClass;
+use tests\data\bundles\TestPlugin;
 use tests\data\models\Model;
 use tests\data\overrides\TestWidget;
 use Yii;
@@ -109,6 +110,36 @@ class WidgetTest extends TestCase
     }
 
     /**
+     * Test render with invalid plugins property.
+     */
+    public function testRenderWithInvalidPluginsProperty()
+    {
+        $this->setExpectedException('yii\base\InvalidConfigException');
+        TestWidget::begin(
+            [
+                'selector' => 'test-selector',
+                'name' => 'test-name',
+                'plugins' => 'clips'
+            ]
+        );
+    }
+
+    /**
+     * Test render with invalid setting plugins property.
+     */
+    public function testRenderWithInvalidSettingPluginsProperty()
+    {
+        $this->setExpectedException('yii\base\InvalidConfigException');
+        TestWidget::begin(
+            [
+                'selector' => 'test-selector',
+                'name' => 'test-name',
+                'settings' => ['plugins' => 'clips']
+            ]
+        );
+    }
+
+    /**
      * Test script registering.
      */
     public function testRegisterClientScriptMethod()
@@ -117,19 +148,24 @@ class WidgetTest extends TestCase
         $method = $class->getMethod('registerClientScript');
         $method->setAccessible(true);
         $model = new Model();
+        Yii::$app->language = 'ru-RU';
         $widget = TestWidget::begin(
             [
                 'model' => $model,
-                'attribute' => 'message'
+                'attribute' => 'message',
+                'plugins' => [
+                    'testPlugin' => TestPlugin::className()
+                ]
             ]
         );
         $view = $this->getView();
         $widget->setView($view);
         $method->invoke($widget);
-        $test = 'jQuery("#model-message").redactor();';
+        $test = 'jQuery("#model-message").redactor({"lang":"ru","plugins":["testPlugin"]});';
 
         $this->assertArrayHasKey(TestWidget::INLINE_JS_KEY, $view->js[View::POS_READY]);
         $this->assertEquals($test, $view->js[View::POS_READY][TestWidget::INLINE_JS_KEY]);
+        $this->assertArrayHasKey(TestPlugin::className(), $view->assetBundles);
     }
 
     /**

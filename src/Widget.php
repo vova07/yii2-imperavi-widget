@@ -57,7 +57,7 @@ class Widget extends InputWidget
     {
         parent::init();
 
-        if (isset($this->settings['plugins']) && !is_array($this->settings['plugins'])) {
+        if (isset($this->settings['plugins']) && !is_array($this->settings['plugins']) || !is_array($this->plugins)) {
             throw new InvalidConfigException('The "plugins" property must be an array.');
         }
         if (!isset($this->settings['lang']) && Yii::$app->language !== 'en-US') {
@@ -69,12 +69,14 @@ class Widget extends InputWidget
             $this->_renderTextarea = false;
         }
 
+        // @codeCoverageIgnoreStart
         $request = Yii::$app->getRequest();
 
         if ($request->enableCsrfValidation) {
             $this->settings['uploadImageFields'][$request->csrfParam] = $request->getCsrfToken();
             $this->settings['uploadFileFields'][$request->csrfParam] = $request->getCsrfToken();
         }
+        // @codeCoverageIgnoreEnd
 
         $this->registerTranslations();
     }

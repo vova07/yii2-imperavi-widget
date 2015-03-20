@@ -23,7 +23,9 @@ class AssetTest extends TestCase
     {
         $view = $this->getView();
         $this->assertEmpty($view->assetBundles);
-        TestAsset::register($view);
+        $asset = TestAsset::register($view);
+        $asset->language = 'ru';
+        $asset->plugins = ['clips', 'fullscreen'];
         $this->assertEquals(2, count($view->assetBundles));
         $this->assertArrayHasKey(JqueryAsset::className(), $view->assetBundles);
         $this->assertTrue($view->assetBundles[TestAsset::className()] instanceof AssetBundle);
@@ -31,5 +33,9 @@ class AssetTest extends TestCase
         $this->assertContains('redactor.css', $content);
         $this->assertContains('redactor.min.js', $content);
         $this->assertContains('jquery.js', $content);
+        $this->assertContains('ru.js', $content);
+        $this->assertContains('clips.css', $content);
+        $this->assertContains('clips.js', $content);
+        $this->assertContains('fullscreen.js', $content);
     }
 }

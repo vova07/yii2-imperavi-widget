@@ -80,15 +80,6 @@ class FileHelperTest extends TestCase
     }
 
     /**
-     * Test find files method with unreadable directory.
-     */
-    public function testFindFilesMethodWithUnreadableDirectory()
-    {
-        $this->setExpectedException('yii\base\InvalidParamException', 'The dir argument must be a directory.');
-        FileHelper::findFiles(Yii::getAlias('@tests/data/statics/Jüst a Tèst'));
-    }
-
-    /**
      * Test get file size method.
      */
     public function testGetFileSize()
