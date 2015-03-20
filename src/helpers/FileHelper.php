@@ -49,7 +49,9 @@ class FileHelper extends BaseFileHelper
         $list = [];
         $handle = opendir($dir);
         if ($handle === false) {
+            // @codeCoverageIgnoreStart
             throw new InvalidParamException('Unable to open directory: ' . $dir);
+            // @codeCoverageIgnoreEnd
         }
         while (($file = readdir($handle)) !== false) {
             if ($file === '.' || $file === '..') {
@@ -93,6 +95,7 @@ class FileHelper extends BaseFileHelper
 
     /**
      * @param string $path
+     *
      * @return string filesize in(B|KB|MB|GB)
      */
     protected static function getFileSize($path)
@@ -156,7 +159,7 @@ class FileHelper extends BaseFileHelper
         $wildcardSearch = function ($r, $c) use ($pattern) {
             $p = strpos($pattern, $c);
 
-            return $r===false ? $p : ($p===false ? $r : min($r, $p));
+            return $r === false ? $p : ($p === false ? $r : min($r, $p));
         };
 
         return array_reduce($wildcards, $wildcardSearch, false);

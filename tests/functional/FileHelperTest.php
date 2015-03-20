@@ -23,7 +23,7 @@ class FileHelperTest extends TestCase
     public function testFindFilesMethodWithFileType()
     {
         $list = FileHelper::findFiles(Yii::getAlias('@tests/data/statics'), ['url' => '/statics/'], GetAction::TYPE_FILES);
-        $this->assertEquals(3, count($list));
+        $this->assertEquals(4, count($list));
         $this->assertArrayHasKey('title', $list[0]);
         $this->assertArrayHasKey('name', $list[0]);
         $this->assertArrayHasKey('link', $list[0]);
@@ -36,7 +36,7 @@ class FileHelperTest extends TestCase
     public function testFindFilesMethodWithImageType()
     {
         $list = FileHelper::findFiles(Yii::getAlias('@tests/data/statics'), ['url' => '/statics/']);
-        $this->assertEquals(3, count($list));
+        $this->assertEquals(4, count($list));
         $this->assertArrayHasKey('title', $list[0]);
         $this->assertArrayHasKey('thumb', $list[0]);
         $this->assertArrayHasKey('image', $list[0]);
@@ -57,7 +57,35 @@ class FileHelperTest extends TestCase
     public function testFindFilesMethodOnlyPng()
     {
         $list = FileHelper::findFiles(Yii::getAlias('@tests/data/statics'), ['only' => ['*.png']]);
-        $this->assertEquals(1, count($list));
+        $this->assertEquals(2, count($list));
+    }
+
+    /**
+     * Test find files method with invalid type.
+     */
+    public function testFindFilesMethodWithInvalidType()
+    {
+        $list = FileHelper::findFiles(Yii::getAlias('@tests/data/statics'), ['url' => '/statics/'], 'invalidType');
+        $this->assertEquals(4, count($list));
+        $this->assertTrue(is_string($list[0]));
+    }
+
+    /**
+     * Test find files method with invalid directory.
+     */
+    public function testFindFilesMethodWithInvalidDirectory()
+    {
+        $this->setExpectedException('yii\base\InvalidParamException', 'The dir argument must be a directory.');
+        FileHelper::findFiles(Yii::getAlias('@tests/data/statics/3.png'));
+    }
+
+    /**
+     * Test find files method with unreadable directory.
+     */
+    public function testFindFilesMethodWithUnreadableDirectory()
+    {
+        $this->setExpectedException('yii\base\InvalidParamException', 'The dir argument must be a directory.');
+        FileHelper::findFiles(Yii::getAlias('@tests/data/statics/Jüst a Tèst'));
     }
 
     /**
