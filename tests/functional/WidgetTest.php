@@ -166,7 +166,7 @@ class WidgetTest extends TestCase
     /**
      * Test translations registering.
      */
-    public function testRegisterTranslations()
+    public function testRegisterTranslationsMethod()
     {
         $class = new \ReflectionClass(TestWidget::className());
         $method = $class->getMethod('registerTranslations');

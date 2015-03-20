@@ -106,6 +106,8 @@ class FileHelper extends BaseFileHelper
 
     /**
      * @inheritdoc
+     *
+     * @codeCoverageIgnore
      */
     private static function parseExcludePattern($pattern)
     {
@@ -145,6 +147,8 @@ class FileHelper extends BaseFileHelper
 
     /**
      * @inheritdoc
+     *
+     * @codeCoverageIgnore
      */
     private static function firstWildcardInPattern($pattern)
     {
