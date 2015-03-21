@@ -52,7 +52,7 @@ echo \vova07\imperavi\Widget::widget([
 ]);
 ```
 
-### Like an AtiveForm widget ###
+### Like an ActiveForm widget ###
 
 ```php
 use vova07\imperavi\Widget;
