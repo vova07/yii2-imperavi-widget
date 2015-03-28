@@ -2,6 +2,7 @@
 
 namespace vova07\imperavi\actions;
 
+use vova07\imperavi\Widget;
 use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\base\InvalidCallException;
@@ -24,7 +25,7 @@ use Yii;
  * public function actions()
  * {
  *     return [
- *         'image-upload' => [
+ *         'upload-image' => [
  *             'class' => 'vova07\imperavi\actions\UploadAction',
  *             'url' => 'http://my-site.com/statics/',
  *             'path' => '/var/www/my-site.com/web/statics',
@@ -100,11 +101,7 @@ class UploadAction extends Action
         if ($this->path === null) {
             throw new InvalidConfigException('The "path" attribute must be set.');
         } else {
-            if (($alias = Yii::getAlias($this->path)) === false) {
-                throw new InvalidCallException("The root alias from 'path' attribute was not previously registered.");
-            } else {
-                $this->path = FileHelper::normalizePath($alias) . DIRECTORY_SEPARATOR;
-            }
+            $this->path = rtrim(Yii::getAlias($this->path), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 
             if (!FileHelper::createDirectory($this->path)) {
                 throw new InvalidCallException("Directory specified in 'path' attribute doesn't exist or cannot be created.");
@@ -113,6 +110,8 @@ class UploadAction extends Action
         if ($this->uploadOnlyImage !== true) {
             $this->_validator = 'file';
         }
+
+        Widget::registerTranslations();
     }
 
     /**
@@ -140,7 +139,7 @@ class UploadAction extends Action
                     }
                 } else {
                     $result = [
-                        'error' => Yii::t('imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
+                        'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
                     ];
                 }
             }

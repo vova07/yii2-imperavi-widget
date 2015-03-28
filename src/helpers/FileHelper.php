@@ -18,6 +18,12 @@ class FileHelper extends BaseFileHelper
 {
     /**
      * @inheritdoc
+     *
+     * @param array $options {
+     *
+     * @type array $except
+     * @type array $only
+     * }
      */
     public static function findFiles($dir, $options = [], $type = GetAction::TYPE_IMAGES)
     {
@@ -32,7 +38,6 @@ class FileHelper extends BaseFileHelper
             $options['basePath'] = realpath($dir);
             // this should also be done only once
             if (isset($options['except'])) {
-                /** @var array $options['except'] */
                 foreach ($options['except'] as $key => $value) {
                     if (is_string($value)) {
                         $options['except'][$key] = self::parseExcludePattern($value);
@@ -40,7 +45,6 @@ class FileHelper extends BaseFileHelper
                 }
             }
             if (isset($options['only'])) {
-                /** @var array $options['only'] */
                 foreach ($options['only'] as $key => $value) {
                     if (is_string($value)) {
                         $options['only'][$key] = self::parseExcludePattern($value);

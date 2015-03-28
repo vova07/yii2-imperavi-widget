@@ -24,7 +24,7 @@ use Yii;
 class Widget extends InputWidget
 {
     /** Name of inline JavaScript package that is registered by the widget */
-    const INLINE_JS_KEY = 'vova07/imperavi';
+    const INLINE_JS_KEY = 'vova07/imperavi/';
 
     /**
      * @var array {@link http://imperavi.com/redactor/docs/ redactor options}.
@@ -78,7 +78,7 @@ class Widget extends InputWidget
         }
         // @codeCoverageIgnoreEnd
 
-        $this->registerTranslations();
+        self::registerTranslations();
     }
 
     /**
@@ -100,13 +100,18 @@ class Widget extends InputWidget
     /**
      * Register widget translations.
      */
-    public function registerTranslations()
+    public static function registerTranslations()
     {
-        Yii::$app->i18n->translations['imperavi'] = [
-            'class' => 'yii\i18n\PhpMessageSource',
-            'basePath' => '@vova07/imperavi/messages',
-            'forceTranslation' => true
-        ];
+        if (!isset(Yii::$app->i18n->translations['vova07/imperavi']) && !isset(Yii::$app->i18n->translations['vova07/imperavi/*'])) {
+            Yii::$app->i18n->translations['vova07/imperavi'] = [
+                'class' => 'yii\i18n\PhpMessageSource',
+                'basePath' => '@vova07/imperavi/messages',
+                'forceTranslation' => true,
+                'fileMap' => [
+                    'vova07/imperavi' => 'imperavi.php'
+                ]
+            ];
+        }
     }
 
     /**
@@ -135,6 +140,6 @@ class Widget extends InputWidget
 
         $settings = !empty($this->settings) ? Json::encode($this->settings) : '';
 
-        $view->registerJs("jQuery($selector).redactor($settings);", $view::POS_READY, self::INLINE_JS_KEY);
+        $view->registerJs("jQuery($selector).redactor($settings);", $view::POS_READY, self::INLINE_JS_KEY . $this->options['id']);
     }
 }

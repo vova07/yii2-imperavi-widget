@@ -24,3 +24,4 @@ nbproject
 # Mac deployment helpers
 switch
 index
+tests/_output/*

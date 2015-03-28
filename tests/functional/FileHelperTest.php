@@ -2,6 +2,7 @@
 
 namespace tests;
 
+use org\bovigo\vfs\vfsStream;
 use ReflectionClass;
 use vova07\imperavi\actions\GetAction;
 use vova07\imperavi\helpers\FileHelper;
@@ -22,8 +23,8 @@ class FileHelperTest extends TestCase
      */
     public function testFindFilesMethodWithFileType()
     {
-        $list = FileHelper::findFiles(Yii::getAlias('@tests/data/statics'), ['url' => '/statics/'], GetAction::TYPE_FILES);
-        $this->assertEquals(4, count($list));
+        $list = FileHelper::findFiles(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY), ['url' => '/statics/'], GetAction::TYPE_FILES);
+        $this->assertCount(4, $list);
         $this->assertArrayHasKey('title', $list[0]);
         $this->assertArrayHasKey('name', $list[0]);
         $this->assertArrayHasKey('link', $list[0]);
@@ -35,8 +36,8 @@ class FileHelperTest extends TestCase
      */
     public function testFindFilesMethodWithImageType()
     {
-        $list = FileHelper::findFiles(Yii::getAlias('@tests/data/statics'), ['url' => '/statics/']);
-        $this->assertEquals(4, count($list));
+        $list = FileHelper::findFiles(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY), ['url' => '/statics/']);
+        $this->assertCount(4, $list);
         $this->assertArrayHasKey('title', $list[0]);
         $this->assertArrayHasKey('thumb', $list[0]);
         $this->assertArrayHasKey('image', $list[0]);
@@ -47,8 +48,8 @@ class FileHelperTest extends TestCase
      */
     public function testFindFilesMethodExceptPng()
     {
-        $list = FileHelper::findFiles(Yii::getAlias('@tests/data/statics'), ['except' => ['*.png']]);
-        $this->assertEquals(2, count($list));
+        $list = FileHelper::findFiles(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY), ['except' => ['*.jpeg']]);
+        $this->assertCount(2, $list);
     }
 
     /**
@@ -56,8 +57,8 @@ class FileHelperTest extends TestCase
      */
     public function testFindFilesMethodOnlyPng()
     {
-        $list = FileHelper::findFiles(Yii::getAlias('@tests/data/statics'), ['only' => ['*.png']]);
-        $this->assertEquals(2, count($list));
+        $list = FileHelper::findFiles(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY), ['only' => ['*.jpeg']]);
+        $this->assertCount(2, $list);
     }
 
     /**
@@ -65,8 +66,8 @@ class FileHelperTest extends TestCase
      */
     public function testFindFilesMethodWithInvalidType()
     {
-        $list = FileHelper::findFiles(Yii::getAlias('@tests/data/statics'), ['url' => '/statics/'], 'invalidType');
-        $this->assertEquals(4, count($list));
+        $list = FileHelper::findFiles(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY), ['url' => '/statics/'], 'invalidType');
+        $this->assertCount(4, $list);
         $this->assertTrue(is_string($list[0]));
     }
 
@@ -76,7 +77,7 @@ class FileHelperTest extends TestCase
     public function testFindFilesMethodWithInvalidDirectory()
     {
         $this->setExpectedException('yii\base\InvalidParamException', 'The dir argument must be a directory.');
-        FileHelper::findFiles(Yii::getAlias('@tests/data/statics/3.png'));
+        FileHelper::findFiles(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY . '/3.jpeg'));
     }
 
     /**
@@ -87,7 +88,8 @@ class FileHelperTest extends TestCase
         $class = new ReflectionClass('vova07\imperavi\helpers\FileHelper');
         $method = $class->getMethod('getFileSize');
         $method->setAccessible(true);
-        $output = $method->invokeArgs(new FileHelper(), [Yii::getAlias('@tests/data/statics/3.png')]);
-        $this->assertEquals('95.0 B', $output);
+        $output = $method->invokeArgs(new FileHelper(), [vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY . '/3.jpeg')]);
+        $size = filesize(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY . '/3.jpeg'));
+        $this->assertEquals($size . '.0 B', $output);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace tests;
 
+use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
 use yii\helpers\ArrayHelper;
 use yii\web\AssetManager;
 use yii\web\View;
@@ -11,13 +13,34 @@ use yii\web\View;
  */
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
+    /** Root directory name */
+    const ROOT_DIRECTORY = 'root';
+    /** Root directory name */
+    const STATICS_DIRECTORY = 'statics';
+    /** Root directory name */
+    const UPLOAD_DIRECTORY = 'upload';
+
+    /** @var array|null Params */
     public static $params;
 
     /**
      * Mock application prior running tests.
      */
-    protected function setUp()
+    public function setUp()
     {
+        $root = vfsStream::setup(self::ROOT_DIRECTORY, null, [
+            self::STATICS_DIRECTORY => [
+                '1.php' => 'PHP file test content.',
+                '2.html' => 'HTML file test content.',
+                'folder' => []
+            ],
+            self::UPLOAD_DIRECTORY => []
+        ]);
+        $this->createVirtualJpegImage(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY . '/3.jpeg'));
+        $this->createVirtualJpegImage(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY . '/folder/4.jpeg'));
+        $this->createVirtualJpegImage(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::UPLOAD_DIRECTORY . '/1.jpeg'));
+        $this->createVirtualJpegImage(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::UPLOAD_DIRECTORY . '/2.jpeg'));
+
         $this->mockWebApplication(
             [
                 'components' => [
@@ -65,10 +88,11 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
             'id' => 'testapp',
             'basePath' => __DIR__,
             'vendorPath' => $this->getVendorPath(),
+            'controllerNamespace' => 'tests\data\controllers',
             'components' => [
                 'request' => [
                     'cookieValidationKey' => 'wefJDF8sfdsfSDefwqdxj9oq',
-                    'scriptFile' => __DIR__ .'/index.php',
+                    'scriptFile' => __DIR__ . '/index.php',
                     'scriptUrl' => '/index.php'
                 ],
                 'assetManager' => [
@@ -118,5 +142,39 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         $expected = str_replace("\r\n", "\n", $expected);
         $actual = str_replace("\r\n", "\n", $actual);
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * Create a virtual JPEG image.
+     *
+     * @param string $path vfsStream path
+     */
+    protected function createVirtualJpegImage($path)
+    {
+        ob_start();
+        $image = imagecreate(100, 100);
+        $color = imagecolorallocate($image, 0, 0, 255);
+        imagecolorallocate($image, 255, 255, 255);
+        imagestring($image, 1, 5, 5, 'Test image', $color);
+        imagejpeg($image);
+        $imageRawData = ob_get_contents();
+        ob_end_clean();
+        file_put_contents($path, $imageRawData);
+    }
+
+    /**
+     * Get virtual file MIME type.
+     *
+     * @param string $path vfsStream path
+     *
+     * @return string File MIME type
+     */
+    protected function getVirtualFileMimeType($path)
+    {
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mimeType = finfo_file($finfo, $path);
+        finfo_close($finfo);
+
+        return $mimeType;
     }
 }

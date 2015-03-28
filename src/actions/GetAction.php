@@ -22,7 +22,7 @@ use vova07\imperavi\helpers\FileHelper;
  * public function actions()
  * {
  *     return [
- *         'image-upload' => [
+ *         'get-image' => [
  *             'class' => GetAction::className(),
  *             'url' => 'http://my-site.com/statics/',
  *             'path' => '/var/www/my-site.com/web/statics',
@@ -77,11 +77,7 @@ class GetAction extends Action
         if ($this->path === null) {
             throw new InvalidConfigException('The "path" attribute must be set.');
         } else {
-            if (($alias = Yii::getAlias($this->path)) === false) {
-                throw new InvalidCallException("The root alias from 'path' attribute was not previously registered.");
-            } else {
-                $this->path = FileHelper::normalizePath($alias) . DIRECTORY_SEPARATOR;
-            }
+            $this->path = rtrim(Yii::getAlias($this->path), DIRECTORY_SEPARATOR);
         }
     }
 

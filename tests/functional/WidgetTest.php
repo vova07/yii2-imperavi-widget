@@ -151,6 +151,9 @@ class WidgetTest extends TestCase
         Yii::$app->language = 'ru-RU';
         $widget = TestWidget::begin(
             [
+                'options' => [
+                    'id' => 'test-id'
+                ],
                 'model' => $model,
                 'attribute' => 'message',
                 'plugins' => [
@@ -161,10 +164,11 @@ class WidgetTest extends TestCase
         $view = $this->getView();
         $widget->setView($view);
         $method->invoke($widget);
-        $test = 'jQuery("#model-message").redactor({"lang":"ru","plugins":["testPlugin"]});';
+        $test = 'jQuery("#test-id").redactor({"lang":"ru","plugins":["testPlugin"]});';
+        $inlineJSKey = TestWidget::INLINE_JS_KEY . 'test-id';
 
-        $this->assertArrayHasKey(TestWidget::INLINE_JS_KEY, $view->js[View::POS_READY]);
-        $this->assertEquals($test, $view->js[View::POS_READY][TestWidget::INLINE_JS_KEY]);
+        $this->assertArrayHasKey($inlineJSKey, $view->js[View::POS_READY]);
+        $this->assertEquals($test, $view->js[View::POS_READY][$inlineJSKey]);
         $this->assertArrayHasKey(TestPlugin::className(), $view->assetBundles);
     }
 
@@ -179,6 +183,9 @@ class WidgetTest extends TestCase
         $model = new Model();
         $widget = TestWidget::begin(
             [
+                'options' => [
+                    'id' => 'test-id'
+                ],
                 'model' => $model,
                 'attribute' => 'message',
                 'settings' => [
@@ -194,10 +201,11 @@ class WidgetTest extends TestCase
         $view = $this->getView();
         $widget->setView($view);
         $method->invoke($widget);
-        $test = 'jQuery("#model-message").redactor({"lang":"ru","minHeight":200,"plugins":["clips","fullscreen"]});';
+        $test = 'jQuery("#test-id").redactor({"lang":"ru","minHeight":200,"plugins":["clips","fullscreen"]});';
+        $inlineJSKey = TestWidget::INLINE_JS_KEY . 'test-id';
 
-        $this->assertArrayHasKey(TestWidget::INLINE_JS_KEY, $view->js[View::POS_READY]);
-        $this->assertEquals($test, $view->js[View::POS_READY][TestWidget::INLINE_JS_KEY]);
+        $this->assertArrayHasKey($inlineJSKey, $view->js[View::POS_READY]);
+        $this->assertEquals($test, $view->js[View::POS_READY][$inlineJSKey]);
     }
 
     /**
@@ -211,6 +219,9 @@ class WidgetTest extends TestCase
         $model = new Model();
         $widget = TestWidget::begin(
             [
+                'options' => [
+                    'id' => 'test-id'
+                ],
                 'model' => $model,
                 'attribute' => 'message'
             ]
@@ -221,9 +232,12 @@ class WidgetTest extends TestCase
         $test = [
             'class' => 'yii\i18n\PhpMessageSource',
             'basePath' => '@vova07/imperavi/messages',
-            'forceTranslation' => true
+            'forceTranslation' => true,
+            'fileMap' => [
+                'vova07/imperavi' => 'imperavi.php'
+            ]
         ];
-        $this->assertArrayHasKey('imperavi', Yii::$app->i18n->translations);
-        $this->assertEquals($test, Yii::$app->i18n->translations['imperavi']);
+        $this->assertArrayHasKey('vova07/imperavi', Yii::$app->i18n->translations);
+        $this->assertEquals($test, Yii::$app->i18n->translations['vova07/imperavi']);
     }
 }
