@@ -2,10 +2,22 @@
 
 All Notable changes to `yii2-imperavi-widget` will be documented in this file.
 
+## 1.2.1
+
+### Changed
+- Updated `README` files. (vova07)
+
+### Added
+- Code tests. (vova07)
+
+### Fixed
+- Issue #32. (vova07)
+- Scrutinizer support. (vova07) 
+
 ## 1.2.0
 
 ### Changed
-- Extension skeleton (vova07)
+- Extension skeleton. (vova07)
 
 ## 1.1.12
 - Added human readable file size and fix `findFiles()` method in `FileHelper` class. (maxmirazh33)
