@@ -222,13 +222,18 @@ echo \vova07\imperavi\Widget::widget([
 $ phpunit
 ```
 
+## Further Information
+
+Please, check the [Imperavi Redactor](http://imperavi.com/redactor/) documentation for further information about its configuration options.
+
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Credits
 
-- [vova07](https://github.com/vova07)
+- [Vasile Crudu](https://github.com/vova07)
+- [All Contributors](../../contributors)
 
 ## License
 
