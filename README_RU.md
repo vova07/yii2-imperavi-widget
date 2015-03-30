@@ -241,3 +241,6 @@ $ phpunit
 ## Лицензия
 
 BSD Лицензия (BSD). Пожалуйста проверьте [License файл](LICENSE.md) для подробной информации.
+
+> [![YiiWheels!](http://yiiwheels.com/img/logo-big.png)](http://yiiwheels.com)
+[Доступно также на YiiWheels](http://yiiwheels.com)

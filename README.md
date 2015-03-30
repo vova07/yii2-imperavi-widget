@@ -238,3 +238,6 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 ## License
 
 The BSD License (BSD). Please see [License File](LICENSE.md) for more information.
+
+> [![YiiWheels!](http://yiiwheels.com/img/logo-big.png)](http://yiiwheels.com)
+[Available also on YiiWheels](http://yiiwheels.com)
