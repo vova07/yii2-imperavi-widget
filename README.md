@@ -239,5 +239,5 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 The BSD License (BSD). Please see [License File](LICENSE.md) for more information.
 
-> [![YiiWheels!](http://yiiwheels.com/img/logo-big.png)](http://yiiwheels.com)
+> <a href="http://yiiwheels.com"><img src="http://yiiwheels.com/img/logo-big.png" alt="YiiWheels" width="150" height="100" /></a>  
 [Available also on YiiWheels](http://yiiwheels.com)
