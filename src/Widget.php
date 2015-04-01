@@ -138,7 +138,29 @@ class Widget extends InputWidget
             }
         }
 
+                if(isset($this->settings['imageUploadCallback'])) {
+        $value_arr = array();
+        $replace_keys = array();
+        foreach($this->settings as $key => &$value){
+ 
+        if(!is_array($value)) {
+        if(strpos($value, 'function(')===0){
+  
+        $value_arr[] = $value;
+    
+        $value = '%' . $key . '%';
+    
+        $replace_keys[] = '"' . $value . '"';
+ }
+}
+}
+}
+
         $settings = !empty($this->settings) ? Json::encode($this->settings) : '';
+
+         if(isset($this->settings['imageUploadCallback'])) {
+            $settings= str_replace($replace_keys, $value_arr, $settings);
+        }
 
         $view->registerJs("jQuery($selector).redactor($settings);", $view::POS_READY, self::INLINE_JS_KEY . $this->options['id']);
     }
