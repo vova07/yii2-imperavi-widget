@@ -138,29 +138,27 @@ class Widget extends InputWidget
             }
         }
 
-private function  prepareToJson()
-{
+                if(isset($this->settings['imageUploadCallback'])) {
         $value_arr = array();
         $replace_keys = array();
-
-    foreach($this->settings as $key => &$value){
+        foreach($this->settings as $key => &$value){
  
-        if(!is_array($value)){
-
+        if(!is_array($value)) {
         if(strpos($value, 'function(')===0){
+  
         $value_arr[] = $value;
+    
         $value = '%' . $key . '%';
+    
         $replace_keys[] = '"' . $value . '"';
-        
-        return true;
-        }
-       }
-     }
-  }
+ }
+}
+}
+}
 
         $settings = !empty($this->settings) ? Json::encode($this->settings) : '';
 
-         if(prepareToJson()){
+         if(isset($this->settings['imageUploadCallback'])) {
             $settings= str_replace($replace_keys, $value_arr, $settings);
         }
 
