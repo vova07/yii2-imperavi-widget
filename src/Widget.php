@@ -158,7 +158,6 @@ class Widget extends InputWidget
 
         $settings = !empty($this->settings) ? Json::encode($this->settings) : '';
 
-         if($isFunc) {
             $settings= str_replace($replace_keys, $value_arr, $settings);
         }
 
