@@ -2,6 +2,11 @@
 
 All Notable changes to `yii2-imperavi-widget` will be documented in this file.
 
+## 1.2.2
+
+### Changed
+- Imperavi redactor updated to 10.0.9. (vova07)
+
 ## 1.2.1
 
 ### Changed
