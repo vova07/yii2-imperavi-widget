@@ -4,11 +4,15 @@ namespace vova07\imperavi\actions;
 
 use Yii;
 use yii\base\Action;
+use yii\base\InvalidCallException;
 use yii\base\InvalidConfigException;
 use yii\web\Response;
 use vova07\imperavi\helpers\FileHelper;
 
 /**
+ * Class GetAction
+ * @package vova07\imperavi\actions
+ *
  * GetAction returns a JSON array of the files found under the specified directory and subdirectories.
  * This array can be used in Imperavi Redactor to insert some files that have already been uploaded.
  *
@@ -18,7 +22,7 @@ use vova07\imperavi\helpers\FileHelper;
  * public function actions()
  * {
  *     return [
- *         'image-upload' => [
+ *         'get-image' => [
  *             'class' => GetAction::className(),
  *             'url' => 'http://my-site.com/statics/',
  *             'path' => '/var/www/my-site.com/web/statics',
@@ -27,10 +31,16 @@ use vova07\imperavi\helpers\FileHelper;
  *     ];
  * }
  * ```
+ *
+ * @author Vasile Crudu <bazillio07@yandex.ru>
+ *
+ * @link https://github.com/vova07
  */
 class GetAction extends Action
 {
+    /** Image type */
     const TYPE_IMAGES = 0;
+    /** File type */
     const TYPE_FILES = 1;
 
     /**
@@ -67,7 +77,7 @@ class GetAction extends Action
         if ($this->path === null) {
             throw new InvalidConfigException('The "path" attribute must be set.');
         } else {
-            $this->path = FileHelper::normalizePath(Yii::getAlias($this->path));
+            $this->path = rtrim(Yii::getAlias($this->path), DIRECTORY_SEPARATOR);
         }
     }
 

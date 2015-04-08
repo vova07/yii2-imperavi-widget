@@ -2,6 +2,7 @@
 
 namespace vova07\imperavi\actions;
 
+use vova07\imperavi\Widget;
 use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\base\InvalidCallException;
@@ -13,6 +14,9 @@ use yii\web\UploadedFile;
 use Yii;
 
 /**
+ * Class UploadAction
+ * @package vova07\imperavi\actions
+ *
  * UploadAction for images and files.
  *
  * Usage:
@@ -21,7 +25,7 @@ use Yii;
  * public function actions()
  * {
  *     return [
- *         'image-upload' => [
+ *         'upload-image' => [
  *             'class' => 'vova07\imperavi\actions\UploadAction',
  *             'url' => 'http://my-site.com/statics/',
  *             'path' => '/var/www/my-site.com/web/statics',
@@ -42,6 +46,10 @@ use Yii;
  *     ];
  * }
  * ```
+ *
+ * @author Vasile Crudu <bazillio07@yandex.ru>
+ *
+ * @link https://github.com/vova07
  */
 class UploadAction extends Action
 {
@@ -98,7 +106,7 @@ class UploadAction extends Action
         if ($this->path === null) {
             throw new InvalidConfigException('The "path" attribute must be set.');
         } else {
-            $this->path = FileHelper::normalizePath(Yii::getAlias($this->path)) . DIRECTORY_SEPARATOR;
+            $this->path = rtrim(Yii::getAlias($this->path), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
 
             if (!FileHelper::createDirectory($this->path)) {
                 throw new InvalidCallException("Directory specified in 'path' attribute doesn't exist or cannot be created.");
@@ -107,6 +115,8 @@ class UploadAction extends Action
         if ($this->uploadOnlyImage !== true) {
             $this->_validator = 'file';
         }
+
+        Widget::registerTranslations();
     }
 
     /**
@@ -130,7 +140,7 @@ class UploadAction extends Action
 
                 if ($model->hasErrors()) {
                     $result = [
-                        'error' => $model->getFirstError('file')
+                        'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
                     ];
                 } else {
                     if ($this->unique === true && $model->file->extension) {

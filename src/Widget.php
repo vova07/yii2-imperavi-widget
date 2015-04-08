@@ -5,19 +5,17 @@ namespace vova07\imperavi;
 use yii\base\InvalidConfigException;
 use yii\helpers\Html;
 use yii\helpers\Json;
-use yii\web\AssetBundle;
 use yii\widgets\InputWidget;
 use Yii;
 
 /**
  * Imperavi Redactor widget.
  *
- * @property string $settings
- * @property string $selector
+ * @property array $settings JS Redactor settings
+ * @property string|null $selector Textarea selector
+ * @property array $plugins JS Redactor plugins
  *
  * @author Vasile Crudu <bazillio07@yandex.ru>
- *
- * @version 1.1.8
  *
  * @link https://github.com/vova07/yii2-imperavi-widget
  * @link http://imperavi.com/redactor
@@ -25,6 +23,9 @@ use Yii;
  */
 class Widget extends InputWidget
 {
+    /** Name of inline JavaScript package that is registered by the widget */
+    const INLINE_JS_KEY = 'vova07/imperavi/';
+
     /**
      * @var array {@link http://imperavi.com/redactor/docs/ redactor options}.
      */
@@ -56,8 +57,7 @@ class Widget extends InputWidget
     {
         parent::init();
 
-        $this->registerTranslations();
-        if (isset($this->settings['plugins']) && !is_array($this->settings['plugins'])) {
+        if (isset($this->settings['plugins']) && !is_array($this->settings['plugins']) || !is_array($this->plugins)) {
             throw new InvalidConfigException('The "plugins" property must be an array.');
         }
         if (!isset($this->settings['lang']) && Yii::$app->language !== 'en-US') {
@@ -68,20 +68,17 @@ class Widget extends InputWidget
         } else {
             $this->_renderTextarea = false;
         }
-        $this->settings['uploadImageFields'][Yii::$app->request->csrfParam] = Yii::$app->request->getCsrfToken();
-        $this->settings['uploadFileFields'][Yii::$app->request->csrfParam] = Yii::$app->request->getCsrfToken();
-    }
 
-    /**
-     * Register widget translations.
-     */
-    public function registerTranslations()
-    {
-        Yii::$app->i18n->translations['imperavi'] = [
-            'class' => 'yii\i18n\PhpMessageSource',
-            'basePath' => '@vova07/imperavi/messages',
-            'forceTranslation' => true
-        ];
+        // @codeCoverageIgnoreStart
+        $request = Yii::$app->getRequest();
+
+        if ($request->enableCsrfValidation) {
+            $this->settings['uploadImageFields'][$request->csrfParam] = $request->getCsrfToken();
+            $this->settings['uploadFileFields'][$request->csrfParam] = $request->getCsrfToken();
+        }
+        // @codeCoverageIgnoreEnd
+
+        self::registerTranslations();
     }
 
     /**
@@ -101,13 +98,31 @@ class Widget extends InputWidget
     }
 
     /**
+     * Register widget translations.
+     */
+    public static function registerTranslations()
+    {
+        if (!isset(Yii::$app->i18n->translations['vova07/imperavi']) && !isset(Yii::$app->i18n->translations['vova07/imperavi/*'])) {
+            Yii::$app->i18n->translations['vova07/imperavi'] = [
+                'class' => 'yii\i18n\PhpMessageSource',
+                'basePath' => '@vova07/imperavi/messages',
+                'forceTranslation' => true,
+                'fileMap' => [
+                    'vova07/imperavi' => 'imperavi.php'
+                ]
+            ];
+        }
+    }
+
+    /**
      * Register widget asset.
      */
     public function registerClientScript()
     {
         $view = $this->getView();
         $selector = Json::encode($this->selector);
-        $asset = Asset::register($view);
+        $asset = Yii::$container->get(Asset::className());
+        $asset = $asset::register($view);
 
         if (isset($this->settings['lang'])) {
             $asset->language = $this->settings['lang'];
@@ -116,6 +131,7 @@ class Widget extends InputWidget
             $asset->plugins = $this->settings['plugins'];
         }
         if (!empty($this->plugins)) {
+            /** @var \yii\web\AssetBundle $bundle Asset bundle */
             foreach ($this->plugins as $plugin => $bundle) {
                 $this->settings['plugins'][] = $plugin;
                 $bundle::register($view);
@@ -124,6 +140,6 @@ class Widget extends InputWidget
 
         $settings = !empty($this->settings) ? Json::encode($this->settings) : '';
 
-        $view->registerJs("jQuery($selector).redactor($settings);");
+        $view->registerJs("jQuery($selector).redactor($settings);", $view::POS_READY, self::INLINE_JS_KEY . $this->options['id']);
     }
 }

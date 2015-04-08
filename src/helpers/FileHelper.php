@@ -9,11 +9,21 @@ use yii\helpers\StringHelper;
 
 /**
  * File system helper
+ *
+ * @author Vasile Crudu <bazillio07@yandex.ru>
+ *
+ * @link https://github.com/vova07
  */
 class FileHelper extends BaseFileHelper
 {
     /**
      * @inheritdoc
+     *
+     * @param array $options {
+     *
+     * @type array $except
+     * @type array $only
+     * }
      */
     public static function findFiles($dir, $options = [], $type = GetAction::TYPE_IMAGES)
     {
@@ -45,7 +55,9 @@ class FileHelper extends BaseFileHelper
         $list = [];
         $handle = opendir($dir);
         if ($handle === false) {
+            // @codeCoverageIgnoreStart
             throw new InvalidParamException('Unable to open directory: ' . $dir);
+            // @codeCoverageIgnoreEnd
         }
         while (($file = readdir($handle)) !== false) {
             if ($file === '.' || $file === '..') {
@@ -64,7 +76,7 @@ class FileHelper extends BaseFileHelper
                             ];
                         } elseif ($type === GetAction::TYPE_FILES) {
                             $link = str_replace([$options['basePath'], '\\'], [$options['url'], '/'], $path);
-                            $size = filesize($path);
+                            $size = self::getFileSize($path);
                             $list[] = [
                                 'title' => $file,
                                 'name' => $file,
@@ -78,7 +90,7 @@ class FileHelper extends BaseFileHelper
                         $list[] = $path;
                     }
                 } elseif (!isset($options['recursive']) || $options['recursive']) {
-                    $list = array_merge($list, static::findFiles($path, $options));
+                    $list = array_merge($list, static::findFiles($path, $options, $type));
                 }
             }
         }
@@ -88,7 +100,23 @@ class FileHelper extends BaseFileHelper
     }
 
     /**
+     * @param string $path
+     *
+     * @return string filesize in(B|KB|MB|GB)
+     */
+    protected static function getFileSize($path)
+    {
+        $size = filesize($path);
+        $labels = ['B', 'KB', 'MB', 'GB'];
+        $factor = floor((strlen($size) - 1) / 3);
+
+        return sprintf("%.1f ", $size / pow(1024, $factor)) . $labels[$factor];
+    }
+
+    /**
      * @inheritdoc
+     *
+     * @codeCoverageIgnore
      */
     private static function parseExcludePattern($pattern)
     {
@@ -128,6 +156,8 @@ class FileHelper extends BaseFileHelper
 
     /**
      * @inheritdoc
+     *
+     * @codeCoverageIgnore
      */
     private static function firstWildcardInPattern($pattern)
     {
@@ -135,7 +165,7 @@ class FileHelper extends BaseFileHelper
         $wildcardSearch = function ($r, $c) use ($pattern) {
             $p = strpos($pattern, $c);
 
-            return $r===false ? $p : ($p===false ? $r : min($r, $p));
+            return $r === false ? $p : ($p === false ? $r : min($r, $p));
         };
 
         return array_reduce($wildcards, $wildcardSearch, false);
