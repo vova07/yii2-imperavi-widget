@@ -13,59 +13,59 @@ use yii\web\AssetBundle;
  */
 class Asset extends AssetBundle
 {
-	/**
-	 * @inheritdoc
-	 */
-	public $sourcePath = '@vova07/imperavi/assets';
+    /**
+     * @inheritdoc
+     */
+    public $sourcePath = '@vova07/imperavi/assets';
 
-	/**
-	 * @var string Redactor language
-	 */
-	public $language;
+    /**
+     * @var string Redactor language
+     */
+    public $language;
 
-	/**
-	 * @var array Redactor plugins array
-	 */
-	public $plugins = [];
+    /**
+     * @var array Redactor plugins array
+     */
+    public $plugins = [];
 
-	/**
-	 * @inheritdoc
-	 */
-	public $css = [
-		'redactor.css'
-	];
+    /**
+     * @inheritdoc
+     */
+    public $css = [
+        'redactor.css'
+    ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public $js = [
-	    'redactor.min.js'
-	];
+    /**
+     * @inheritdoc
+     */
+    public $js = [
+        'redactor.min.js'
+    ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public $depends = [
-		'yii\web\JqueryAsset',
-		'vova07\imperavi\CroppAsset'
-	];
+    /**
+     * @inheritdoc
+     */
+    public $depends = [
+        'yii\web\JqueryAsset',
+        'vova07\imperavi\CroppAsset'
+    ];
 
-	/**
-	 * Register asset bundle language files and plugins.
-	 */
-	public function registerAssetFiles($view)
-	{
-		if ($this->language !== null) {
-			$this->js[] = 'lang/' . $this->language . '.js';
-		}
-		if (!empty($this->plugins)) {
-			foreach ($this->plugins as $plugin) {
-				if ($plugin === 'clips') {
-					$this->css[] = 'plugins/' . $plugin . '/' . $plugin . '.css';
-				}
-				$this->js[] = 'plugins/' . $plugin . '/' . $plugin .'.js';
-			}
-		}
-		parent::registerAssetFiles($view);
-	}
+    /**
+     * Register asset bundle language files and plugins.
+     */
+    public function registerAssetFiles($view)
+    {
+        if ($this->language !== null) {
+            $this->js[] = 'lang/' . $this->language . '.js';
+        }
+        if (!empty($this->plugins)) {
+            foreach ($this->plugins as $plugin) {
+                if ($plugin === 'clips') {
+                    $this->css[] = 'plugins/' . $plugin . '/' . $plugin . '.css';
+                }
+                $this->js[] = 'plugins/' . $plugin . '/' . $plugin .'.js';
+            }
+        }
+        parent::registerAssetFiles($view);
+    }
 }

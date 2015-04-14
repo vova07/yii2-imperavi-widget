@@ -3,6 +3,7 @@
 namespace vova07\imperavi\actions;
 
 use vova07\imperavi\Widget;
+use vova07\imperavi\helpers\ImageHelper;
 use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\base\InvalidCallException;
@@ -125,13 +126,37 @@ class UploadAction extends Action
     public function run()
     {
         if (Yii::$app->request->isPost) {
-            if (!empty(Yii::$app->request->post()['src']) && !empty(Yii::$app->request->post()['data'])) {
-                $croppingData = json_decode(Yii::$app->request->post()['data']);
-                $imageName = basename(Yii::$app->request->post()['src']);
-                FileHelper::cropImage($this->path, $imageName, $this->croppingPrefix, $croppingData);
+            //if data for cropping is present
+            if (!empty(Yii::$app->request->post()['src'])
+                && !empty(Yii::$app->request->post()['data'])
+                && $this->uploadOnlyImage
+            ) {
+                //make array from json
+                $croppingData = json_decode(Yii::$app->request->post()['data'], true);
+                //check if croppingData in right format
+                if (array_key_exists('x', $croppingData)
+                    && array_key_exists('y', $croppingData)
+                    && array_key_exists('width', $croppingData)
+                    && array_key_exists('height', $croppingData)
+                ){
+                    //get image name
+                    $imageName = basename(Yii::$app->request->post()['src']);
+                    //check if image was cropped
+                    if (ImageHelper::cropImage($this->path, $this->croppingPrefix, $imageName, $croppingData)) {
+                        $result['filelink'] = $this->url . $this->croppingPrefix . $imageName;
+                    } else {
+                        $result = [
+                            'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
+                        ];
+                    }
+                } else {
+                    $result = [
+                        'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
+                    ];
+                }
+
                 Yii::$app->response->format = Response::FORMAT_JSON;
-                $result['filelink'] = $this->url . $this->croppingPrefix . $imageName;
-                
+
                 return $result;
             } else {
                 $file = UploadedFile::getInstanceByName($this->uploadParam);
@@ -140,7 +165,7 @@ class UploadAction extends Action
 
                 if ($model->hasErrors()) {
                     $result = [
-                        'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
+                        'error' => $model->getFirstError('file')
                     ];
                 } else {
                     if ($this->unique === true && $model->file->extension) {
@@ -153,7 +178,7 @@ class UploadAction extends Action
                         }
                     } else {
                         $result = [
-                            'error' => Yii::t('imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
+                            'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
                         ];
                     }
                 }
