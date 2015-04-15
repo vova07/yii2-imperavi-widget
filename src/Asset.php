@@ -47,7 +47,8 @@ class Asset extends AssetBundle
      */
     public $depends = [
         'yii\web\JqueryAsset',
-        'vova07\imperavi\CroppAsset'
+        'vova07\imperavi\CroppAsset',
+        'vova07\imperavi\FontAwesome'
     ];
 
     /**

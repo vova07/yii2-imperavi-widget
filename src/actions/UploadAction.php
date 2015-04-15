@@ -133,22 +133,19 @@ class UploadAction extends Action
             ) {
                 //make array from json
                 $croppingData = json_decode(Yii::$app->request->post()['data'], true);
-                //check if croppingData in right format
-                if (array_key_exists('x', $croppingData)
-                    && array_key_exists('y', $croppingData)
-                    && array_key_exists('width', $croppingData)
-                    && array_key_exists('height', $croppingData)
-                ){
-                    //get image name
-                    $imageName = basename(Yii::$app->request->post()['src']);
-                    //check if image was cropped
-                    if (ImageHelper::cropImage($this->path, $this->croppingPrefix, $imageName, $croppingData)) {
-                        $result['filelink'] = $this->url . $this->croppingPrefix . $imageName;
-                    } else {
-                        $result = [
-                            'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
-                        ];
-                    }
+                //get image name
+                $imageName = basename(Yii::$app->request->post()['src']);
+                //check if image was cropped
+                if (ImageHelper::cropImage(
+                    $this->path,
+                    $this->croppingPrefix,
+                    $imageName,
+                    $croppingData['width'],
+                    $croppingData['height'],
+                    $croppingData['x'],
+                    $croppingData['y'])
+                ) {
+                    $result['filelink'] = $this->url . $this->croppingPrefix . $imageName;
                 } else {
                     $result = [
                         'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')

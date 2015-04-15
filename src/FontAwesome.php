@@ -11,24 +11,17 @@ use yii\web\AssetBundle;
  *
  * @link https://github.com/denar90
  */
-class CroppAsset extends AssetBundle
+class FontAwesome extends AssetBundle
 {
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@bower/cropper/dist';
+    public $sourcePath = '@bower/fontawesome';
 
     /**
      * @inheritdoc
      */
     public $css = [
-        'cropper.min.css'
-    ];
-
-    /**
-     * @inheritdoc
-     */
-    public $js = [
-        'cropper.min.js'
+        '/css/font-awesome.min.css'
     ];
 }
