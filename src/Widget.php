@@ -3,6 +3,7 @@
 namespace vova07\imperavi;
 
 use yii\base\InvalidConfigException;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\InputWidget;
@@ -32,6 +33,11 @@ class Widget extends InputWidget
     public $settings = [];
 
     /**
+     * @var array default settings that will be merged with {@link $settings}. Useful with DI container.
+     */
+    public $defaultSettings = [];
+
+    /**
      * @var string|null Selector pointing to textarea to initialize redactor for.
      * Defaults to null meaning that textarea does not exist yet and will be
      * rendered by this widget.
@@ -57,6 +63,9 @@ class Widget extends InputWidget
     {
         parent::init();
 
+        if (!empty($this->defaultSettings)) {
+            $this->settings = ArrayHelper::merge($this->defaultSettings, $this->settings);
+        }
         if (isset($this->settings['plugins']) && !is_array($this->settings['plugins']) || !is_array($this->plugins)) {
             throw new InvalidConfigException('The "plugins" property must be an array.');
         }
