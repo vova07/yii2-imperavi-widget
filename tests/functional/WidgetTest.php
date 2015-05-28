@@ -110,11 +110,20 @@ class WidgetTest extends TestCase
     }
 
     /**
+     * Test render with invalid model, name ad selector.
+     */
+    public function testRenderWithoutModelAndNameAndSelector()
+    {
+        $this->setExpectedException('yii\base\InvalidConfigException', "Either 'name', or 'model' and 'attribute' properties must be specified");
+        TestWidget::begin();
+    }
+
+    /**
      * Test render with invalid plugins property.
      */
     public function testRenderWithInvalidPluginsProperty()
     {
-        $this->setExpectedException('yii\base\InvalidConfigException');
+        $this->setExpectedException('yii\base\InvalidConfigException', 'The "plugins" property must be an array');
         TestWidget::begin(
             [
                 'selector' => 'test-selector',
