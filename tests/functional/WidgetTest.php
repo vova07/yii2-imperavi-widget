@@ -258,12 +258,13 @@ class WidgetTest extends TestCase
         $class = new ReflectionClass(TestWidget::className());
         $method = $class->getMethod('registerDefaultCallbacks');
         $method->setAccessible(true);
-        $imageUploadErrorCallback = 'function (testData) { console.log(testData); }';
+        $uploadErrorCallback = 'function (testData) { console.log(testData); }';
         $widget = TestWidget::begin(
             [
                 'name' => 'message',
                 'settings' => [
-                    'imageUpload' => 'test/url'
+                    'imageUpload' => 'test/url',
+                    'fileUpload' => 'test/url'
                 ]
             ]
         );
@@ -279,7 +280,8 @@ class WidgetTest extends TestCase
             [
                 'name' => 'message3',
                 'settings' => [
-                    'imageUploadErrorCallback' => $imageUploadErrorCallback
+                    'imageUploadErrorCallback' => $uploadErrorCallback,
+                    'fileUploadErrorCallback' => $uploadErrorCallback
                 ]
             ]
         );
@@ -290,6 +292,10 @@ class WidgetTest extends TestCase
         $this->assertArrayHasKey('imageUploadErrorCallback', $widget->settings);
         $this->assertArrayNotHasKey('imageUploadErrorCallback', $widget2->settings);
         $this->assertArrayHasKey('imageUploadErrorCallback', $widget3->settings);
-        $this->assertEquals($imageUploadErrorCallback, $widget3->settings['imageUploadErrorCallback']);
+        $this->assertEquals($uploadErrorCallback, $widget3->settings['imageUploadErrorCallback']);
+        $this->assertArrayHasKey('fileUploadErrorCallback', $widget->settings);
+        $this->assertArrayNotHasKey('fileUploadErrorCallback', $widget2->settings);
+        $this->assertArrayHasKey('fileUploadErrorCallback', $widget3->settings);
+        $this->assertEquals($uploadErrorCallback, $widget3->settings['fileUploadErrorCallback']);
     }
 }

@@ -193,6 +193,9 @@ class Widget extends BaseWidget
         if (isset($this->settings['imageUpload']) && !isset($this->settings['imageUploadErrorCallback'])) {
             $this->settings['imageUploadErrorCallback'] = new JsExpression('function (response) { alert(response.error); }');
         }
+        if (isset($this->settings['fileUpload']) && !isset($this->settings['fileUploadErrorCallback'])) {
+            $this->settings['fileUploadErrorCallback'] = new JsExpression('function (response) { alert(response.error); }');
+        }
     }
 
     /**
