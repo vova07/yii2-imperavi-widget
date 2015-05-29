@@ -77,7 +77,7 @@ class GetAction extends Action
         if ($this->path === null) {
             throw new InvalidConfigException('The "path" attribute must be set.');
         } else {
-            $this->path = rtrim(Yii::getAlias($this->path), DIRECTORY_SEPARATOR);
+            $this->path = Yii::getAlias($this->path);
         }
     }
 

@@ -37,20 +37,7 @@ class FileHelper extends BaseFileHelper
         if (!isset($options['basePath'])) {
             $options['basePath'] = realpath($dir);
             // this should also be done only once
-            if (isset($options['except'])) {
-                foreach ($options['except'] as $key => $value) {
-                    if (is_string($value)) {
-                        $options['except'][$key] = self::parseExcludePattern($value);
-                    }
-                }
-            }
-            if (isset($options['only'])) {
-                foreach ($options['only'] as $key => $value) {
-                    if (is_string($value)) {
-                        $options['only'][$key] = self::parseExcludePattern($value);
-                    }
-                }
-            }
+            $options = self::normalizeOptions($options);
         }
         $list = [];
         $handle = opendir($dir);
@@ -67,21 +54,21 @@ class FileHelper extends BaseFileHelper
             if (static::filterPath($path, $options)) {
                 if (is_file($path)) {
                     if (isset($options['url'])) {
+                        $url = str_replace([$options['basePath'], '\\'], [$options['url'], '/'], static::normalizePath($path));
+
                         if ($type === GetAction::TYPE_IMAGES) {
-                            $url = str_replace([$options['basePath'], '\\'], [$options['url'], '/'], $path);
                             $list[] = [
-                                'thumb' => $url,
-                                'image' => $url,
                                 'title' => $file,
+                                'thumb' => $url,
+                                'image' => $url
                             ];
                         } elseif ($type === GetAction::TYPE_FILES) {
-                            $link = str_replace([$options['basePath'], '\\'], [$options['url'], '/'], $path);
                             $size = self::getFileSize($path);
                             $list[] = [
                                 'title' => $file,
                                 'name' => $file,
-                                'link' => $link,
-                                'size' => $size,
+                                'link' => $url,
+                                'size' => $size
                             ];
                         } else {
                             $list[] = $path;
@@ -169,5 +156,32 @@ class FileHelper extends BaseFileHelper
         };
 
         return array_reduce($wildcards, $wildcardSearch, false);
+    }
+
+    /**
+     * @inheritdoc
+     *
+     * @codeCoverageIgnore
+     */
+    private static function normalizeOptions(array $options)
+    {
+        if (!array_key_exists('caseSensitive', $options)) {
+            $options['caseSensitive'] = true;
+        }
+        if (isset($options['except'])) {
+            foreach ($options['except'] as $key => $value) {
+                if (is_string($value)) {
+                    $options['except'][$key] = self::parseExcludePattern($value, $options['caseSensitive']);
+                }
+            }
+        }
+        if (isset($options['only'])) {
+            foreach ($options['only'] as $key => $value) {
+                if (is_string($value)) {
+                    $options['only'][$key] = self::parseExcludePattern($value, $options['caseSensitive']);
+                }
+            }
+        }
+        return $options;
     }
 }
