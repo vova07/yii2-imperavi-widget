@@ -298,4 +298,42 @@ class WidgetTest extends TestCase
         $this->assertArrayHasKey('fileUploadErrorCallback', $widget3->settings);
         $this->assertEquals($uploadErrorCallback, $widget3->settings['fileUploadErrorCallback']);
     }
+
+    /**
+     * Test callbacks registration.
+     */
+    public function testDefaultSettings()
+    {
+        $class = new ReflectionClass(TestWidget::className());
+        $method = $class->getMethod('init');
+        $method->setAccessible(true);
+        $widget = TestWidget::begin(
+            [
+                'name' => 'message',
+                'settings' => [
+                    'lang' => 'ru'
+                ]
+            ]
+        );
+        $widget2 = TestWidget::begin(
+            [
+                'name' => 'message2',
+                'settings' => [
+                    'lang' => 'uk'
+                ],
+                'defaultSettings' => [
+                    'lang' => 'ru',
+                    'minHeight' => 200
+                ]
+            ]
+        );
+        $method->invoke($widget);
+        $method->invoke($widget2);
+
+        $this->assertArrayHasKey('lang', $widget->settings);
+        $this->assertEquals('ru', $widget->settings['lang']);
+        $this->assertArrayHasKey('lang', $widget2->settings);
+        $this->assertArrayHasKey('minHeight', $widget2->settings);
+        $this->assertEquals('uk', $widget2->settings['lang']);
+    }
 }

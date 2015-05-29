@@ -6,6 +6,7 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\base\Widget as BaseWidget;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\web\JsExpression;
@@ -67,6 +68,11 @@ class Widget extends BaseWidget
     public $settings = [];
 
     /**
+     * @var array Default settings that will be merged with {@link $settings}. Useful with DI container.
+     */
+    public $defaultSettings = [];
+
+    /**
      * This property must be used only for registering widget custom plugins.
      * The key is the name of the plugin, and the value must be the class name of the plugin bundle.
      * @var array Widget custom plugins key => value array
@@ -88,6 +94,9 @@ class Widget extends BaseWidget
         }
         if (!isset($this->options['id'])) {
             $this->options['id'] = $this->hasModel() ? Html::getInputId($this->model, $this->attribute) : $this->getId();
+        }
+        if (!empty($this->defaultSettings)) {
+            $this->settings = ArrayHelper::merge($this->defaultSettings, $this->settings);
         }
         if (isset($this->settings['plugins']) && !is_array($this->settings['plugins']) || !is_array($this->plugins)) {
             throw new InvalidConfigException('The "plugins" property must be an array.');

@@ -7,6 +7,7 @@ All Notable changes to `yii2-imperavi-widget` will be documented in this file.
 ### Fixed
 - Issue #39. (vova07)
 - Issue #35. (vova07)
+- Issue #19. (vova07)
 
 ## 1.2.3
 
