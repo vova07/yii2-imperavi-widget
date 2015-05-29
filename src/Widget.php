@@ -8,6 +8,7 @@ use yii\base\Model;
 use yii\base\Widget as BaseWidget;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\web\JsExpression;
 
 /**
  * Imperavi Redactor widget.
@@ -82,8 +83,6 @@ class Widget extends BaseWidget
      */
     public function init()
     {
-        parent::init();
-
         if ($this->name === null && !$this->hasModel() && $this->selector === null) {
             throw new InvalidConfigException("Either 'name', or 'model' and 'attribute' properties must be specified.");
         }
@@ -111,7 +110,7 @@ class Widget extends BaseWidget
         }
         // @codeCoverageIgnoreEnd
 
-        self::registerTranslations();
+        parent::init();
     }
 
     /**
@@ -119,7 +118,7 @@ class Widget extends BaseWidget
      */
     public function run()
     {
-        $this->registerClientScript();
+        $this->register();
 
         if ($this->_renderTextarea === true) {
             if ($this->hasModel()) {
@@ -148,9 +147,19 @@ class Widget extends BaseWidget
     }
 
     /**
+     * Register all widget logic.
+     */
+    protected function register()
+    {
+        self::registerTranslations();
+        $this->registerDefaultCallbacks();
+        $this->registerClientScripts();
+    }
+
+    /**
      * Register widget asset.
      */
-    public function registerClientScript()
+    protected function registerClientScripts()
     {
         $view = $this->getView();
         $selector = Json::encode($this->selector);
@@ -174,6 +183,16 @@ class Widget extends BaseWidget
         $settings = !empty($this->settings) ? Json::encode($this->settings) : '';
 
         $view->registerJs("jQuery($selector).redactor($settings);", $view::POS_READY, self::INLINE_JS_KEY . $this->options['id']);
+    }
+
+    /**
+     * Register default callbacks.
+     */
+    protected function registerDefaultCallbacks()
+    {
+        if (isset($this->settings['imageUpload']) && !isset($this->settings['imageUploadErrorCallback'])) {
+            $this->settings['imageUploadErrorCallback'] = new JsExpression('function (response) { alert(response.error); }');
+        }
     }
 
     /**

@@ -154,7 +154,7 @@ class WidgetTest extends TestCase
     public function testRegisterClientScriptMethod()
     {
         $class = new ReflectionClass(TestWidget::className());
-        $method = $class->getMethod('registerClientScript');
+        $method = $class->getMethod('registerClientScripts');
         $method->setAccessible(true);
         $model = new Model();
         Yii::$app->language = 'ru-RU';
@@ -187,7 +187,7 @@ class WidgetTest extends TestCase
     public function testRegisterClientScriptMethodWithSettings()
     {
         $class = new ReflectionClass(TestWidget::className());
-        $method = $class->getMethod('registerClientScript');
+        $method = $class->getMethod('registerClientScripts');
         $method->setAccessible(true);
         $model = new Model();
         $widget = TestWidget::begin(
@@ -248,5 +248,48 @@ class WidgetTest extends TestCase
         ];
         $this->assertArrayHasKey('vova07/imperavi', Yii::$app->i18n->translations);
         $this->assertEquals($test, Yii::$app->i18n->translations['vova07/imperavi']);
+    }
+
+    /**
+     * Test callbacks registration.
+     */
+    public function testRegisterDefaultCallbacksMethod()
+    {
+        $class = new ReflectionClass(TestWidget::className());
+        $method = $class->getMethod('registerDefaultCallbacks');
+        $method->setAccessible(true);
+        $imageUploadErrorCallback = 'function (testData) { console.log(testData); }';
+        $widget = TestWidget::begin(
+            [
+                'name' => 'message',
+                'settings' => [
+                    'imageUpload' => 'test/url'
+                ]
+            ]
+        );
+        $widget2 = TestWidget::begin(
+            [
+                'name' => 'message2',
+                'settings' => [
+                    'lang' => 'ru'
+                ]
+            ]
+        );
+        $widget3 = TestWidget::begin(
+            [
+                'name' => 'message3',
+                'settings' => [
+                    'imageUploadErrorCallback' => $imageUploadErrorCallback
+                ]
+            ]
+        );
+        $method->invoke($widget);
+        $method->invoke($widget2);
+        $method->invoke($widget3);
+
+        $this->assertArrayHasKey('imageUploadErrorCallback', $widget->settings);
+        $this->assertArrayNotHasKey('imageUploadErrorCallback', $widget2->settings);
+        $this->assertArrayHasKey('imageUploadErrorCallback', $widget3->settings);
+        $this->assertEquals($imageUploadErrorCallback, $widget3->settings['imageUploadErrorCallback']);
     }
 }
