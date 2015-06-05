@@ -16,7 +16,7 @@ class Asset extends AssetBundle
 	/**
 	 * @inheritdoc
 	 */
-	public $sourcePath = '@vova07/imperavi/assets';
+	public $sourcePath = '@vendor/vova07/yii2-imperavi-widget/src/assets';
 
 	/**
 	 * @var string Redactor language
