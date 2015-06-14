@@ -104,10 +104,8 @@ class Widget extends BaseWidget
         if (!isset($this->settings['lang']) && Yii::$app->language !== 'en-US') {
             $this->settings['lang'] = substr(Yii::$app->language, 0, 2);
         }
-        if ($this->selector === null) {
+        if (empty($this->selector)) {
             $this->selector = '#' . $this->options['id'];
-        } else {
-            $this->_renderTextarea = false;
         }
 
         // @codeCoverageIgnoreStart
