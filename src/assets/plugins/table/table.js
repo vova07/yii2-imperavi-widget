@@ -157,7 +157,7 @@
 									}
 								};
 
-				dropdown.delete_row = {
+				dropdown.delete_table = {
 									title: this.lang.get('delete_table'),
 									func: this.table.deleteTable,
 									observe: {
