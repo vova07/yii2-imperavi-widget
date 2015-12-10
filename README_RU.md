@@ -182,7 +182,8 @@ public function actions()
         'file-upload' => [
             'class' => 'vova07\imperavi\actions\UploadAction',
             'url' => 'http://my-site.com/files/', // URL адрес папки куда будут загружатся файлы.
-            'path' => '@alias/to/my/path' // Или абсолютный путь к папке куда будут загружатся изображения.
+            'path' => '@alias/to/my/path', // Или абсолютный путь к папке куда будут загружатся файлы.
+            'uploadOnlyImage' => false, // Для загрузки не только изображений.
         ],
     ];
 }
