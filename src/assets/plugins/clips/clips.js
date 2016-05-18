@@ -25,13 +25,13 @@
 
 				this.modal.addTemplate('clips', '<section>' + this.utils.getOuterHtml(this.clips.template) + '</section>');
 
-				var button = this.button.add('clips', 'Clips');
+				var button = this.button.add('clips', this.lang.get('clips'));
 				this.button.addCallback(button, this.clips.show);
 
 			},
 			show: function()
 			{
-				this.modal.load('clips', 'Insert Clips', 400);
+				this.modal.load('clips', this.lang.get('insert_clips'), 400);
 
 				this.modal.createCancelButton();
 

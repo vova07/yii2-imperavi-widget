@@ -70,6 +70,11 @@ $.Redactor.opts.langs['tr'] = {
 	alignment: 'Hizalama',
 	filename: 'Dosya Adı (isteğe bağlı)',
 	edit: 'Düzenle',
-	center: 'Center'
+	center: 'Center',
+    insert_clips: 'Insert Clips',
+	clips: 'Clips',
+	fullscreen: 'Fullscreen',
+	remove_font_size: 'Remove Font Size',
+	change_font_size: 'Change Font Size'
 };
 })( jQuery );

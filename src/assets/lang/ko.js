@@ -70,6 +70,11 @@ $.Redactor.opts.langs['ko'] = {
 	alignment: '정렬',
 	filename: '파일명 (선택)',
 	edit: '편집',
-	center: 'Center'
+	center: 'Center',
+    insert_clips: 'Insert Clips',
+	clips: 'Clips',
+	fullscreen: 'Fullscreen',
+	remove_font_size: 'Remove Font Size',
+	change_font_size: 'Change Font Size'
 };
 })( jQuery );

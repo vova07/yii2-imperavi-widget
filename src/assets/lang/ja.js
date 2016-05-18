@@ -70,6 +70,11 @@ $.Redactor.opts.langs['ja'] = {
 	alignment: '行揃え',
 	filename: '名前（オプション）',
 	edit: '編集',
-	center: 'Center'
+	center: 'Center',
+    insert_clips: 'Insert Clips',
+	clips: 'Clips',
+	fullscreen: 'Fullscreen',
+	remove_font_size: 'Remove Font Size',
+	change_font_size: 'Change Font Size'
 };
 })( jQuery );

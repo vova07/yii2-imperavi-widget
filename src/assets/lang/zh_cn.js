@@ -70,6 +70,11 @@ $.Redactor.opts.langs['zh_cn'] = {
 	alignment: '对齐',
 	filename: '文件名 (可选)',
 	edit: '编辑',
-	center: '居中'
+	center: '居中',
+	insert_clips: '插入剪贴板',
+	clips: '剪贴板',
+	fullscreen: '全屏',
+	remove_font_size: '移除字体尺寸',
+	change_font_size: '改变字体尺寸'
 };
 })( jQuery );
