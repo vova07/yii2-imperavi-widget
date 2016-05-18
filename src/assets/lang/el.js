@@ -69,7 +69,11 @@ $.Redactor.opts.langs['el'] = {
 	alignment: 'Στοίχιση',
 	filename: 'Όνομα (προαιρετικό)',
 	edit: 'Τροποποίηση',
-	center: 'Κέντρο',
+	center: 'Κέντρο',,
+    insert_clips: 'Insert Clips',
+	clips: 'Clips',
+	fullscreen: 'Fullscreen',
+	remove_font_size: 'Remove Font Size',
+	change_font_size: 'Change Font Size'
 };
 })( jQuery );
-
