@@ -1,12 +1,5 @@
 # Imperavi Redactor Widget for Yii 2
 
-[![Latest Version](https://img.shields.io/github/tag/vova07/yii2-imperavi-widget.svg?style=flat-square&label=release)](https://github.com/vova07/yii2-imperavi-widget/releases)
-[![Software License](https://img.shields.io/badge/license-BSD-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/vova07/yii2-imperavi-widget/master.svg?style=flat-square)](https://travis-ci.org/vova07/yii2-imperavi-widget)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://scrutinizer-ci.com/g/vova07/yii2-imperavi-widget/code-structure)
-[![Quality Score](https://img.shields.io/scrutinizer/g/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://scrutinizer-ci.com/g/vova07/yii2-imperavi-widget)
-[![Total Downloads](https://img.shields.io/packagist/dt/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://packagist.org/packages/vova07/yii2-imperavi-widget)
-
 `Imperavi Redactor Widget` is a wrapper for [Imperavi Redactor](http://imperavi.com/redactor/),
 a high quality WYSIWYG editor.
 
@@ -20,13 +13,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```bash
-$ php composer.phar require --prefer-dist vova07/yii2-imperavi-widget "*"
+$ php composer.phar require --prefer-dist weison-tech/yii2-imperavi-widget "*"
 ```
 
 or add
 
 ```json
-"vova07/yii2-imperavi-widget": "*"
+"weison-tech/yii2-imperavi-widget": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -42,7 +35,7 @@ Once the extension is installed, simply use it in your code:
 echo \vova07\imperavi\Widget::widget([
     'name' => 'redactor',
     'settings' => [
-        'lang' => 'ru',
+        'lang' => 'zh_cn',
         'minHeight' => 200,
         'plugins' => [
             'clips',
@@ -59,7 +52,7 @@ use vova07\imperavi\Widget;
 
 echo $form->field($model, 'content')->widget(Widget::className(), [
     'settings' => [
-        'lang' => 'ru',
+        'lang' => 'zh_cn',
         'minHeight' => 200,
         'plugins' => [
             'clips',
@@ -75,7 +68,7 @@ echo $form->field($model, 'content')->widget(Widget::className(), [
 echo \vova07\imperavi\Widget::widget([
     'selector' => '#my-textarea-id',
     'settings' => [
-        'lang' => 'ru',
+        'lang' => 'zh_cn',
         'minHeight' => 200,
         'plugins' => [
             'clips',
@@ -105,7 +98,7 @@ public function actions()
 echo \vova07\imperavi\Widget::widget([
     'selector' => '#my-textarea-id',
     'settings' => [
-        'lang' => 'ru',
+        'lang' => 'zh_cn',
         'minHeight' => 200,
         'imageManagerJson' => Url::to(['/default/images-get']),
         'plugins' => [
@@ -135,7 +128,7 @@ public function actions()
 echo \vova07\imperavi\Widget::widget([
     'selector' => '#my-textarea-id',
     'settings' => [
-        'lang' => 'ru',
+        'lang' => 'zh_cn',
         'minHeight' => 200,
         'fileManagerJson' => Url::to(['/default/files-get']),
         'plugins' => [
@@ -164,7 +157,7 @@ public function actions()
 echo \vova07\imperavi\Widget::widget([
     'selector' => '#my-textarea-id',
     'settings' => [
-        'lang' => 'ru',
+        'lang' => 'zh_cn',
         'minHeight' => 200,
         'imageUpload' => Url::to(['/default/image-upload'])
     ]
@@ -191,7 +184,7 @@ public function actions()
 echo \vova07\imperavi\Widget::widget([
     'selector' => '#my-textarea-id',
     'settings' => [
-        'lang' => 'ru',
+        'lang' => 'zh_cn',
         'minHeight' => 200,
         'fileUpload' => Url::to(['/default/file-upload'])
     ]
@@ -204,7 +197,7 @@ echo \vova07\imperavi\Widget::widget([
 echo \vova07\imperavi\Widget::widget([
     'selector' => '#my-textarea-id',
     'settings' => [
-        'lang' => 'ru',
+        'lang' => 'zh_cn',
         'minHeight' => 200,
         'plugins' => [
             'clips',
