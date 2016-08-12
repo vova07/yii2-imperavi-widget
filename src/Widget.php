@@ -146,7 +146,7 @@ class Widget extends BaseWidget
         if (!isset(Yii::$app->i18n->translations['vova07/imperavi']) && !isset(Yii::$app->i18n->translations['vova07/imperavi/*'])) {
             Yii::$app->i18n->translations['vova07/imperavi'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
-                'basePath' => '@vova07/imperavi/messages',
+                'basePath' => '@vendor/vova07/yii2-imperavi-widget/src/messages',
                 'forceTranslation' => true,
                 'fileMap' => [
                     'vova07/imperavi' => 'imperavi.php'
