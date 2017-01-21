@@ -17,5 +17,5 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
 return [
-    'ERROR_CAN_NOT_UPLOAD_FILE' => 'Не удалось загрузить файл.',
+    'ERROR_CAN_NOT_UPLOAD_FILE' => 'Не удалось загрузить файл.'
 ];

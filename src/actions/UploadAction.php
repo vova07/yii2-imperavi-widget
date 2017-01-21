@@ -3,6 +3,7 @@
 namespace vova07\imperavi\actions;
 
 use vova07\imperavi\Widget;
+use vova07\imperavi\helpers\ImageHelper;
 use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\base\InvalidCallException;
@@ -89,6 +90,11 @@ class UploadAction extends Action
     private $_validator = 'image';
 
     /**
+     * @var string Prefix for cropped image
+     */
+    private $croppingPrefix = 'crop_';
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -120,32 +126,63 @@ class UploadAction extends Action
     public function run()
     {
         if (Yii::$app->request->isPost) {
-            $file = UploadedFile::getInstanceByName($this->uploadParam);
-            $model = new DynamicModel(compact('file'));
-            $model->addRule('file', $this->_validator, $this->validatorOptions)->validate();
-
-            if ($model->hasErrors()) {
-                $result = [
-                    'error' => $model->getFirstError('file')
-                ];
-            } else {
-                if ($this->unique === true && $model->file->extension) {
-                    $model->file->name = uniqid() . '.' . $model->file->extension;
-                }
-                if ($model->file->saveAs($this->path . $model->file->name)) {
-                    $result = ['filelink' => $this->url . $model->file->name];
-                    if ($this->uploadOnlyImage !== true) {
-                        $result['filename'] = $model->file->name;
-                    }
+            //if data for cropping is present
+            if (!empty(Yii::$app->request->post()['src'])
+                && !empty(Yii::$app->request->post()['data'])
+                && $this->uploadOnlyImage
+            ) {
+                //make array from json
+                $croppingData = json_decode(Yii::$app->request->post()['data'], true);
+                //get image name
+                $imageName = basename(Yii::$app->request->post()['src']);
+                //check if image was cropped
+                if (ImageHelper::cropImage(
+                    $this->path,
+                    $this->croppingPrefix,
+                    $imageName,
+                    $croppingData['width'],
+                    $croppingData['height'],
+                    $croppingData['x'],
+                    $croppingData['y'])
+                ) {
+                    $result['filelink'] = $this->url . $this->croppingPrefix . $imageName;
                 } else {
                     $result = [
                         'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
                     ];
                 }
-            }
-            Yii::$app->response->format = Response::FORMAT_JSON;
 
-            return $result;
+                Yii::$app->response->format = Response::FORMAT_JSON;
+
+                return $result;
+            } else {
+                $file = UploadedFile::getInstanceByName($this->uploadParam);
+                $model = new DynamicModel(compact('file'));
+                $model->addRule('file', $this->_validator, $this->validatorOptions)->validate();
+
+                if ($model->hasErrors()) {
+                    $result = [
+                        'error' => $model->getFirstError('file')
+                    ];
+                } else {
+                    if ($this->unique === true && $model->file->extension) {
+                        $model->file->name = uniqid() . '.' . $model->file->extension;
+                    }
+                    if ($model->file->saveAs($this->path . $model->file->name)) {
+                        $result = ['filelink' => $this->url . $model->file->name];
+                        if ($this->uploadOnlyImage !== true) {
+                            $result['filename'] = $model->file->name;
+                        }
+                    } else {
+                        $result = [
+                            'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
+                        ];
+                    }
+                }
+                Yii::$app->response->format = Response::FORMAT_JSON;
+
+                return $result;
+            }
         } else {
             throw new BadRequestHttpException('Only POST is allowed');
         }
