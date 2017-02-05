@@ -65,12 +65,14 @@ $.Redactor.opts.langs['ua'] = {
 	horizontalrule: 'Горизонтальная лінійка',
 	fullscreen: 'На весь екран',
 	deleted: 'Закреслений',
-    anchor: 'Anchor',
-	link_new_tab: 'Open link in new tab',
-	underline: 'Underline',
-	alignment: 'Alignment',
-	filename: 'Name (optional)',
-	edit: 'Edit',
-	center: 'Center'
+    anchor: 'Якір',
+	link_new_tab: 'Відкрити посилання у новій вкладці',
+	underline: 'Підкреслювання',
+	alignment: 'Вирівнювання',
+	filename: 'Назва (не обов\'язково)',
+	edit: 'Редагувати',
+	center: 'По центру',
+	undo: 'Скасувати',
+	redo: 'Повернути'
 };
 })( jQuery );
