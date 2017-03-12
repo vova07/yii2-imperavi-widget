@@ -1,17 +1,17 @@
 <?php
 
-namespace vova07\imperavi\actions;
+namespace the0rist\imperavi\actions;
 
 use Yii;
 use yii\base\Action;
 use yii\base\InvalidCallException;
 use yii\base\InvalidConfigException;
 use yii\web\Response;
-use vova07\imperavi\helpers\FileHelper;
+use the0rist\imperavi\helpers\FileHelper;
 
 /**
  * Class GetAction
- * @package vova07\imperavi\actions
+ * @package the0rist\imperavi\actions
  *
  * GetAction returns a JSON array of the files found under the specified directory and subdirectories.
  * This array can be used in Imperavi Redactor to insert some files that have already been uploaded.
@@ -34,7 +34,7 @@ use vova07\imperavi\helpers\FileHelper;
  *
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
- * @link https://github.com/vova07
+ * @link https://github.com/the0rist
  */
 class GetAction extends Action
 {
@@ -54,7 +54,7 @@ class GetAction extends Action
     public $url;
 
     /**
-     * [\vova07\imperavi\helpers\FileHelper::findFiles()|FileHelper::findFiles()] options argument.
+     * [\the0rist\imperavi\helpers\FileHelper::findFiles()|FileHelper::findFiles()] options argument.
      * @var array Options
      */
     public $options = [];

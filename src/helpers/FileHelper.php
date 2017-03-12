@@ -1,8 +1,8 @@
 <?php
 
-namespace vova07\imperavi\helpers;
+namespace the0rist\imperavi\helpers;
 
-use vova07\imperavi\actions\GetAction;
+use the0rist\imperavi\actions\GetAction;
 use yii\base\InvalidParamException;
 use yii\helpers\BaseFileHelper;
 use yii\helpers\StringHelper;
@@ -12,7 +12,7 @@ use yii\helpers\StringHelper;
  *
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
- * @link https://github.com/vova07
+ * @link https://github.com/the0rist
  */
 class FileHelper extends BaseFileHelper
 {
