@@ -1,8 +1,8 @@
 <?php
 
-namespace vova07\imperavi\actions;
+namespace the0rist\imperavi\actions;
 
-use vova07\imperavi\Widget;
+use the0rist\imperavi\Widget;
 use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\base\InvalidCallException;
@@ -15,7 +15,7 @@ use Yii;
 
 /**
  * Class UploadAction
- * @package vova07\imperavi\actions
+ * @package the0rist\imperavi\actions
  *
  * UploadAction for images and files.
  *
@@ -26,7 +26,7 @@ use Yii;
  * {
  *     return [
  *         'upload-image' => [
- *             'class' => 'vova07\imperavi\actions\UploadAction',
+ *             'class' => 'the0rist\imperavi\actions\UploadAction',
  *             'url' => 'http://my-site.com/statics/',
  *             'path' => '/var/www/my-site.com/web/statics',
  *             'validatorOptions' => [
@@ -35,7 +35,7 @@ use Yii;
  *             ]
  *         ],
  *         'file-upload' => [
- *             'class' => 'vova07\imperavi\actions\UploadAction',
+ *             'class' => 'the0rist\imperavi\actions\UploadAction',
  *             'url' => 'http://my-site.com/statics/',
  *             'path' => '/var/www/my-site.com/web/statics',
  *             'uploadOnlyImage' => false,
@@ -49,7 +49,7 @@ use Yii;
  *
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
- * @link https://github.com/vova07
+ * @link https://github.com/the0rist
  */
 class UploadAction extends Action
 {
@@ -139,7 +139,7 @@ class UploadAction extends Action
                     }
                 } else {
                     $result = [
-                        'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
+                        'error' => Yii::t('the0rist/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
                     ];
                 }
             }

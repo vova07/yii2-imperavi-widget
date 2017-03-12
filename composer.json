@@ -1,5 +1,5 @@
 {
-    "name": "vova07/yii2-imperavi-widget",
+    "name": "the0rist/yii2-imperavi-widget",
     "description": "The imperavi redactor widget for Yii 2 framework.",
     "type": "yii2-extension",
     "keywords": [
@@ -12,19 +12,19 @@
         "redactor",
         "wysiwyg"
     ],
-    "homepage": "https://github.com/vova07/yii2-imperavi-widget",
+    "homepage": "https://github.com/the0rist/yii2-imperavi-widget",
     "license": "BSD-3-Clause",
     "authors": [
         {
-            "name": "Crudu Vasile",
-            "email": "bazillio07@yandex.ru",
-            "homepage": "https://github.com/vova07",
+            "name": "Oleg Kuzmenko",
+            "email": "oleg.wrs@gmail.com",
+            "homepage": "https://github.com/the0rist",
             "role": "Developer"
         }
     ],
     "support": {
-        "issues": "https://github.com/vova07/yii2-imperavi-widget/issues?state=open",
-        "source": "https://github.com/vova07/yii2-imperavi-widget"
+        "issues": "https://github.com/the0rist/yii2-imperavi-widget/issues?state=open",
+        "source": "https://github.com/the0rist/yii2-imperavi-widget"
     },
     "require": {
         "yiisoft/yii2": "*"
@@ -36,7 +36,7 @@
     },
     "autoload": {
         "psr-4": {
-            "vova07\\imperavi\\": "src"
+            "the0rist\\imperavi\\": "src"
         }
     },
     "extra": {
