@@ -20,13 +20,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```bash
-$ php composer.phar require --prefer-dist vova07/yii2-imperavi-widget "*"
+$ php composer.phar require --prefer-dist the0rist/yii2-imperavi-widget "*"
 ```
 
 or add
 
 ```json
-"vova07/yii2-imperavi-widget": "*"
+"the0rist/yii2-imperavi-widget": "*"
 ```
 
 to the require section of your `composer.json` file.
@@ -39,7 +39,7 @@ Once the extension is installed, simply use it in your code:
 ### Like a widget ###
 
 ```php
-echo \vova07\imperavi\Widget::widget([
+echo \the0rist\imperavi\Widget::widget([
     'name' => 'redactor',
     'settings' => [
         'lang' => 'ru',
@@ -55,7 +55,7 @@ echo \vova07\imperavi\Widget::widget([
 ### Like an ActiveForm widget ###
 
 ```php
-use vova07\imperavi\Widget;
+use the0rist\imperavi\Widget;
 
 echo $form->field($model, 'content')->widget(Widget::className(), [
     'settings' => [
@@ -72,7 +72,7 @@ echo $form->field($model, 'content')->widget(Widget::className(), [
 ### Like a widget for a predefined textarea ###
 
 ```php
-echo \vova07\imperavi\Widget::widget([
+echo \the0rist\imperavi\Widget::widget([
     'selector' => '#my-textarea-id',
     'settings' => [
         'lang' => 'ru',
@@ -93,7 +93,7 @@ public function actions()
 {
     return [
         'images-get' => [
-            'class' => 'vova07\imperavi\actions\GetAction',
+            'class' => 'the0rist\imperavi\actions\GetAction',
             'url' => 'http://my-site.com/images/', // Directory URL address, where files are stored.
             'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
             'type' => GetAction::TYPE_IMAGES,
@@ -102,7 +102,7 @@ public function actions()
 }
 
 // View.php
-echo \vova07\imperavi\Widget::widget([
+echo \the0rist\imperavi\Widget::widget([
     'selector' => '#my-textarea-id',
     'settings' => [
         'lang' => 'ru',
@@ -123,7 +123,7 @@ public function actions()
 {
     return [
         'files-get' => [
-            'class' => 'vova07\imperavi\actions\GetAction',
+            'class' => 'the0rist\imperavi\actions\GetAction',
             'url' => 'http://my-site.com/files/', // Directory URL address, where files are stored.
             'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
             'type' => GetAction::TYPE_FILES,
@@ -132,7 +132,7 @@ public function actions()
 }
 
 // View.php
-echo \vova07\imperavi\Widget::widget([
+echo \the0rist\imperavi\Widget::widget([
     'selector' => '#my-textarea-id',
     'settings' => [
         'lang' => 'ru',
@@ -153,7 +153,7 @@ public function actions()
 {
     return [
         'image-upload' => [
-            'class' => 'vova07\imperavi\actions\UploadAction',
+            'class' => 'the0rist\imperavi\actions\UploadAction',
             'url' => 'http://my-site.com/images/', // Directory URL address, where files are stored.
             'path' => '@alias/to/my/path' // Or absolute path to directory where files are stored.
         ],
@@ -161,7 +161,7 @@ public function actions()
 }
 
 // View.php
-echo \vova07\imperavi\Widget::widget([
+echo \the0rist\imperavi\Widget::widget([
     'selector' => '#my-textarea-id',
     'settings' => [
         'lang' => 'ru',
@@ -179,7 +179,7 @@ public function actions()
 {
     return [
         'file-upload' => [
-            'class' => 'vova07\imperavi\actions\UploadAction',
+            'class' => 'the0rist\imperavi\actions\UploadAction',
             'url' => 'http://my-site.com/files/', // Directory URL address, where files are stored.
             'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
             'uploadOnlyImage' => false, // For not image-only uploading.
@@ -188,7 +188,7 @@ public function actions()
 }
 
 // View.php
-echo \vova07\imperavi\Widget::widget([
+echo \the0rist\imperavi\Widget::widget([
     'selector' => '#my-textarea-id',
     'settings' => [
         'lang' => 'ru',
@@ -201,7 +201,7 @@ echo \vova07\imperavi\Widget::widget([
 ### Add custom plugins ###
 
 ```php
-echo \vova07\imperavi\Widget::widget([
+echo \the0rist\imperavi\Widget::widget([
     'selector' => '#my-textarea-id',
     'settings' => [
         'lang' => 'ru',
@@ -230,11 +230,6 @@ Please, check the [Imperavi Redactor](http://imperavi.com/redactor/) documentati
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-## Credits
-
-- [Vasile Crudu](https://github.com/vova07)
-- [All Contributors](../../contributors)
 
 ## License
 
