@@ -36,7 +36,7 @@
     },
     "autoload": {
         "psr-4": {
-            "vova07\\imperavi\\": "src"
+            "the0rist\\imperavi\\": "src"
         }
     },
     "extra": {

@@ -62,7 +62,7 @@ $.Redactor.opts.langs['ua'] = {
 	align_center: 'По центру',
 	align_right: 'По правому краю',
 	align_justify: 'Вирівняти текст по ширині',
-	horizontalrule: 'Горизонтальна лінійка',
+	horizontalrule: 'Горизонтальна лінія',
 	fullscreen: 'На весь екран',
 	deleted: 'Закреслений',
     anchor: 'Якір',

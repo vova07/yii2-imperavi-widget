@@ -61,7 +61,7 @@
 
 				var current = this.selection.getBlock() || this.selection.getCurrent();
 
-				if (current) $(current).after(data);
+				if (current) $(current).before(data);
 				else
 				{
 					this.insert.html(data);
