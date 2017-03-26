@@ -63,7 +63,7 @@ $.Redactor.opts.langs['en'] = {
 	align_justify: 'Align Justify',
 	horizontalrule: 'Horizontal Ruler',
 	fullscreen: 'Fullscreen',
-	deleted: 'Deleted,
+	deleted: 'Deleted',
 	anchor: 'Anchor',
 	link_new_tab: 'Link New Tab',
 	underline: 'Underline',
@@ -71,48 +71,6 @@ $.Redactor.opts.langs['en'] = {
 	filename: 'Name (optional)',
 	edit: 'Edit',
 	center: 'Center'
-	
-	
-
-
-
-
-
-
-
-
-    "insert": "Insert",
-    "save": "Save",
-    "delete": "Delete",
-    "text": "Text",
-    "edit": "Edit",
-    "title": "Title",
-    "paragraph": "Normal text",
-    "quote": "Quote",
-    "code": "Code",
-    "heading1": "Heading 1",
-    "heading2": "Heading 2",
-    "heading3": "Heading 3",
-    "heading4": "Heading 4",
-    "heading5": "Heading 5",
-    "heading6": "Heading 6",
-    "filename": "Name",
-    "optional": "optional",
-    "unorderedlist": "Unordered List",
-    "orderedlist": "Ordered List",
-    "outdent": "Outdent",
-    "indent": "Indent",
-    "horizontalrule": "Line",
-    "upload-label": "Drop file here or ",
-    "accessibility-help-label": "Rich text editor",
-    "caption": "Caption",
-    "bulletslist": "Bullets",
-    "numberslist": "Numbers",
-    "image-position": "Position",
-    "none": "None",
-    "left": "Left",
-    "right": "Right",
-    "center": "Center"
 };
 
 })(jQuery);
