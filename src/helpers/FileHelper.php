@@ -163,7 +163,7 @@ class FileHelper extends BaseFileHelper
      *
      * @codeCoverageIgnore
      */
-    private static function normalizeOptions(array $options)
+    protected static function normalizeOptions(array $options)
     {
         if (!array_key_exists('caseSensitive', $options)) {
             $options['caseSensitive'] = true;
