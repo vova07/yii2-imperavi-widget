@@ -26,6 +26,7 @@
         "issues": "https://github.com/vova07/yii2-imperavi-widget/issues?state=open",
         "source": "https://github.com/vova07/yii2-imperavi-widget"
     },
+    "minimum-stability": "stable",
     "require": {
         "yiisoft/yii2": "*"
     },
@@ -37,14 +38,6 @@
     "autoload": {
         "psr-4": {
             "vova07\\imperavi\\": "src"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0.x-dev"
-        },
-        "asset-installer-paths": {
-            "bower-asset-library": "vendor/bower"
         }
     }
 }
