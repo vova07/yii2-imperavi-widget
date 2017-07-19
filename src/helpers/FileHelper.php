@@ -37,7 +37,7 @@ class FileHelper extends BaseFileHelper
         if (!isset($options['basePath'])) {
             $options['basePath'] = realpath($dir);
             // this should also be done only once
-            $options = self::normalizeOptions($options);
+            $options = static::normalizeOptions($options);
         }
         $list = [];
         $handle = opendir($dir);
@@ -156,32 +156,5 @@ class FileHelper extends BaseFileHelper
         };
 
         return array_reduce($wildcards, $wildcardSearch, false);
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @codeCoverageIgnore
-     */
-    private static function normalizeOptions(array $options)
-    {
-        if (!array_key_exists('caseSensitive', $options)) {
-            $options['caseSensitive'] = true;
-        }
-        if (isset($options['except'])) {
-            foreach ($options['except'] as $key => $value) {
-                if (is_string($value)) {
-                    $options['except'][$key] = self::parseExcludePattern($value, $options['caseSensitive']);
-                }
-            }
-        }
-        if (isset($options['only'])) {
-            foreach ($options['only'] as $key => $value) {
-                if (is_string($value)) {
-                    $options['only'][$key] = self::parseExcludePattern($value, $options['caseSensitive']);
-                }
-            }
-        }
-        return $options;
     }
 }
