@@ -9,10 +9,12 @@ php:
 install:
   - composer self-update
   - composer install
+  - composer update
 
 before_script:
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --prefer-source --dev
+  - composer update
 
 script:
   - phpunit --coverage-text --coverage-clover=coverage.clover
