@@ -1,8 +1,9 @@
 # General
 # composer.lock
-build
-docs
-vendor
+/build
+/docs
+/vendor
+/Vagrantfile
 
 # Cache directories
 Thumbs.db
