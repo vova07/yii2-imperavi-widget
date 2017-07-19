@@ -3,7 +3,6 @@
 /build
 /docs
 /vendor
-/Vagrantfile
 
 # Cache directories
 Thumbs.db
