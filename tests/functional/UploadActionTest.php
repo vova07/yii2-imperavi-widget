@@ -95,7 +95,7 @@ class UploadActionTest extends TestCase
 
         $this->assertEquals(Response::FORMAT_JSON, Yii::$app->getResponse()->format);
         $this->assertArrayHasKey('error', $output);
-        $this->assertContains('is too big. Its size cannot exceed 10 bytes', $output['error']);
+        $this->assertContains('is too big. Its size cannot exceed 10 B', $output['error']);
 
         unset($_FILES);
         unset($_SERVER['REQUEST_METHOD']);
