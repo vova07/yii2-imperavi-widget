@@ -225,7 +225,7 @@ $ phpunit
 
 ## Further Information
 
-Please, check the [Imperavi Redactor](http://imperavi.com/redactor/) documentation for further information about its configuration options.
+Please, check the [Imperavi Redactor v10](https://imperavi.com/assets/pdf/redactor-documentation-10.pdf) documentation for further information about its configuration options.
 
 ## Contributing
 
