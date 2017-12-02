@@ -73,7 +73,11 @@ $.Redactor.opts.langs['nl'] = {
 	alignment: 'Uitlijning',
 	filename: 'Naam (optioneel)',
 	edit: 'Bewerk',
-	center: 'Center'
+	center: 'Center',
+    insert_clips: 'Insert Clips',
+	clips: 'Clips',
+	fullscreen: 'Fullscreen',
+	remove_font_size: 'Remove Font Size',
+	change_font_size: 'Change Font Size'
 };
 })( jQuery );
-

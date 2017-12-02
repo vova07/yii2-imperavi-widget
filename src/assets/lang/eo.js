@@ -70,6 +70,11 @@ $.Redactor.opts.langs['eo'] = {
 	alignment: 'Ĝisrandigo', // substantive
 	filename: 'Dosiernomo (fakultativa)', // substantive
 	edit: 'Redaktu', // imperative
-	center: 'Center'
+	center: 'Center',
+    insert_clips: 'Insert Clips',
+	clips: 'Clips',
+	fullscreen: 'Fullscreen',
+	remove_font_size: 'Remove Font Size',
+	change_font_size: 'Change Font Size'
 };
 })( jQuery );

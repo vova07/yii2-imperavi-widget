@@ -69,6 +69,11 @@ $.Redactor.opts.langs['he'] = {
 	alignment: 'יישור',
 	filename: 'Name (optional)',
 	edit: 'Edit',
-	center: 'Center'
+	center: 'Center',
+    insert_clips: 'Insert Clips',
+	clips: 'Clips',
+	fullscreen: 'Fullscreen',
+	remove_font_size: 'Remove Font Size',
+	change_font_size: 'Change Font Size'
 };
 })( jQuery );

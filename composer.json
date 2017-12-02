@@ -1,5 +1,5 @@
 {
-    "name": "vova07/yii2-imperavi-widget",
+    "name": "weison-tech/yii2-imperavi-widget",
     "description": "The imperavi redactor widget for Yii 2 framework.",
     "type": "yii2-extension",
     "keywords": [
@@ -12,19 +12,19 @@
         "redactor",
         "wysiwyg"
     ],
-    "homepage": "https://github.com/vova07/yii2-imperavi-widget",
+    "homepage": "https://github.com/weison-tech/yii2-imperavi-widget",
     "license": "BSD-3-Clause",
     "authors": [
         {
-            "name": "Crudu Vasile",
-            "email": "bazillio07@yandex.ru",
-            "homepage": "https://github.com/vova07",
+            "name": "xiaomalover",
+            "email": "xiaomalover@gmail.com",
+            "homepage": "https://github.com/xiaomalover",
             "role": "Developer"
         }
     ],
     "support": {
-        "issues": "https://github.com/vova07/yii2-imperavi-widget/issues?state=open",
-        "source": "https://github.com/vova07/yii2-imperavi-widget"
+        "issues": "https://github.com/weison-tech/yii2-imperavi-widget/issues?state=open",
+        "source": "https://github.com/weison-tech/yii2-imperavi-widget"
     },
     "minimum-stability": "stable",
     "require": {
