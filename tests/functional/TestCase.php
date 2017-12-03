@@ -36,20 +36,6 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
     const UPLOAD_DIRECTORY = 'upload';
 
     /**
-     * Asserting two strings equality ignoring line endings.
-     *
-     * @param string $expected
-     * @param string $actual
-     */
-    public function assertEqualsWithoutLE($expected, $actual)
-    {
-        $expected = str_replace("\r\n", "\n", $expected);
-        $actual = str_replace("\r\n", "\n", $actual);
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
      * Mock application prior running tests.
      */
     protected function setUp()
@@ -98,6 +84,20 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Asserting two strings equality ignoring line endings.
+     *
+     * @param string $expected
+     * @param string $actual
+     */
+    public function assertEqualsWithoutLE($expected, $actual)
+    {
+        $expected = str_replace("\r\n", "\n", $expected);
+        $actual = str_replace("\r\n", "\n", $actual);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * @param array $config
      * @param string $appClass
      */
@@ -135,6 +135,13 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
                 'assetManager' => [
                     'basePath' => '@vova07/imperavi/tests/data/assets',
                     'baseUrl' => '/',
+                ],
+                'i18n' => [
+                    'translations' => [
+                        '*' => [
+                            'class' => 'yii\i18n\PhpMessageSource',
+                        ],
+                    ],
                 ],
             ],
         ], $config));
