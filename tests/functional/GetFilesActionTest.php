@@ -18,48 +18,54 @@ use yii\web\Response;
  *
  * @link https://github.com/vova07
  */
-final class GetActionTest extends TestCase
+final class GetFilesActionTest extends TestCase
 {
     /**
-     * Test GetAction with valid settings.
+     * Test `GetFilesAction` with valid settings.
      */
     public function testGet()
     {
-        $output = Yii::$app->runAction('/default/get');
+        $output = Yii::$app->runAction('/default/get-files');
 
         $this->assertSame(Response::FORMAT_JSON, Yii::$app->getResponse()->format);
         $this->assertTrue(is_array($output));
         $this->assertCount(4, $output);
-        $this->assertArrayHasKey('title', $output[0]);
+
+        foreach ($output as $file) {
+            $this->assertArrayHasKey('title', $file);
+            $this->assertArrayHasKey('name', $file);
+            $this->assertArrayHasKey('link', $file);
+            $this->assertArrayHasKey('size', $file);
+        }
     }
 
     /**
-     * Test GetAction with invalid url property.
+     * Test `GetFilesAction` with invalid url property.
      */
     public function testGetInvalidUrl()
     {
         $this->setExpectedException('yii\base\InvalidConfigException', 'The "url" attribute must be set');
 
-        Yii::$app->runAction('/default/get-invalid-url');
+        Yii::$app->runAction('/default/get-files-invalid-url');
     }
 
     /**
-     * Test GetAction with invalid path property.
+     * Test `GetFilesAction` with invalid path property.
      */
     public function testGetInvalidPath()
     {
         $this->setExpectedException('yii\base\InvalidConfigException', 'The "path" attribute must be set');
 
-        Yii::$app->runAction('/default/get-invalid-path');
+        Yii::$app->runAction('/default/get-files-invalid-path');
     }
 
     /**
-     * Test GetAction with invalid path alias.
+     * Test `GetFilesAction` with invalid path alias.
      */
     public function testGetInvalidAlias()
     {
         $this->setExpectedException('yii\base\InvalidParamException');
 
-        Yii::$app->runAction('/default/get-invalid-alias');
+        Yii::$app->runAction('/default/get-files-invalid-alias');
     }
 }

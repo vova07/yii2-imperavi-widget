@@ -133,7 +133,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
                     'scriptUrl' => '/index.php',
                 ],
                 'assetManager' => [
-                    'basePath' => '@tests/data/assets',
+                    'basePath' => '@vova07/imperavi/tests/data/assets',
                     'baseUrl' => '/',
                 ],
             ],
@@ -165,7 +165,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
     {
         $view = new View();
         $view->setAssetManager(new AssetManager([
-            'basePath' => '@tests/data/assets',
+            'basePath' => '@vova07/imperavi/tests/data/assets',
             'baseUrl' => '/',
         ]));
 

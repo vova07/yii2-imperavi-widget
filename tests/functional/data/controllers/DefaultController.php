@@ -11,6 +11,7 @@
 namespace vova07\imperavi\tests\functional\data\controllers;
 
 use org\bovigo\vfs\vfsStream;
+use vova07\imperavi\actions\GetFilesAction;
 use vova07\imperavi\actions\GetImagesAction;
 use vova07\imperavi\actions\UploadAction;
 use vova07\imperavi\tests\functional\TestCase;
@@ -29,21 +30,39 @@ final class DefaultController extends Controller
     public function actions()
     {
         return [
-            'get' => [
+            'get-images' => [
                 'class' => GetImagesAction::className(),
                 'url' => '/statics/',
                 'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::STATICS_DIRECTORY),
             ],
-            'get-invalid-url' => [
+            'get-images-invalid-url' => [
                 'class' => GetImagesAction::className(),
                 'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::STATICS_DIRECTORY),
             ],
-            'get-invalid-path' => [
+            'get-images-invalid-path' => [
                 'class' => GetImagesAction::className(),
                 'url' => '/statics/',
             ],
-            'get-invalid-alias' => [
+            'get-images-invalid-alias' => [
                 'class' => GetImagesAction::className(),
+                'url' => '/statics/',
+                'path' => '@invalid/data/statics',
+            ],
+            'get-files' => [
+                'class' => GetFilesAction::className(),
+                'url' => '/statics/',
+                'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::STATICS_DIRECTORY),
+            ],
+            'get-files-invalid-url' => [
+                'class' => GetFilesAction::className(),
+                'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::STATICS_DIRECTORY),
+            ],
+            'get-files-invalid-path' => [
+                'class' => GetFilesAction::className(),
+                'url' => '/statics/',
+            ],
+            'get-files-invalid-alias' => [
+                'class' => GetFilesAction::className(),
                 'url' => '/statics/',
                 'path' => '@invalid/data/statics',
             ],

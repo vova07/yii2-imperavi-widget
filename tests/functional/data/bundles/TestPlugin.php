@@ -22,7 +22,7 @@ final class TestPlugin extends AssetBundle
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@tests/../../src/assets';
+    public $sourcePath = '@vova07/imperavi/tests/../../src/assets';
 
     /**
      * @inheritdoc

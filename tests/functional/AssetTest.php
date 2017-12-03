@@ -38,7 +38,7 @@ final class AssetTest extends TestCase
         $this->assertArrayHasKey(JqueryAsset::className(), $view->assetBundles);
         $this->assertInstanceOf(AssetBundle::className(), $view->assetBundles[TestAsset::className()]);
 
-        $content = $view->renderFile('@tests/data/views/rawlayout.php');
+        $content = $view->renderFile('@vova07/imperavi/tests/data/views/rawlayout.php');
 
         $this->assertContains('redactor.css', $content);
         $this->assertContains('redactor.min.js', $content);
