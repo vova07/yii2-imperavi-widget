@@ -38,7 +38,7 @@ use yii\web\Response;
  *
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
- * @link https://github.com/vova07
+ * @link https://github.com/vova07/yii2-imperavi-widget
  */
 class GetFilesAction extends Action
 {

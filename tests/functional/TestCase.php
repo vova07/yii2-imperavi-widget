@@ -106,7 +106,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase
         new $appClass(
             ArrayHelper::merge(
                 [
-                    'id' => 'testapp',
+                    'id' => 'test-app',
                     'basePath' => __DIR__,
                     'vendorPath' => $this->getVendorPath(),
                 ],

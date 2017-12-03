@@ -18,4 +18,5 @@
  */
 return [
     'ERROR_CAN_NOT_UPLOAD_FILE' => 'Не удалось загрузить файл.',
+    'ERROR_DURING_UPLOAD_PROCESS' => 'Во время процесса загрузки произошла ошибка!',
 ];

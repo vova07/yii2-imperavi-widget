@@ -18,4 +18,5 @@
  */
 return [
     'ERROR_CAN_NOT_UPLOAD_FILE' => 'Fișierul nu a putut fi încărcat.',
+    'ERROR_DURING_UPLOAD_PROCESS' => 'În timpul procesului de încarcare a intervenit o eroare!',
 ];

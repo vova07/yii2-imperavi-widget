@@ -22,33 +22,6 @@ use yii\web\Response;
 final class UploadActionTest extends TestCase
 {
     /**
-     * Test UploadAction with valid settings.
-     */
-    public function testUpload()
-    {
-        $filePath = vfsStream::url(self::ROOT_DIRECTORY . '/' . self::UPLOAD_DIRECTORY . '/1.jpeg');
-        $_SERVER['REQUEST_METHOD'] = 'POST';
-        $_FILES = [
-            'file' => [
-                'name' => '1.jpeg',
-                'tmp_name' => $filePath,
-                'type' => $this->getVirtualFileMimeType($filePath),
-                'size' => filesize($filePath),
-                'error' => UPLOAD_ERR_OK,
-            ],
-
-        ];
-        $output = Yii::$app->runAction('/default/upload');
-
-        $this->assertSame(Response::FORMAT_JSON, Yii::$app->getResponse()->format);
-        $this->assertArrayHasKey('error', $output);
-        $this->assertContains('ERROR_CAN_NOT_UPLOAD_FILE', $output['error']);
-
-        unset($_FILES);
-        unset($_SERVER['REQUEST_METHOD']);
-    }
-
-    /**
      * Test UploadAction with valid settings and invalid file.
      */
     public function testUploadCannotUploadFile()
@@ -128,7 +101,7 @@ final class UploadActionTest extends TestCase
     public function testUploadInvalidPath()
     {
         $this->setExpectedException('yii\base\InvalidConfigException', 'The "path" attribute must be set');
-        
+
         Yii::$app->runAction('/default/upload-invalid-path');
     }
 }

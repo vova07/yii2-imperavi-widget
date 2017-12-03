@@ -18,4 +18,5 @@
  */
 return [
     'ERROR_CAN_NOT_UPLOAD_FILE' => 'File could not be uploaded.',
+    'ERROR_DURING_UPLOAD_PROCESS' => 'An error occurred during the upload process!',
 ];

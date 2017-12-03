@@ -71,6 +71,19 @@ final class DefaultController extends Controller
                 'url' => '/upload/',
                 'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::UPLOAD_DIRECTORY),
             ],
+            'upload-not-unique' => [
+                'class' => UploadAction::className(),
+                'url' => '/upload/',
+                'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::UPLOAD_DIRECTORY),
+                'unique' => false,
+            ],
+            'upload-translit' => [
+                'class' => UploadAction::className(),
+                'url' => '/upload/',
+                'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::UPLOAD_DIRECTORY),
+                'unique' => false,
+                'translit' => true,
+            ],
             'upload-max-size' => [
                 'class' => UploadAction::className(),
                 'url' => '/upload/',
