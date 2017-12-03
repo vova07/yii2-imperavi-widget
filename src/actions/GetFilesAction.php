@@ -13,7 +13,7 @@ namespace vova07\imperavi\actions;
 use Yii;
 use yii\base\Action;
 use yii\base\InvalidConfigException;
-use yii\helpers\BaseFileHelper;
+use yii\helpers\FileHelper;
 use yii\web\Response;
 
 /**
@@ -53,9 +53,9 @@ class GetFilesAction extends Action
     public $url;
 
     /**
-     * @var array BaseFileHelper options.
+     * @var array FileHelper options.
      *
-     * @see BaseFileHelper::findFiles()
+     * @see FileHelper::findFiles()
      */
     public $options = [];
 
@@ -85,7 +85,7 @@ class GetFilesAction extends Action
 
         $files = [];
 
-        foreach (BaseFileHelper::findFiles($this->path, $this->options) as $path) {
+        foreach (FileHelper::findFiles($this->path, $this->options) as $path) {
             $file = basename($path);
             $size = $this->getFileSize($path);
             $url = $this->url . urlencode($file);

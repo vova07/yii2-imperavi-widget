@@ -49,6 +49,33 @@ final class UploadActionTest extends TestCase
     }
 
     /**
+     * Test UploadAction with valid settings and invalid file.
+     */
+    public function testUploadFileWithSameName()
+    {
+        $filePath = vfsStream::url(self::ROOT_DIRECTORY . '/' . self::UPLOAD_DIRECTORY . '/2.jpeg');
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_FILES = [
+            'file' => [
+                'name' => '2.jpeg',
+                'tmp_name' => $filePath,
+                'type' => $this->getVirtualFileMimeType($filePath),
+                'size' => filesize($filePath),
+                'error' => UPLOAD_ERR_OK,
+            ],
+
+        ];
+        $output = Yii::$app->runAction('/default/upload-not-unique');
+
+        $this->assertSame(Response::FORMAT_JSON, Yii::$app->getResponse()->format);
+        $this->assertArrayHasKey('error', $output);
+        $this->assertContains('ERROR_FILE_ALREADY_EXIST', $output['error']);
+
+        unset($_FILES);
+        unset($_SERVER['REQUEST_METHOD']);
+    }
+
+    /**
      * Test UploadAction with valid settings and to small file.
      */
     public function testUploadWithTooSmallFile()

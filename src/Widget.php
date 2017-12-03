@@ -157,7 +157,7 @@ class Widget extends BaseWidget
      */
     public static function registerTranslations()
     {
-        if (!isset(Yii::$app->i18n->translations['vova07/imperavi']) && !isset(Yii::$app->i18n->translations['vova07/imperavi/*'])) {
+        if (!isset(Yii::$app->i18n->translations['vova07/imperavi']) && !isset(Yii::$app->i18n->translations['vova07/imperavi*'])) {
             Yii::$app->i18n->translations['vova07/imperavi'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
                 'basePath' => '@vova07/imperavi/messages',

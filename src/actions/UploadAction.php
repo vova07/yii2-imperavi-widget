@@ -82,6 +82,11 @@ class UploadAction extends Action
     public $uploadParam = 'file';
 
     /**
+     * @var bool Whether to replace the file with new one in case they have same name or not.
+     */
+    public $replace = false;
+
+    /**
      * @var boolean If `true` unique filename will be generated automatically.
      */
     public $unique = true;
@@ -135,6 +140,8 @@ class UploadAction extends Action
     public function run()
     {
         if (Yii::$app->request->isPost) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
             $file = UploadedFile::getInstanceByName($this->uploadParam);
             $model = new DynamicModel(['file' => $file]);
             $model->addRule('file', $this->_validator, $this->validatorOptions)->validate();
@@ -149,6 +156,13 @@ class UploadAction extends Action
                 } elseif ($this->translit === true && $model->file->extension) {
                     $model->file->name = Inflector::slug($model->file->baseName) . '.' . $model->file->extension;
                 }
+
+                if (file_exists($this->path . $model->file->name) && $this->replace === false) {
+                    return [
+                        'error' => Yii::t('vova07/imperavi', 'ERROR_FILE_ALREADY_EXIST'),
+                    ];
+                }
+
                 if ($model->file->saveAs($this->path . $model->file->name)) {
                     $result = ['filelink' => $this->url . $model->file->name];
 
@@ -161,7 +175,6 @@ class UploadAction extends Action
                     ];
                 }
             }
-            Yii::$app->response->format = Response::FORMAT_JSON;
 
             return $result;
         } else {
