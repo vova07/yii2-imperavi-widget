@@ -14,8 +14,8 @@
 				var $modal = this.modal.getModal();
 
 				this.modal.createTabber($modal);
-				this.modal.addTab(1, 'Upload', 'active');
-				this.modal.addTab(2, 'Choose');
+				this.modal.addTab(1, this.lang.get('upload'), 'active');
+				this.modal.addTab(2, this.lang.get('choose'));
 
 				$('#redactor-modal-file-upload-box').addClass('redactor-tab redactor-tab1');
 
