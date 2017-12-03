@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of yii2-imperavi-widget.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://github.com/vova07/yii2-imperavi-widget
+ */
 
 error_reporting(E_ALL);
 defined('YII_ENABLE_ERROR_HANDLER') or define('YII_ENABLE_ERROR_HANDLER', false);

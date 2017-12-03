@@ -1,29 +1,34 @@
 <?php
+/**
+ * This file is part of yii2-imperavi-widget.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://github.com/vova07/yii2-imperavi-widget
+ */
 
-namespace tests;
+namespace vova07\imperavi\tests\functional;
 
 use org\bovigo\vfs\vfsStream;
 use ReflectionClass;
-use vova07\imperavi\actions\GetAction;
+use vova07\imperavi\actions\GetImagesAction;
 use vova07\imperavi\helpers\FileHelper;
-use Yii;
 
 /**
- * Class FileHelperTest
- * @package tests
- *
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
  * @link https://github.com/vova07
  */
-class FileHelperTest extends TestCase
+final class FileHelperTest extends TestCase
 {
     /**
      * Test find files method with file type.
      */
     public function testFindFilesMethodWithFileType()
     {
-        $list = FileHelper::findFiles(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY), ['url' => '/statics/'], GetAction::TYPE_FILES);
+        $list = FileHelper::findFiles(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY), ['url' => '/statics/'], GetImagesAction::TYPE_FILES);
+
         $this->assertCount(4, $list);
         $this->assertArrayHasKey('title', $list[0]);
         $this->assertArrayHasKey('name', $list[0]);
@@ -37,6 +42,7 @@ class FileHelperTest extends TestCase
     public function testFindFilesMethodWithImageType()
     {
         $list = FileHelper::findFiles(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY), ['url' => '/statics/']);
+
         $this->assertCount(4, $list);
         $this->assertArrayHasKey('title', $list[0]);
         $this->assertArrayHasKey('thumb', $list[0]);
@@ -49,6 +55,7 @@ class FileHelperTest extends TestCase
     public function testFindFilesMethodExceptPng()
     {
         $list = FileHelper::findFiles(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY), ['except' => ['*.jpeg']]);
+
         $this->assertCount(2, $list);
     }
 
@@ -58,6 +65,7 @@ class FileHelperTest extends TestCase
     public function testFindFilesMethodOnlyPng()
     {
         $list = FileHelper::findFiles(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY), ['only' => ['*.jpeg']]);
+
         $this->assertCount(2, $list);
     }
 
@@ -67,6 +75,7 @@ class FileHelperTest extends TestCase
     public function testFindFilesMethodWithInvalidType()
     {
         $list = FileHelper::findFiles(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY), ['url' => '/statics/'], 'invalidType');
+
         $this->assertCount(4, $list);
         $this->assertTrue(is_string($list[0]));
     }
@@ -77,6 +86,7 @@ class FileHelperTest extends TestCase
     public function testFindFilesMethodWithInvalidDirectory()
     {
         $this->setExpectedException('yii\base\InvalidParamException', 'The dir argument must be a directory.');
+
         FileHelper::findFiles(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY . '/3.jpeg'));
     }
 
@@ -90,6 +100,7 @@ class FileHelperTest extends TestCase
         $method->setAccessible(true);
         $output = $method->invokeArgs(new FileHelper(), [vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY . '/3.jpeg')]);
         $size = filesize(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY . '/3.jpeg'));
+
         $this->assertEquals($size . '.0 B', $output);
     }
 }

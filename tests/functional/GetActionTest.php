@@ -1,20 +1,24 @@
 <?php
+/**
+ * This file is part of yii2-imperavi-widget.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://github.com/vova07/yii2-imperavi-widget
+ */
 
-namespace tests;
+namespace vova07\imperavi\tests\functional;
 
-use org\bovigo\vfs\vfsStream;
 use Yii;
 use yii\web\Response;
 
 /**
- * Class GetActionTest
- * @package tests
- *
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
  * @link https://github.com/vova07
  */
-class GetActionTest extends TestCase
+final class GetActionTest extends TestCase
 {
     /**
      * Test GetAction with valid settings.
@@ -22,7 +26,8 @@ class GetActionTest extends TestCase
     public function testGet()
     {
         $output = Yii::$app->runAction('/default/get');
-        $this->assertEquals(Response::FORMAT_JSON, Yii::$app->getResponse()->format);
+
+        $this->assertSame(Response::FORMAT_JSON, Yii::$app->getResponse()->format);
         $this->assertTrue(is_array($output));
         $this->assertCount(4, $output);
         $this->assertArrayHasKey('title', $output[0]);
@@ -34,6 +39,7 @@ class GetActionTest extends TestCase
     public function testGetInvalidUrl()
     {
         $this->setExpectedException('yii\base\InvalidConfigException', 'The "url" attribute must be set');
+
         Yii::$app->runAction('/default/get-invalid-url');
     }
 
@@ -43,6 +49,7 @@ class GetActionTest extends TestCase
     public function testGetInvalidPath()
     {
         $this->setExpectedException('yii\base\InvalidConfigException', 'The "path" attribute must be set');
+
         Yii::$app->runAction('/default/get-invalid-path');
     }
 
@@ -52,6 +59,7 @@ class GetActionTest extends TestCase
     public function testGetInvalidAlias()
     {
         $this->setExpectedException('yii\base\InvalidParamException');
+
         Yii::$app->runAction('/default/get-invalid-alias');
     }
 }

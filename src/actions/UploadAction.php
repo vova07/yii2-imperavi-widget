@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of yii2-imperavi-widget.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://github.com/vova07/yii2-imperavi-widget
+ */
 
 namespace vova07\imperavi\actions;
 
@@ -14,9 +22,6 @@ use yii\web\UploadedFile;
 use Yii;
 
 /**
- * Class UploadAction
- * @package vova07\imperavi\actions
- *
  * UploadAction for images and files.
  *
  * Usage:
@@ -49,17 +54,17 @@ use Yii;
  *
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
- * @link https://github.com/vova07
+ * @link https://github.com/vova07/yii2-imperavi-widget
  */
 class UploadAction extends Action
 {
     /**
-     * @var string Path to directory where files will be uploaded
+     * @var string Path to directory where files will be uploaded.
      */
     public $path;
 
     /**
-     * @var string URL path to directory where files will be uploaded
+     * @var string URL path to directory where files will be uploaded.
      */
     public $url;
 
@@ -74,17 +79,17 @@ class UploadAction extends Action
     public $uploadParam = 'file';
 
     /**
-     * @var boolean If `true` unique filename will be generated automatically
+     * @var boolean If `true` unique filename will be generated automatically.
      */
     public $unique = true;
 
     /**
-     * @var array Model validator options
+     * @var array Model validator options.
      */
     public $validatorOptions = [];
 
     /**
-     * @var string Model validator name
+     * @var string Model validator name.
      */
     private $_validator = 'image';
 
@@ -134,6 +139,7 @@ class UploadAction extends Action
                 }
                 if ($model->file->saveAs($this->path . $model->file->name)) {
                     $result = ['filelink' => $this->url . $model->file->name];
+
                     if ($this->uploadOnlyImage !== true) {
                         $result['filename'] = $model->file->name;
                     }

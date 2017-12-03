@@ -1,18 +1,26 @@
 <?php
+/**
+ * This file is part of yii2-imperavi-widget.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://github.com/vova07/yii2-imperavi-widget
+ */
 
 namespace vova07\imperavi\helpers;
 
-use vova07\imperavi\actions\GetAction;
+use vova07\imperavi\actions\GetImagesAction;
 use yii\base\InvalidParamException;
 use yii\helpers\BaseFileHelper;
 use yii\helpers\StringHelper;
 
 /**
- * File system helper
+ * File system helper.
  *
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
- * @link https://github.com/vova07
+ * @link https://github.com/vova07/yii2-imperavi-widget
  */
 class FileHelper extends BaseFileHelper
 {
@@ -25,7 +33,7 @@ class FileHelper extends BaseFileHelper
      * @type array $only
      * }
      */
-    public static function findFiles($dir, $options = [], $type = GetAction::TYPE_IMAGES)
+    public static function findFiles($dir, $options = [], $type = GetImagesAction::TYPE_IMAGES)
     {
         if (!is_dir($dir)) {
             throw new InvalidParamException('The dir argument must be a directory.');
@@ -56,13 +64,13 @@ class FileHelper extends BaseFileHelper
                     if (isset($options['url'])) {
                         $url = str_replace([$options['basePath'], '\\'], [$options['url'], '/'], static::normalizePath($path));
 
-                        if ($type === GetAction::TYPE_IMAGES) {
+                        if ($type === GetImagesAction::TYPE_IMAGES) {
                             $list[] = [
                                 'title' => $file,
                                 'thumb' => $url,
                                 'image' => $url
                             ];
-                        } elseif ($type === GetAction::TYPE_FILES) {
+                        } elseif ($type === GetImagesAction::TYPE_FILES) {
                             $size = self::getFileSize($path);
                             $list[] = [
                                 'title' => $file,
