@@ -380,3 +380,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 ## License
 
 The BSD License (BSD). Please see [License File](LICENSE.md) for more information.
+
+## Upgrade guide
+
+Please check the [UPGRADE GUIDE](UPGRADE.md) for details. 
