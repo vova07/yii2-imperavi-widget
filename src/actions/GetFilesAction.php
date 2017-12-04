@@ -91,6 +91,7 @@ class GetFilesAction extends Action
             $url = $this->url . urlencode($file);
 
             $files[] = [
+                'id' => $file,
                 'title' => $file,
                 'name' => $file,
                 'link' => $url,

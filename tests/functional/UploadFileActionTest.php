@@ -19,7 +19,7 @@ use yii\web\Response;
  *
  * @link https://github.com/vova07
  */
-final class UploadActionTest extends TestCase
+final class UploadFileActionTest extends TestCase
 {
     /**
      * Test UploadAction with valid settings and invalid file.
@@ -38,7 +38,7 @@ final class UploadActionTest extends TestCase
             ],
 
         ];
-        $output = Yii::$app->runAction('/default/upload');
+        $output = Yii::$app->runAction('/default/upload-image');
 
         $this->assertSame(Response::FORMAT_JSON, Yii::$app->getResponse()->format);
         $this->assertArrayHasKey('error', $output);
@@ -65,7 +65,7 @@ final class UploadActionTest extends TestCase
             ],
 
         ];
-        $output = Yii::$app->runAction('/default/upload-not-unique');
+        $output = Yii::$app->runAction('/default/upload-image-not-unique');
 
         $this->assertSame(Response::FORMAT_JSON, Yii::$app->getResponse()->format);
         $this->assertArrayHasKey('error', $output);
@@ -92,7 +92,7 @@ final class UploadActionTest extends TestCase
             ],
 
         ];
-        $output = Yii::$app->runAction('/default/upload-max-size');
+        $output = Yii::$app->runAction('/default/upload-image-max-size');
 
         $this->assertSame(Response::FORMAT_JSON, Yii::$app->getResponse()->format);
         $this->assertArrayHasKey('error', $output);
@@ -119,7 +119,7 @@ final class UploadActionTest extends TestCase
     {
         $this->setExpectedException('yii\base\InvalidConfigException', 'The "url" attribute must be set');
 
-        Yii::$app->runAction('/default/upload-invalid-url');
+        Yii::$app->runAction('/default/upload-image-invalid-url');
     }
 
     /**
@@ -129,6 +129,6 @@ final class UploadActionTest extends TestCase
     {
         $this->setExpectedException('yii\base\InvalidConfigException', 'The "path" attribute must be set');
 
-        Yii::$app->runAction('/default/upload-invalid-path');
+        Yii::$app->runAction('/default/upload-image-invalid-path');
     }
 }

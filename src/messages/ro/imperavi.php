@@ -20,4 +20,7 @@ return [
     'ERROR_CAN_NOT_UPLOAD_FILE' => 'Fișierul nu a putut fi încărcat.',
     'ERROR_DURING_UPLOAD_PROCESS' => 'În timpul procesului de încarcare a intervenit o eroare!',
     'ERROR_FILE_ALREADY_EXIST' => 'Un fișier cu același nume deja există.',
+    'ERROR_FILE_IDENTIFIER_MUST_BE_PROVIDED' => 'Identificatorul fișierului trebuie să fie indicat.',
+    'ERROR_FILE_DOES_NOT_EXIST' => 'Fișierul indicat nu există.',
+    'ERROR_CANNOT_REMOVE_FILE' => 'Fișierul nu poate fi șters, ceva a mers greșit.',
 ];

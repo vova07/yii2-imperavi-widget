@@ -20,4 +20,7 @@ return [
     'ERROR_CAN_NOT_UPLOAD_FILE' => 'Не удалось загрузить файл.',
     'ERROR_DURING_UPLOAD_PROCESS' => 'Во время процесса загрузки произошла ошибка!',
     'ERROR_FILE_ALREADY_EXIST' => 'Файл с таким именем уже существует.',
+    'ERROR_FILE_IDENTIFIER_MUST_BE_PROVIDED' => 'Идентификатор файла должен быть указан.',
+    'ERROR_FILE_DOES_NOT_EXIST' => 'Указанный файл не существует.',
+    'ERROR_CANNOT_REMOVE_FILE' => 'Невозможно удалить файл, что-то пошле не так.',
 ];

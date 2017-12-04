@@ -90,6 +90,7 @@ class GetImagesAction extends Action
             $url = $this->url . urlencode($file);
 
             $files[] = [
+                'id' => $file,
                 'title' => $file,
                 'thumb' => $url,
                 'image' => $url,

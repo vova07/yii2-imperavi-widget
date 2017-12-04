@@ -23,7 +23,7 @@ use yii\web\Response;
 use yii\web\UploadedFile;
 
 /**
- * UploadAction for images and files.
+ * UploadFileAction for images and files.
  *
  * Usage:
  *
@@ -32,7 +32,7 @@ use yii\web\UploadedFile;
  * {
  *     return [
  *         'upload-image' => [
- *             'class' => 'vova07\imperavi\actions\UploadAction',
+ *             'class' => 'vova07\imperavi\actions\UploadFileAction',
  *             'url' => 'http://my-site.com/statics/',
  *             'path' => '/var/www/my-site.com/web/statics',
  *             'unique' => true,
@@ -42,7 +42,7 @@ use yii\web\UploadedFile;
  *             ]
  *         ],
  *         'file-upload' => [
- *             'class' => 'vova07\imperavi\actions\UploadAction',
+ *             'class' => 'vova07\imperavi\actions\UploadFileAction',
  *             'url' => 'http://my-site.com/statics/',
  *             'path' => '/var/www/my-site.com/web/statics',
  *             'uploadOnlyImage' => false,
@@ -59,7 +59,7 @@ use yii\web\UploadedFile;
  *
  * @link https://github.com/vova07/yii2-imperavi-widget
  */
-class UploadAction extends Action
+class UploadFileAction extends Action
 {
     /**
      * @var string Path to directory where files will be uploaded.
@@ -164,7 +164,7 @@ class UploadAction extends Action
                 }
 
                 if ($model->file->saveAs($this->path . $model->file->name)) {
-                    $result = ['filelink' => $this->url . $model->file->name];
+                    $result = ['id' => $model->file->name, 'filelink' => $this->url . $model->file->name];
 
                     if ($this->uploadOnlyImage !== true) {
                         $result['filename'] = $model->file->name;

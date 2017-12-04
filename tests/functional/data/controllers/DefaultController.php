@@ -11,9 +11,10 @@
 namespace vova07\imperavi\tests\functional\data\controllers;
 
 use org\bovigo\vfs\vfsStream;
+use vova07\imperavi\actions\DeleteFileAction;
 use vova07\imperavi\actions\GetFilesAction;
 use vova07\imperavi\actions\GetImagesAction;
-use vova07\imperavi\actions\UploadAction;
+use vova07\imperavi\actions\UploadFileAction;
 use vova07\imperavi\tests\functional\TestCase;
 use yii\web\Controller;
 
@@ -66,26 +67,26 @@ final class DefaultController extends Controller
                 'url' => '/statics/',
                 'path' => '@invalid/data/statics',
             ],
-            'upload' => [
-                'class' => UploadAction::className(),
+            'upload-image' => [
+                'class' => UploadFileAction::className(),
                 'url' => '/upload/',
                 'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::UPLOAD_DIRECTORY),
             ],
-            'upload-not-unique' => [
-                'class' => UploadAction::className(),
+            'upload-image-not-unique' => [
+                'class' => UploadFileAction::className(),
                 'url' => '/upload/',
                 'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::UPLOAD_DIRECTORY),
                 'unique' => false,
             ],
-            'upload-translit' => [
-                'class' => UploadAction::className(),
+            'upload-image-translit' => [
+                'class' => UploadFileAction::className(),
                 'url' => '/upload/',
                 'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::UPLOAD_DIRECTORY),
                 'unique' => false,
                 'translit' => true,
             ],
-            'upload-max-size' => [
-                'class' => UploadAction::className(),
+            'upload-image-max-size' => [
+                'class' => UploadFileAction::className(),
                 'url' => '/upload/',
                 'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::UPLOAD_DIRECTORY),
                 'validatorOptions' => [
@@ -93,17 +94,30 @@ final class DefaultController extends Controller
                 ],
             ],
             'upload-file' => [
-                'class' => UploadAction::className(),
+                'class' => UploadFileAction::className(),
                 'url' => '/upload/',
                 'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::UPLOAD_DIRECTORY),
                 'uploadOnlyImage' => false,
             ],
-            'upload-invalid-url' => [
-                'class' => UploadAction::className(),
+            'upload-image-invalid-url' => [
+                'class' => UploadFileAction::className(),
                 'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::UPLOAD_DIRECTORY),
             ],
-            'upload-invalid-path' => [
-                'class' => UploadAction::className(),
+            'upload-image-invalid-path' => [
+                'class' => UploadFileAction::className(),
+                'url' => '/upload/',
+            ],
+            'delete-file' => [
+                'class' => DeleteFileAction::className(),
+                'url' => '/upload/',
+                'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::UPLOAD_DIRECTORY),
+            ],
+            'delete-invalid-url' => [
+                'class' => DeleteFileAction::className(),
+                'path' => vfsStream::url(TestCase::ROOT_DIRECTORY . '/' . TestCase::UPLOAD_DIRECTORY),
+            ],
+            'delete-invalid-path' => [
+                'class' => DeleteFileAction::className(),
                 'url' => '/upload/',
             ],
         ];

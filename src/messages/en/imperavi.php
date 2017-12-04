@@ -20,4 +20,7 @@ return [
     'ERROR_CAN_NOT_UPLOAD_FILE' => 'File could not be uploaded.',
     'ERROR_DURING_UPLOAD_PROCESS' => 'An error occurred during the upload process!',
     'ERROR_FILE_ALREADY_EXIST' => 'The file with such name already exist',
+    'ERROR_FILE_IDENTIFIER_MUST_BE_PROVIDED' => 'File identifier must be provided.',
+    'ERROR_FILE_DOES_NOT_EXIST' => 'Specified file does not exist.',
+    'ERROR_CANNOT_REMOVE_FILE' => 'Cannot remove the file, something goes wrong.',
 ];
