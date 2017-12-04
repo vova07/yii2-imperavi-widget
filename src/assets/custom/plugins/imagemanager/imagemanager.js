@@ -14,7 +14,10 @@ if (!RedactorPlugins) var RedactorPlugins = {};
                 this.modal.createTabber($modal);
                 this.modal.addTab(1, this.lang.get('upload'), 'active');
                 this.modal.addTab(2, this.lang.get('choose'));
-                this.modal.addTab(3, this.lang.get('_delete'));
+
+                if (this.opts.imageDelete) {
+                    this.modal.addTab(3, this.lang.get('_delete'));
+                }
 
                 $('#redactor-modal-image-droparea').addClass('redactor-tab redactor-tab1');
 
@@ -41,28 +44,30 @@ if (!RedactorPlugins) var RedactorPlugins = {};
                     }, this)
                 });
 
-                var $box3 = $('<div id="redactor-image-manager-delete-box" style="overflow: auto; height: 300px;" class="redactor-tab redactor-tab3">').hide();
-                $modal.append($box3);
+                if (this.opts.imageDelete) {
+                    var $box3 = $('<div id="redactor-image-manager-delete-box" style="overflow: auto; height: 300px;" class="redactor-tab redactor-tab3">').hide();
+                    $modal.append($box3);
 
-                $.ajax({
-                    dataType: "json",
-                    cache: false,
-                    url: this.opts.imageManagerJson,
-                    success: $.proxy(function (data) {
-                        $.each(data, $.proxy(function (key, val) {
-                            // title
-                            var thumbtitle = '';
-                            if (typeof val.title !== 'undefined') thumbtitle = val.title;
-                            var id = '';
-                            if (typeof val.id !== 'undefined') id = val.id;
+                    $.ajax({
+                        dataType: "json",
+                        cache: false,
+                        url: this.opts.imageManagerJson,
+                        success: $.proxy(function (data) {
+                            $.each(data, $.proxy(function (key, val) {
+                                // title
+                                var thumbtitle = '';
+                                if (typeof val.title !== 'undefined') thumbtitle = val.title;
+                                var id = '';
+                                if (typeof val.id !== 'undefined') id = val.id;
 
-                            var img = $('<img src="' + val.thumb + '" rel="' + val.image + '" title="' + thumbtitle + '" data-id="' + id + '" style="width: 100px; height: 75px; cursor: pointer;" />');
-                            $('#redactor-image-manager-delete-box').append(img);
-                            $(img).click($.proxy(this.imagemanager.delete, this));
+                                var img = $('<img src="' + val.thumb + '" rel="' + val.image + '" title="' + thumbtitle + '" data-id="' + id + '" style="width: 100px; height: 75px; cursor: pointer;" />');
+                                $('#redactor-image-manager-delete-box').append(img);
+                                $(img).click($.proxy(this.imagemanager.delete, this));
 
-                        }, this));
-                    }, this)
-                });
+                            }, this));
+                        }, this)
+                    });
+                }
             },
             insert: function (e) {
                 this.image.insert('<img src="' + $(e.target).attr('rel') + '" alt="' + $(e.target).attr('title') + '" data-id="' + $(e.target).data('id') + '">');
