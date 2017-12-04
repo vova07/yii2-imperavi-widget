@@ -1,15 +1,23 @@
 <?php
+/**
+ * This file is part of yii2-imperavi-widget.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://github.com/vova07/yii2-imperavi-widget
+ */
 
 namespace vova07\imperavi;
 
 use yii\web\AssetBundle;
 
 /**
- * Widget asset bundle
+ * Widget asset bundle.
  *
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
- * @link https://github.com/vova07
+ * @link https://github.com/vova07/yii2-imperavi-widget
  */
 class Asset extends AssetBundle
 {
@@ -65,6 +73,7 @@ class Asset extends AssetBundle
 				$this->js[] = 'plugins/' . $plugin . '/' . $plugin .'.js';
 			}
 		}
+
 		parent::registerAssetFiles($view);
 	}
 }

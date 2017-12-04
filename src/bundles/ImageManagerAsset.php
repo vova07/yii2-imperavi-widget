@@ -8,26 +8,26 @@
  * @see https://github.com/vova07/yii2-imperavi-widget
  */
 
-namespace vova07\imperavi\tests\functional\data\bundles;
+namespace vova07\imperavi\bundles;
 
 use yii\web\AssetBundle;
 
 /**
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
- * @link https://github.com/vova07
+ * @link https://github.com/vova07/yii2-imperavi-widget
  */
-final class TestPlugin extends AssetBundle
+class ImageManagerAsset extends AssetBundle
 {
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@vova07/imperavi/tests/../../src/assets';
+    public $sourcePath = '@vova07/imperavi/assets';
 
     /**
      * @inheritdoc
      */
     public $js = [
-        'redactor.min.js',
+        'custom/plugins/imagemanager/imagemanager.js',
     ];
 }

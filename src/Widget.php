@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of yii2-imperavi-widget.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://github.com/vova07/yii2-imperavi-widget
+ */
 
 namespace vova07\imperavi;
 
@@ -21,7 +29,8 @@ use yii\web\JsExpression;
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
  * @link https://github.com/vova07/yii2-imperavi-widget
- * @link http://imperavi.com/redactor
+ * @link https://imperavi.com/assets/pdf/redactor-documentation-10.pdf
+ *
  * @license https://github.com/vova07/yii2-imperavi-widget/blob/master/LICENSE.md
  */
 class Widget extends BaseWidget
@@ -30,40 +39,40 @@ class Widget extends BaseWidget
     const INLINE_JS_KEY = 'vova07/imperavi/';
 
     /**
-     * @var Model the data model that this widget is associated with.
+     * @var Model|null The data model that this widget is associated with.
      */
     public $model;
 
     /**
-     * @var string the model attribute that this widget is associated with.
+     * @var string|null The model attribute that this widget is associated with.
      */
     public $attribute;
 
     /**
-     * @var string the input name. This must be set if [[model]] and [[attribute]] are not set.
+     * @var string|null The input name. This must be set if `model` and `attribute` are not set.
      */
     public $name;
 
     /**
-     * @var string the input value.
+     * @var string|null The input value.
      */
     public $value;
 
     /**
      * @var string|null Selector pointing to textarea to initialize redactor for.
-     * Defaults to null meaning that textarea does not exist yet and will be
-     * rendered by this widget.
+     * Defaults to `null` meaning that textarea does not exist yet and will be rendered by this widget.
      */
     public $selector;
 
     /**
-     * @var array the HTML attributes for the input tag.
+     * @var array The HTML attribute options for the input tag.
+     *
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
     public $options = [];
 
     /**
-     * @var array {@link http://imperavi.com/redactor/docs/ redactor options}.
+     * @var array {@link https://imperavi.com/assets/pdf/redactor-documentation-10.pdf redactor options} to manage the redactor itself.
      */
     public $settings = [];
 
@@ -73,14 +82,17 @@ class Widget extends BaseWidget
     public $defaultSettings = [];
 
     /**
-     * This property must be used only for registering widget custom plugins.
-     * The key is the name of the plugin, and the value must be the class name of the plugin bundle.
-     * @var array Widget custom plugins key => value array
+     * This property must be used only for registering widget's custom plugins.
+     * The `key` is the name of the plugin, and the `value` must be the class name of the plugin bundle.
+     *
+     * @var array Widget custom plugins ['key' => 'value'] array.
+     *
+     * @example `['my-custom-plugin' => MyCustomPlugin::className(), ...]`
      */
     public $plugins = [];
 
     /**
-     * @var boolean Depends on this attribute textarea will be rendered or not
+     * @var boolean Whether to render the `textarea` or not.
      */
     private $_renderTextarea = true;
 
@@ -89,7 +101,7 @@ class Widget extends BaseWidget
      */
     public function init()
     {
-        if ($this->name === null && !$this->hasModel() && $this->selector === null) {
+        if ($this->name === null && $this->selector === null && !$this->hasModel()) {
             throw new InvalidConfigException("Either 'name', or 'model' and 'attribute' properties must be specified.");
         }
         if (!isset($this->options['id'])) {
@@ -136,6 +148,8 @@ class Widget extends BaseWidget
                 return Html::textarea($this->name, $this->value, $this->options);
             }
         }
+
+        return '';
     }
 
     /**
@@ -143,16 +157,24 @@ class Widget extends BaseWidget
      */
     public static function registerTranslations()
     {
-        if (!isset(Yii::$app->i18n->translations['vova07/imperavi']) && !isset(Yii::$app->i18n->translations['vova07/imperavi/*'])) {
+        if (!isset(Yii::$app->i18n->translations['vova07/imperavi']) && !isset(Yii::$app->i18n->translations['vova07/imperavi*'])) {
             Yii::$app->i18n->translations['vova07/imperavi'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
                 'basePath' => '@vova07/imperavi/messages',
                 'forceTranslation' => true,
                 'fileMap' => [
-                    'vova07/imperavi' => 'imperavi.php'
-                ]
+                    'vova07/imperavi' => 'imperavi.php',
+                ],
             ];
         }
+    }
+
+    /**
+     * @return boolean whether this widget is associated with a data model.
+     */
+    protected function hasModel()
+    {
+        return $this->model instanceof Model && $this->attribute !== null;
     }
 
     /**
@@ -163,6 +185,23 @@ class Widget extends BaseWidget
         self::registerTranslations();
         $this->registerDefaultCallbacks();
         $this->registerClientScripts();
+    }
+
+    /**
+     * Register default callbacks.
+     */
+    protected function registerDefaultCallbacks()
+    {
+        if (isset($this->settings['imageUpload']) && !isset($this->settings['imageUploadErrorCallback'])) {
+            $message = Yii::t('vova07/imperavi', 'ERROR_DURING_UPLOAD_PROCESS');
+
+            $this->settings['imageUploadErrorCallback'] = new JsExpression('function (response) { alert("' . $message . '"); }');
+        }
+        if (isset($this->settings['fileUpload']) && !isset($this->settings['fileUploadErrorCallback'])) {
+            $message = Yii::t('vova07/imperavi', 'ERROR_DURING_UPLOAD_PROCESS');
+
+            $this->settings['fileUploadErrorCallback'] = new JsExpression('function (response) { alert("' . $message . '"); }');
+        }
     }
 
     /**
@@ -192,26 +231,5 @@ class Widget extends BaseWidget
         $settings = !empty($this->settings) ? Json::encode($this->settings) : '';
 
         $view->registerJs("jQuery($selector).redactor($settings);", $view::POS_READY, self::INLINE_JS_KEY . $this->options['id']);
-    }
-
-    /**
-     * Register default callbacks.
-     */
-    protected function registerDefaultCallbacks()
-    {
-        if (isset($this->settings['imageUpload']) && !isset($this->settings['imageUploadErrorCallback'])) {
-            $this->settings['imageUploadErrorCallback'] = new JsExpression('function (response) { alert(response.error); }');
-        }
-        if (isset($this->settings['fileUpload']) && !isset($this->settings['fileUploadErrorCallback'])) {
-            $this->settings['fileUploadErrorCallback'] = new JsExpression('function (response) { alert(response.error); }');
-        }
-    }
-
-    /**
-     * @return boolean whether this widget is associated with a data model.
-     */
-    protected function hasModel()
-    {
-        return $this->model instanceof Model && $this->attribute !== null;
     }
 }

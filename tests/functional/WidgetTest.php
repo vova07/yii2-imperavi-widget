@@ -1,23 +1,28 @@
 <?php
+/**
+ * This file is part of yii2-imperavi-widget.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://github.com/vova07/yii2-imperavi-widget
+ */
 
-namespace tests;
+namespace vova07\imperavi\tests\functional;
 
 use ReflectionClass;
-use tests\data\bundles\TestPlugin;
-use tests\data\models\Model;
-use tests\data\overrides\TestWidget;
+use vova07\imperavi\tests\functional\data\bundles\TestPlugin;
+use vova07\imperavi\tests\functional\data\models\Model;
+use vova07\imperavi\tests\functional\data\overrides\TestWidget;
 use Yii;
 use yii\web\View;
 
 /**
- * Class WidgetTest
- * @package tests
- *
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
  * @link https://github.com/vova07
  */
-class WidgetTest extends TestCase
+final class WidgetTest extends TestCase
 {
     /**
      * Test render with model property and empty attribute value.
@@ -26,9 +31,10 @@ class WidgetTest extends TestCase
     {
         $output = TestWidget::widget([
             'model' => new Model(),
-            'attribute' => 'message'
+            'attribute' => 'message',
         ]);
         $expected = '<textarea id="model-message" name="Model[message]"></textarea>';
+
         $this->assertEqualsWithoutLE($expected, $output);
     }
 
@@ -42,9 +48,10 @@ class WidgetTest extends TestCase
 
         $output = TestWidget::widget([
             'model' => $model,
-            'attribute' => 'message'
+            'attribute' => 'message',
         ]);
         $expected = '<textarea id="model-message" name="Model[message]">test-value</textarea>';
+
         $this->assertEqualsWithoutLE($expected, $output);
     }
 
@@ -55,12 +62,13 @@ class WidgetTest extends TestCase
     {
         $output = TestWidget::widget([
             'options' => [
-                'id' => 'test-id'
+                'id' => 'test-id',
             ],
             'model' => new Model(),
-            'attribute' => 'message'
+            'attribute' => 'message',
         ]);
         $expected = '<textarea id="test-id" name="Model[message]"></textarea>';
+
         $this->assertEqualsWithoutLE($expected, $output);
     }
 
@@ -72,10 +80,11 @@ class WidgetTest extends TestCase
         $output = TestWidget::widget(
             [
                 'name' => 'test-name',
-                'value' => 'test-value'
+                'value' => 'test-value',
             ]
         );
         $expected = '<textarea id="w0" name="test-name">test-value</textarea>';
+
         $this->assertEqualsWithoutLE($expected, $output);
     }
 
@@ -87,10 +96,11 @@ class WidgetTest extends TestCase
         $output = TestWidget::widget(
             [
                 'id' => 'test-id',
-                'name' => 'test-name'
+                'name' => 'test-name',
             ]
         );
         $expected = '<textarea id="test-id" name="test-name"></textarea>';
+
         $this->assertEqualsWithoutLE($expected, $output);
     }
 
@@ -102,10 +112,11 @@ class WidgetTest extends TestCase
         $output = TestWidget::widget(
             [
                 'selector' => 'test-selector',
-                'name' => 'test-name'
+                'name' => 'test-name',
             ]
         );
         $expected = '';
+
         $this->assertEqualsWithoutLE($expected, $output);
     }
 
@@ -115,6 +126,7 @@ class WidgetTest extends TestCase
     public function testRenderWithoutModelAndNameAndSelector()
     {
         $this->setExpectedException('yii\base\InvalidConfigException', "Either 'name', or 'model' and 'attribute' properties must be specified");
+
         TestWidget::begin();
     }
 
@@ -124,11 +136,12 @@ class WidgetTest extends TestCase
     public function testRenderWithInvalidPluginsProperty()
     {
         $this->setExpectedException('yii\base\InvalidConfigException', 'The "plugins" property must be an array');
+
         TestWidget::begin(
             [
                 'selector' => 'test-selector',
                 'name' => 'test-name',
-                'plugins' => 'clips'
+                'plugins' => 'clips',
             ]
         );
     }
@@ -139,11 +152,12 @@ class WidgetTest extends TestCase
     public function testRenderWithInvalidSettingPluginsProperty()
     {
         $this->setExpectedException('yii\base\InvalidConfigException');
+
         TestWidget::begin(
             [
                 'selector' => 'test-selector',
                 'name' => 'test-name',
-                'settings' => ['plugins' => 'clips']
+                'settings' => ['plugins' => 'clips'],
             ]
         );
     }
@@ -161,13 +175,13 @@ class WidgetTest extends TestCase
         $widget = TestWidget::begin(
             [
                 'options' => [
-                    'id' => 'test-id'
+                    'id' => 'test-id',
                 ],
                 'model' => $model,
                 'attribute' => 'message',
                 'plugins' => [
-                    'testPlugin' => TestPlugin::className()
-                ]
+                    'testPlugin' => TestPlugin::className(),
+                ],
             ]
         );
         $view = $this->getView();
@@ -177,7 +191,7 @@ class WidgetTest extends TestCase
         $inlineJSKey = TestWidget::INLINE_JS_KEY . 'test-id';
 
         $this->assertArrayHasKey($inlineJSKey, $view->js[View::POS_READY]);
-        $this->assertEquals($test, $view->js[View::POS_READY][$inlineJSKey]);
+        $this->assertSame($test, $view->js[View::POS_READY][$inlineJSKey]);
         $this->assertArrayHasKey(TestPlugin::className(), $view->assetBundles);
     }
 
@@ -193,7 +207,7 @@ class WidgetTest extends TestCase
         $widget = TestWidget::begin(
             [
                 'options' => [
-                    'id' => 'test-id'
+                    'id' => 'test-id',
                 ],
                 'model' => $model,
                 'attribute' => 'message',
@@ -202,9 +216,9 @@ class WidgetTest extends TestCase
                     'minHeight' => 200,
                     'plugins' => [
                         'clips',
-                        'fullscreen'
-                    ]
-                ]
+                        'fullscreen',
+                    ],
+                ],
             ]
         );
         $view = $this->getView();
@@ -214,7 +228,7 @@ class WidgetTest extends TestCase
         $inlineJSKey = TestWidget::INLINE_JS_KEY . 'test-id';
 
         $this->assertArrayHasKey($inlineJSKey, $view->js[View::POS_READY]);
-        $this->assertEquals($test, $view->js[View::POS_READY][$inlineJSKey]);
+        $this->assertSame($test, $view->js[View::POS_READY][$inlineJSKey]);
     }
 
     /**
@@ -229,10 +243,10 @@ class WidgetTest extends TestCase
         $widget = TestWidget::begin(
             [
                 'options' => [
-                    'id' => 'test-id'
+                    'id' => 'test-id',
                 ],
                 'model' => $model,
-                'attribute' => 'message'
+                'attribute' => 'message',
             ]
         );
         $view = $this->getView();
@@ -243,11 +257,12 @@ class WidgetTest extends TestCase
             'basePath' => '@vova07/imperavi/messages',
             'forceTranslation' => true,
             'fileMap' => [
-                'vova07/imperavi' => 'imperavi.php'
-            ]
+                'vova07/imperavi' => 'imperavi.php',
+            ],
         ];
+
         $this->assertArrayHasKey('vova07/imperavi', Yii::$app->i18n->translations);
-        $this->assertEquals($test, Yii::$app->i18n->translations['vova07/imperavi']);
+        $this->assertSame($test, Yii::$app->i18n->translations['vova07/imperavi']);
     }
 
     /**
@@ -264,16 +279,16 @@ class WidgetTest extends TestCase
                 'name' => 'message',
                 'settings' => [
                     'imageUpload' => 'test/url',
-                    'fileUpload' => 'test/url'
-                ]
+                    'fileUpload' => 'test/url',
+                ],
             ]
         );
         $widget2 = TestWidget::begin(
             [
                 'name' => 'message2',
                 'settings' => [
-                    'lang' => 'ru'
-                ]
+                    'lang' => 'ru',
+                ],
             ]
         );
         $widget3 = TestWidget::begin(
@@ -281,8 +296,8 @@ class WidgetTest extends TestCase
                 'name' => 'message3',
                 'settings' => [
                     'imageUploadErrorCallback' => $uploadErrorCallback,
-                    'fileUploadErrorCallback' => $uploadErrorCallback
-                ]
+                    'fileUploadErrorCallback' => $uploadErrorCallback,
+                ],
             ]
         );
         $method->invoke($widget);
@@ -292,11 +307,11 @@ class WidgetTest extends TestCase
         $this->assertArrayHasKey('imageUploadErrorCallback', $widget->settings);
         $this->assertArrayNotHasKey('imageUploadErrorCallback', $widget2->settings);
         $this->assertArrayHasKey('imageUploadErrorCallback', $widget3->settings);
-        $this->assertEquals($uploadErrorCallback, $widget3->settings['imageUploadErrorCallback']);
+        $this->assertSame($uploadErrorCallback, $widget3->settings['imageUploadErrorCallback']);
         $this->assertArrayHasKey('fileUploadErrorCallback', $widget->settings);
         $this->assertArrayNotHasKey('fileUploadErrorCallback', $widget2->settings);
         $this->assertArrayHasKey('fileUploadErrorCallback', $widget3->settings);
-        $this->assertEquals($uploadErrorCallback, $widget3->settings['fileUploadErrorCallback']);
+        $this->assertSame($uploadErrorCallback, $widget3->settings['fileUploadErrorCallback']);
     }
 
     /**
@@ -311,29 +326,29 @@ class WidgetTest extends TestCase
             [
                 'name' => 'message',
                 'settings' => [
-                    'lang' => 'ru'
-                ]
+                    'lang' => 'ru',
+                ],
             ]
         );
         $widget2 = TestWidget::begin(
             [
                 'name' => 'message2',
                 'settings' => [
-                    'lang' => 'uk'
+                    'lang' => 'uk',
                 ],
                 'defaultSettings' => [
                     'lang' => 'ru',
-                    'minHeight' => 200
-                ]
+                    'minHeight' => 200,
+                ],
             ]
         );
         $method->invoke($widget);
         $method->invoke($widget2);
 
         $this->assertArrayHasKey('lang', $widget->settings);
-        $this->assertEquals('ru', $widget->settings['lang']);
+        $this->assertSame('ru', $widget->settings['lang']);
         $this->assertArrayHasKey('lang', $widget2->settings);
         $this->assertArrayHasKey('minHeight', $widget2->settings);
-        $this->assertEquals('uk', $widget2->settings['lang']);
+        $this->assertSame('uk', $widget2->settings['lang']);
     }
 }

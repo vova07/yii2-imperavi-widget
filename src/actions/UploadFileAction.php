@@ -1,23 +1,29 @@
 <?php
+/**
+ * This file is part of yii2-imperavi-widget.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://github.com/vova07/yii2-imperavi-widget
+ */
 
 namespace vova07\imperavi\actions;
 
 use vova07\imperavi\Widget;
+use Yii;
 use yii\base\Action;
 use yii\base\DynamicModel;
 use yii\base\InvalidCallException;
 use yii\base\InvalidConfigException;
 use yii\helpers\FileHelper;
+use yii\helpers\Inflector;
 use yii\web\BadRequestHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
-use Yii;
 
 /**
- * Class UploadAction
- * @package vova07\imperavi\actions
- *
- * UploadAction for images and files.
+ * UploadFileAction for images and files.
  *
  * Usage:
  *
@@ -26,19 +32,21 @@ use Yii;
  * {
  *     return [
  *         'upload-image' => [
- *             'class' => 'vova07\imperavi\actions\UploadAction',
+ *             'class' => 'vova07\imperavi\actions\UploadFileAction',
  *             'url' => 'http://my-site.com/statics/',
  *             'path' => '/var/www/my-site.com/web/statics',
+ *             'unique' => true,
  *             'validatorOptions' => [
  *                 'maxWidth' => 1000,
  *                 'maxHeight' => 1000
  *             ]
  *         ],
  *         'file-upload' => [
- *             'class' => 'vova07\imperavi\actions\UploadAction',
+ *             'class' => 'vova07\imperavi\actions\UploadFileAction',
  *             'url' => 'http://my-site.com/statics/',
  *             'path' => '/var/www/my-site.com/web/statics',
  *             'uploadOnlyImage' => false,
+ *             'translit' => true,
  *             'validatorOptions' => [
  *                 'maxSize' => 40000
  *             ]
@@ -49,17 +57,17 @@ use Yii;
  *
  * @author Vasile Crudu <bazillio07@yandex.ru>
  *
- * @link https://github.com/vova07
+ * @link https://github.com/vova07/yii2-imperavi-widget
  */
-class UploadAction extends Action
+class UploadFileAction extends Action
 {
     /**
-     * @var string Path to directory where files will be uploaded
+     * @var string Path to directory where files will be uploaded.
      */
     public $path;
 
     /**
-     * @var string URL path to directory where files will be uploaded
+     * @var string URL path to directory where files will be uploaded.
      */
     public $url;
 
@@ -74,17 +82,29 @@ class UploadAction extends Action
     public $uploadParam = 'file';
 
     /**
-     * @var boolean If `true` unique filename will be generated automatically
+     * @var bool Whether to replace the file with new one in case they have same name or not.
+     */
+    public $replace = false;
+
+    /**
+     * @var boolean If `true` unique filename will be generated automatically.
      */
     public $unique = true;
 
     /**
-     * @var array Model validator options
+     * In case of `true` this option will be ignored if `$unique` will be also enabled.
+     *
+     * @var bool Whether to translit the uploaded file name or not.
+     */
+    public $translit = false;
+
+    /**
+     * @var array Model validator options.
      */
     public $validatorOptions = [];
 
     /**
-     * @var string Model validator name
+     * @var string Model validator name.
      */
     private $_validator = 'image';
 
@@ -120,30 +140,41 @@ class UploadAction extends Action
     public function run()
     {
         if (Yii::$app->request->isPost) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
             $file = UploadedFile::getInstanceByName($this->uploadParam);
-            $model = new DynamicModel(compact('file'));
+            $model = new DynamicModel(['file' => $file]);
             $model->addRule('file', $this->_validator, $this->validatorOptions)->validate();
 
             if ($model->hasErrors()) {
                 $result = [
-                    'error' => $model->getFirstError('file')
+                    'error' => $model->getFirstError('file'),
                 ];
             } else {
                 if ($this->unique === true && $model->file->extension) {
                     $model->file->name = uniqid() . '.' . $model->file->extension;
+                } elseif ($this->translit === true && $model->file->extension) {
+                    $model->file->name = Inflector::slug($model->file->baseName) . '.' . $model->file->extension;
                 }
+
+                if (file_exists($this->path . $model->file->name) && $this->replace === false) {
+                    return [
+                        'error' => Yii::t('vova07/imperavi', 'ERROR_FILE_ALREADY_EXIST'),
+                    ];
+                }
+
                 if ($model->file->saveAs($this->path . $model->file->name)) {
-                    $result = ['filelink' => $this->url . $model->file->name];
+                    $result = ['id' => $model->file->name, 'filelink' => $this->url . $model->file->name];
+
                     if ($this->uploadOnlyImage !== true) {
                         $result['filename'] = $model->file->name;
                     }
                 } else {
                     $result = [
-                        'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE')
+                        'error' => Yii::t('vova07/imperavi', 'ERROR_CAN_NOT_UPLOAD_FILE'),
                     ];
                 }
             }
-            Yii::$app->response->format = Response::FORMAT_JSON;
 
             return $result;
         } else {

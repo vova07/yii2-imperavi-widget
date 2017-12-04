@@ -1,41 +1,54 @@
 <?php
+/**
+ * This file is part of yii2-imperavi-widget.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @see https://github.com/vova07/yii2-imperavi-widget
+ */
 
-namespace tests;
+namespace vova07\imperavi\tests\functional;
 
 use org\bovigo\vfs\vfsStream;
-use org\bovigo\vfs\vfsStreamDirectory;
+use PHPUnit_Framework_TestCase;
+use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\AssetManager;
 use yii\web\View;
 
 /**
- * This is the base class for all yii framework unit tests.
+ * This is the base class for all yii framework functional tests.
  */
-abstract class TestCase extends \PHPUnit_Framework_TestCase
+abstract class TestCase extends PHPUnit_Framework_TestCase
 {
-    /** Root directory name */
+    /**
+     * Root directory name.
+     */
     const ROOT_DIRECTORY = 'root';
-    /** Root directory name */
+    /**
+     * Root directory name.
+     */
     const STATICS_DIRECTORY = 'statics';
-    /** Root directory name */
+    /**
+     * Root directory name.
+     */
     const UPLOAD_DIRECTORY = 'upload';
-
-    /** @var array|null Params */
-    public static $params;
 
     /**
      * Mock application prior running tests.
      */
-    public function setUp()
+    protected function setUp()
     {
-        $root = vfsStream::setup(self::ROOT_DIRECTORY, null, [
+        vfsStream::setup(self::ROOT_DIRECTORY, null, [
             self::STATICS_DIRECTORY => [
                 '1.php' => 'PHP file test content.',
                 '2.html' => 'HTML file test content.',
-                'folder' => []
+                'folder' => [],
             ],
-            self::UPLOAD_DIRECTORY => []
+            self::UPLOAD_DIRECTORY => [],
         ]);
+
         $this->createVirtualJpegImage(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY . '/3.jpeg'));
         $this->createVirtualJpegImage(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::STATICS_DIRECTORY . '/folder/4.jpeg'));
         $this->createVirtualJpegImage(vfsStream::url(self::ROOT_DIRECTORY . '/' . self::UPLOAD_DIRECTORY . '/1.jpeg'));
@@ -47,19 +60,21 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
                     'request' => [
                         'class' => 'yii\web\Request',
                         'url' => '/test',
-                        'enableCsrfValidation' => false
+                        'enableCsrfValidation' => false,
                     ],
                     'response' => [
-                        'class' => 'yii\web\Response'
-                    ]
-                ]
+                        'class' => 'yii\web\Response',
+                    ],
+                ],
             ]
         );
     }
 
     /**
      * Clean up after test.
-     * By default the application created with [[mockApplication]] will be destroyed.
+     * By default the application created with `mockApplication` will be destroyed.
+     *
+     * {@inheritdoc}
      */
     protected function tearDown()
     {
@@ -68,41 +83,73 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
         $this->destroyApplication();
     }
 
+    /**
+     * Asserting two strings equality ignoring line endings.
+     *
+     * @param string $expected
+     * @param string $actual
+     */
+    public function assertEqualsWithoutLE($expected, $actual)
+    {
+        $expected = str_replace("\r\n", "\n", $expected);
+        $actual = str_replace("\r\n", "\n", $actual);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @param array $config
+     * @param string $appClass
+     */
     protected function mockApplication($config = [], $appClass = '\yii\console\Application')
     {
         new $appClass(
             ArrayHelper::merge(
                 [
-                    'id' => 'testapp',
+                    'id' => 'test-app',
                     'basePath' => __DIR__,
-                    'vendorPath' => $this->getVendorPath()
+                    'vendorPath' => $this->getVendorPath(),
                 ],
                 $config
             )
         );
     }
 
+    /**
+     * @param array $config
+     * @param string $appClass
+     */
     protected function mockWebApplication($config = [], $appClass = '\yii\web\Application')
     {
         new $appClass(ArrayHelper::merge([
             'id' => 'testapp',
             'basePath' => __DIR__,
             'vendorPath' => $this->getVendorPath(),
-            'controllerNamespace' => 'tests\data\controllers',
+            'controllerNamespace' => 'vova07\imperavi\tests\functional\data\controllers',
             'components' => [
                 'request' => [
                     'cookieValidationKey' => 'wefJDF8sfdsfSDefwqdxj9oq',
                     'scriptFile' => __DIR__ . '/index.php',
-                    'scriptUrl' => '/index.php'
+                    'scriptUrl' => '/index.php',
                 ],
                 'assetManager' => [
-                    'basePath' => '@tests/data/assets',
-                    'baseUrl' => '/'
-                ]
-            ]
+                    'basePath' => '@vova07/imperavi/tests/data/assets',
+                    'baseUrl' => '/',
+                ],
+                'i18n' => [
+                    'translations' => [
+                        '*' => [
+                            'class' => 'yii\i18n\PhpMessageSource',
+                        ],
+                    ],
+                ],
+            ],
         ], $config));
     }
 
+    /**
+     * @return string Return vendor path.
+     */
     protected function getVendorPath()
     {
         return dirname(dirname(__DIR__)) . '/vendor';
@@ -113,11 +160,11 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
      */
     protected function destroyApplication()
     {
-        \Yii::$app = null;
+        Yii::$app = null;
     }
 
     /**
-     * Creates a view for testing purposes
+     * Creates a view for testing purposes.
      *
      * @return View
      */
@@ -125,23 +172,11 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
     {
         $view = new View();
         $view->setAssetManager(new AssetManager([
-            'basePath' => '@tests/data/assets',
-            'baseUrl' => '/'
+            'basePath' => '@vova07/imperavi/tests/data/assets',
+            'baseUrl' => '/',
         ]));
-        return $view;
-    }
 
-    /**
-     * Asserting two strings equality ignoring line endings
-     *
-     * @param string $expected
-     * @param string $actual
-     */
-    public function assertEqualsWithoutLE($expected, $actual)
-    {
-        $expected = str_replace("\r\n", "\n", $expected);
-        $actual = str_replace("\r\n", "\n", $actual);
-        $this->assertEquals($expected, $actual);
+        return $view;
     }
 
     /**

@@ -37,7 +37,14 @@
     },
     "autoload": {
         "psr-4": {
-            "vova07\\imperavi\\": "src"
+            "vova07\\imperavi\\": "src",
+            "vova07\\imperavi\\tests\\": "tests"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }

@@ -7,12 +7,12 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://scrutinizer-ci.com/g/vova07/yii2-imperavi-widget)
 [![Total Downloads](https://img.shields.io/packagist/dt/vova07/yii2-imperavi-widget.svg?style=flat-square)](https://packagist.org/packages/vova07/yii2-imperavi-widget)
 
-`Imperavi Redactor Widget` — обёртка для [Imperavi Redactor](http://imperavi.com/redactor/),
+`Imperavi Redactor Widget` — обёртка для [Imperavi Redactor 10.2.5](https://imperavi.com/assets/pdf/redactor-documentation-10.pdf),
 довольно неплохого WYSIWYG редактора.
 
-Обратите внимание, что сам Imperavi Redactor — коммерческий продукт и не является
+**Обратите внимание, что сам Imperavi Redactor — коммерческий продукт и не является
 OpenSource, но так как сообщество Yii купило OEM-лицензию, то вы можете бесплатно
-пользоваться им в проектах на Yii.
+пользоваться им в проектах на Yii.**
 
 ## Установка
 
@@ -37,7 +37,7 @@ $ php composer.phar require --prefer-dist vova07/yii2-imperavi-widget "*"
 
 Как только вы установили расширение, вы можете её использовать в своём коде:
 
-### Как простой виджет ###
+### Как простой виджет
 
 ```php
 echo \vova07\imperavi\Widget::widget([
@@ -53,7 +53,7 @@ echo \vova07\imperavi\Widget::widget([
 ]);
 ```
 
-### Как виджет ActiveForm ###
+### Как виджет ActiveForm
 
 ```php
 use vova07\imperavi\Widget;
@@ -70,7 +70,7 @@ echo $form->field($model, 'content')->widget(Widget::className(), [
 ]);
 ```
 
-### Как виджет для уже существующего textarea ###
+### Как виджет для уже существующего textarea
 
 ```php
 echo \vova07\imperavi\Widget::widget([
@@ -86,7 +86,7 @@ echo \vova07\imperavi\Widget::widget([
 ]);
 ```
 
-### Добавляем возможность выбирать уже загружённые изображения ###
+### Добавляем возможность выбирать уже загружённые изображения
 
 ```php
 // DefaultController.php
@@ -94,11 +94,11 @@ public function actions()
 {
     return [
         'images-get' => [
-            'class' => 'vova07\imperavi\actions\GetAction',
-            'url' => 'http://my-site.com/images/', // URL адрес папки где хранятся изображения.
-            'path' => '@alias/to/my/path', // Или абсолютный путь к папке с изображениями.
-            'type' => GetAction::TYPE_IMAGES,
-        ]
+            'class' => 'vova07\imperavi\actions\GetImagesAction',
+            'url' => 'http://my-site.com/images/', // Directory URL address, where files are stored.
+            'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
+            'options' => ['only' => ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.ico']], // These options are by default.
+        ],
     ];
 }
 
@@ -110,13 +110,13 @@ echo \vova07\imperavi\Widget::widget([
         'minHeight' => 200,
         'imageManagerJson' => Url::to(['/default/images-get']),
         'plugins' => [
-            'imagemanager'
-        ]
+            'imagemanager',
+        ],
     ]
 ]);
 ```
 
-### Добавляем возможность выбирать уже загружённые файлы ###
+### Добавляем возможность выбирать уже загружённые файлы
 
 ```php
 // DefaultController.php
@@ -124,11 +124,11 @@ public function actions()
 {
     return [
         'files-get' => [
-            'class' => 'vova07\imperavi\actions\GetAction',
-            'url' => 'http://my-site.com/files/', // URL адрес папки где хранятся файлы.
-            'path' => '@alias/to/my/path', // Или абсолютный путь к папке с файлами.
-            'type' => GetAction::TYPE_FILES,
-        ]
+            'class' => 'vova07\imperavi\actions\GetFilesAction',
+            'url' => 'http://my-site.com/files/', // Directory URL address, where files are stored.
+            'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
+            'options' => ['only' => ['*.txt', '*.md']], // These options are by default.
+        ],
     ];
 }
 
@@ -140,13 +140,13 @@ echo \vova07\imperavi\Widget::widget([
         'minHeight' => 200,
         'fileManagerJson' => Url::to(['/default/files-get']),
         'plugins' => [
-            'filemanager'
-        ]
+            'filemanager',
+        ],
     ]
 ]);
 ```
 
-### Загрузка изображения ###
+### Загрузка изображения
 
 ```php
 // DefaultController.php
@@ -154,9 +154,9 @@ public function actions()
 {
     return [
         'image-upload' => [
-            'class' => 'vova07\imperavi\actions\UploadAction',
-            'url' => 'http://my-site.com/images/', // URL адрес папки куда будут загружатся изображения.
-            'path' => '@alias/to/my/path' // Или абсолютный путь к папке куда будут загружатся изображения.
+            'class' => 'vova07\imperavi\actions\UploadFileAction',
+            'url' => 'http://my-site.com/images/', // Directory URL address, where files are stored.
+            'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
         ],
     ];
 }
@@ -167,12 +167,12 @@ echo \vova07\imperavi\Widget::widget([
     'settings' => [
         'lang' => 'ru',
         'minHeight' => 200,
-        'imageUpload' => Url::to(['/default/image-upload'])
+        'imageUpload' => Url::to(['/default/image-upload']),
     ]
 ]);
 ```
 
-### Загрузка файла ###
+### Загрузка файла
 
 ```php
 // DefaultController.php
@@ -181,9 +181,9 @@ public function actions()
     return [
         'file-upload' => [
             'class' => 'vova07\imperavi\actions\UploadAction',
-            'url' => 'http://my-site.com/files/', // URL адрес папки куда будут загружатся файлы.
-            'path' => '@alias/to/my/path', // Или абсолютный путь к папке куда будут загружатся файлы.
-            'uploadOnlyImage' => false, // Для загрузки не только изображений.
+            'url' => 'http://my-site.com/files/', // Directory URL address, where files are stored.
+            'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
+            'uploadOnlyImage' => false, // For any kind of files uploading.
         ],
     ];
 }
@@ -194,14 +194,70 @@ echo \vova07\imperavi\Widget::widget([
     'settings' => [
         'lang' => 'ru',
         'minHeight' => 200,
-        'fileUpload' => Url::to(['/default/file-upload'])
+        'fileUpload' => Url::to(['/default/file-upload']),
     ]
 ]);
 ```
 
-### Регистрация своих плагинов ###
+### Загрузка и замена файла с одинаковым названием 
 
-### Add custom plugins ###
+```php
+// DefaultController.php
+public function actions()
+{
+    return [
+        'file-upload' => [
+            'class' => 'vova07\imperavi\actions\UploadAction',
+            'url' => 'http://my-site.com/files/', // Directory URL address, where files are stored.
+            'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
+            'uploadOnlyImage' => false, // For any kind of files uploading.
+            'unique' => false,
+            'replace' => true, // By default it throw an excepiton instead.
+        ],
+    ];
+}
+
+// View.php
+echo \vova07\imperavi\Widget::widget([
+    'selector' => '#my-textarea-id',
+    'settings' => [
+        'lang' => 'ru',
+        'minHeight' => 200,
+        'fileUpload' => Url::to(['/default/file-upload']),
+    ]
+]);
+```
+
+### Загрузка и *translit* файла
+
+```php
+// DefaultController.php
+public function actions()
+{
+    return [
+        'file-upload' => [
+            'class' => 'vova07\imperavi\actions\UploadAction',
+            'url' => 'http://my-site.com/files/', // Directory URL address, where files are stored.
+            'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
+            'uploadOnlyImage' => false, // For any kind of files uploading.
+            'unique' => false,
+            'translit' => true,
+        ],
+    ];
+}
+
+// View.php
+echo \vova07\imperavi\Widget::widget([
+    'selector' => '#my-textarea-id',
+    'settings' => [
+        'lang' => 'ru',
+        'minHeight' => 200,
+        'fileUpload' => Url::to(['/default/file-upload']),
+    ]
+]);
+```
+
+### Регистрация своих плагинов
 
 ```php
 echo \vova07\imperavi\Widget::widget([
@@ -220,6 +276,89 @@ echo \vova07\imperavi\Widget::widget([
 ]);
 ```
 
+### Включаем менеджер изображений с функционалом удаления изоражения
+
+```php
+// DefaultController.php
+public function actions()
+{
+    return [
+        'images-get' => [
+            'class' => 'vova07\imperavi\actions\GetImagesAction',
+            'url' => 'http://my-site.com/images/', // Directory URL address, where files are stored.
+            'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
+        ],
+        'image-upload' => [
+            'class' => 'vova07\imperavi\actions\UploadFileAction',
+            'url' => 'http://my-site.com/images/', // Directory URL address, where files are stored.
+            'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
+        ],
+        'file-delete' => [
+            'class' => 'vova07\imperavi\actions\DeleteFileAction',
+            'url' => 'http://my-site.com/statics/', // Directory URL address, where files are stored.
+            'path' => '/var/www/my-site.com/web/statics', // Or absolute path to directory where files are stored.
+        ],
+    ];
+}
+
+// View.php
+echo \vova07\imperavi\Widget::widget([
+    'selector' => '#my-textarea-id',
+    'settings' => [
+        'lang' => 'ru',
+        'minHeight' => 200,
+        'imageUpload' => Url::to(['/default/image-upload']),
+        'imageDelete' => Url::to(['/default/file-delete']),
+        'imageManagerJson' => Url::to(['/default/images-get']),
+    ],
+    'plugins' => [
+        'imagemanager' => 'vova07\imperavi\bundles\ImageManagerAsset',              
+    ],
+]);
+```
+
+### Включаем менеджер файлов с функционалом удаления файла
+
+```php
+// DefaultController.php
+public function actions()
+{
+    return [
+        'files-get' => [
+            'class' => 'vova07\imperavi\actions\GetFilesAction',
+            'url' => 'http://my-site.com/images/', // Directory URL address, where files are stored.
+            'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
+        ],
+        'file-upload' => [
+            'class' => 'vova07\imperavi\actions\UploadAction',
+            'url' => 'http://my-site.com/files/', // Directory URL address, where files are stored.
+            'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
+            'uploadOnlyImage' => false, // For any kind of files uploading.
+        ],
+        'file-delete' => [
+            'class' => 'vova07\imperavi\actions\DeleteFileAction',
+            'url' => 'http://my-site.com/statics/', // Directory URL address, where files are stored.
+            'path' => '/var/www/my-site.com/web/statics', // Or absolute path to directory where files are stored.
+        ],
+    ];
+}
+
+// View.php
+echo \vova07\imperavi\Widget::widget([
+    'selector' => '#my-textarea-id',
+    'settings' => [
+        'lang' => 'ru',
+        'minHeight' => 200,
+        'fileUpload' => Url::to(['/default/file-upload']),
+        'fileDelete' => Url::to(['/default/file-delete']),
+        'fileManagerJson' => Url::to(['/default/files-get']),
+    ],
+    'plugins' => [
+        'filemanager' => 'vova07\imperavi\bundles\FileManagerAsset',              
+    ],
+]);
+```
+
 ## Тестирование
 
 ``` bash
@@ -228,7 +367,7 @@ $ phpunit
 
 ## Дополнительная информация
 
-Пожалуйста проверьте [Imperavi Redactor](http://imperavi.com/redactor/) документацию для более подробной информации касательно его настроек.
+Пожалуйста проверьте [Imperavi Redactor v10](https://imperavi.com/assets/pdf/redactor-documentation-10.pdf) документацию для более подробной информации касательно его настроек.
 
 ## Хотите помочь?
 
@@ -243,5 +382,6 @@ $ phpunit
 
 BSD Лицензия (BSD). Пожалуйста проверьте [License файл](LICENSE.md) для подробной информации.
 
-> <a href="http://yiiwheels.com"><img src="http://yiiwheels.com/img/logo-big.png" alt="YiiWheels" width="150" height="100" /></a>  
-[Доступно также на YiiWheels](http://yiiwheels.com)
+## Руководство по обновлению
+
+Пожалуйста ознакомтесь с [РУКОВОДСТВОМ](UPGRADE.md) для подробной информации.
