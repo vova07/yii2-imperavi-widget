@@ -210,15 +210,15 @@ class Widget extends BaseWidget
     protected function registerClientScripts()
     {
         $view = $this->getView();
-        $selector = Json::encode($this->selector);
+        /** @var Asset $asset */
         $asset = Yii::$container->get(Asset::className());
         $asset = $asset::register($view);
 
         if (isset($this->settings['lang'])) {
-            $asset->language = $this->settings['lang'];
+            $asset->addLanguage($this->settings['lang']);
         }
         if (isset($this->settings['plugins'])) {
-            $asset->plugins = $this->settings['plugins'];
+            $asset->addPlugins($this->settings['plugins']);
         }
         if (!empty($this->plugins)) {
             /** @var \yii\web\AssetBundle $bundle Asset bundle */
@@ -228,6 +228,7 @@ class Widget extends BaseWidget
             }
         }
 
+        $selector = Json::encode($this->selector);
         $settings = !empty($this->settings) ? Json::encode($this->settings) : '';
 
         $view->registerJs("jQuery($selector).redactor($settings);", $view::POS_READY, self::INLINE_JS_KEY . $this->options['id']);

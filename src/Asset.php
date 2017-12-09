@@ -21,59 +21,50 @@ use yii\web\AssetBundle;
  */
 class Asset extends AssetBundle
 {
-	/**
-	 * @inheritdoc
-	 */
-	public $sourcePath = '@vova07/imperavi/assets';
+    /**
+     * @inheritdoc
+     */
+    public $sourcePath = '@vova07/imperavi/assets';
 
-	/**
-	 * @var string Redactor language
-	 */
-	public $language;
+    /**
+     * @inheritdoc
+     */
+    public $css = [
+        'redactor.css',
+    ];
 
-	/**
-	 * @var array Redactor plugins array
-	 */
-	public $plugins = [];
+    /**
+     * @inheritdoc
+     */
+    public $js = [
+        'redactor.min.js',
+    ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public $css = [
-		'redactor.css'
-	];
+    /**
+     * @inheritdoc
+     */
+    public $depends = [
+        'yii\web\JqueryAsset',
+    ];
 
-	/**
-	 * @inheritdoc
-	 */
-	public $js = [
-	    'redactor.min.js'
-	];
+    /**
+     * @param array $plugins The plugins array to register.
+     */
+    public function addPlugins($plugins)
+    {
+        foreach ($plugins as $plugin) {
+            if ($plugin === 'clips') {
+                $this->css[] = 'plugins/' . $plugin . '/' . $plugin . '.css';
+            }
+            $this->js[] = 'plugins/' . $plugin . '/' . $plugin . '.js';
+        }
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public $depends = [
-		'yii\web\JqueryAsset'
-	];
-
-	/**
-	 * Register asset bundle language files and plugins.
-	 */
-	public function registerAssetFiles($view)
-	{
-		if ($this->language !== null) {
-			$this->js[] = 'lang/' . $this->language . '.js';
-		}
-		if (!empty($this->plugins)) {
-			foreach ($this->plugins as $plugin) {
-				if ($plugin === 'clips') {
-					$this->css[] = 'plugins/' . $plugin . '/' . $plugin . '.css';
-				}
-				$this->js[] = 'plugins/' . $plugin . '/' . $plugin .'.js';
-			}
-		}
-
-		parent::registerAssetFiles($view);
-	}
+    /**
+     * @param string $language The language to register.
+     */
+    public function addLanguage($language)
+    {
+        $this->js[] = 'lang/' . $language . '.js';
+    }
 }
