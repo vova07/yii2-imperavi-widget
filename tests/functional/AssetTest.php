@@ -31,8 +31,8 @@ final class AssetTest extends TestCase
         $this->assertEmpty($view->assetBundles);
 
         $asset = TestAsset::register($view);
-        $asset->language = 'ru';
-        $asset->plugins = ['clips', 'fullscreen'];
+        $asset->addLanguage('ru');
+        $asset->addPlugins(['clips', 'fullscreen']);
 
         $this->assertCount(2, $view->assetBundles);
         $this->assertArrayHasKey(JqueryAsset::className(), $view->assetBundles);

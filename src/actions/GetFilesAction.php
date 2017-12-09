@@ -27,7 +27,7 @@ use yii\web\Response;
  * {
  *     return [
  *         'get-image' => [
- *             'class' => GetAction::className(),
+ *             'class' => 'vova07\imperavi\actions\GetFilesAction',
  *             'url' => 'http://my-site.com/statics/',
  *             'path' => '/var/www/my-site.com/web/statics',
  *             'options' => ['only' => ['*.txt', '*.md']],

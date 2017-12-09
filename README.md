@@ -48,7 +48,7 @@ echo \vova07\imperavi\Widget::widget([
             'clips',
             'fullscreen',
         ],
-    ]
+    ],
 ]);
 ```
 
@@ -65,7 +65,7 @@ echo $form->field($model, 'content')->widget(Widget::className(), [
             'clips',
             'fullscreen',
         ],
-    ]
+    ],
 ]);
 ```
 
@@ -81,7 +81,7 @@ echo \vova07\imperavi\Widget::widget([
             'clips',
             'fullscreen',
         ],
-    ]
+    ],
 ]);
 ```
 
@@ -107,11 +107,12 @@ echo \vova07\imperavi\Widget::widget([
     'settings' => [
         'lang' => 'ru',
         'minHeight' => 200,
+        'imageUpload' => Url::to(['default/image-upload']),
         'imageManagerJson' => Url::to(['/default/images-get']),
         'plugins' => [
             'imagemanager',
         ],
-    ]
+    ],
 ]);
 ```
 
@@ -137,11 +138,12 @@ echo \vova07\imperavi\Widget::widget([
     'settings' => [
         'lang' => 'ru',
         'minHeight' => 200,
+        'fileUpload' => Url::to(['default/file-upload']),
         'fileManagerJson' => Url::to(['/default/files-get']),
         'plugins' => [
             'filemanager',
         ],
-    ]
+    ],
 ]);
 ```
 
@@ -167,7 +169,10 @@ echo \vova07\imperavi\Widget::widget([
         'lang' => 'ru',
         'minHeight' => 200,
         'imageUpload' => Url::to(['/default/image-upload']),
-    ]
+        'plugins' => [
+            'imagemanager',
+        ],
+    ],
 ]);
 ```
 
@@ -194,7 +199,10 @@ echo \vova07\imperavi\Widget::widget([
         'lang' => 'ru',
         'minHeight' => 200,
         'fileUpload' => Url::to(['/default/file-upload']),
-    ]
+        'plugins' => [
+            'filemanager',
+        ],
+    ],
 ]);
 ```
 
@@ -223,7 +231,10 @@ echo \vova07\imperavi\Widget::widget([
         'lang' => 'ru',
         'minHeight' => 200,
         'fileUpload' => Url::to(['/default/file-upload']),
-    ]
+        'plugins' => [
+            'filemanager',
+        ],
+    ],
 ]);
 ```
 
@@ -252,6 +263,9 @@ echo \vova07\imperavi\Widget::widget([
         'lang' => 'ru',
         'minHeight' => 200,
         'fileUpload' => Url::to(['/default/file-upload']),
+        'plugins' => [
+            'filemanager',
+        ],
     ]
 ]);
 ```
@@ -271,7 +285,7 @@ echo \vova07\imperavi\Widget::widget([
     ],
     'plugins' => [
         'my-custom-plugin' => 'app\assets\MyPluginBundle',
-    ]
+    ],
 ]);
 ```
 

@@ -1,7 +1,5 @@
-if (!RedactorPlugins) var RedactorPlugins = {};
-
 (function ($) {
-    RedactorPlugins.imagemanager = function () {
+    $.Redactor.prototype.imagemanager = function () {
         return {
             init: function () {
                 if (!this.opts.imageManagerJson) return;
