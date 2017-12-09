@@ -2,6 +2,14 @@
 
 All notable changes to `yii2-imperavi-widget` will be documented in this file.
 
+## 2.0.1
+
+### Changed
+- Fix the issue #112 related with multiple widget's instances assets registration. (vova07)
+- Adjust the documentation. (vova07)
+- Adjust the widget's actions documentation blocks. (vova07)
+- Refactor javascript custom plugins to use official registration approach. (vova07)
+
 ## 2.0.0
 
 ### Changed
