@@ -2,6 +2,11 @@
 
 All notable changes to `yii2-imperavi-widget` will be documented in this file.
 
+## 2.0.2
+
+### Changed
+- Minor documentation fixes
+
 ## 2.0.1
 
 ### Changed
@@ -16,7 +21,7 @@ All notable changes to `yii2-imperavi-widget` will be documented in this file.
 - Fix numerous bugs and issue related with the redactor wrapper. (vova07)
 - Rewrite tests and fix travis suites. (vova07)
 - Replace `UploadAction` with `UploadFileAction`. (vova07)
-- Replace `GetAction` with two new actions: `GetFilesActions` and `GetImagesActions`. (vova07)
+- Replace `GetAction` with two new actions: `GetFilesAction` and `GetImagesAction`. (vova07)
 - Add delete files functionality to `file manager`. (vova07)  
 - Add delete images functionality to `image manager`. (vova07)
 - Add `translit` support to `UploadFileAction`. (vova07)
