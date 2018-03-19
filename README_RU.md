@@ -185,7 +185,7 @@ public function actions()
 {
     return [
         'file-upload' => [
-            'class' => 'vova07\imperavi\actions\UploadAction',
+            'class' => 'vova07\imperavi\actions\UploadFileAction',
             'url' => 'http://my-site.com/files/', // Directory URL address, where files are stored.
             'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
             'uploadOnlyImage' => false, // For any kind of files uploading.
@@ -215,7 +215,7 @@ public function actions()
 {
     return [
         'file-upload' => [
-            'class' => 'vova07\imperavi\actions\UploadAction',
+            'class' => 'vova07\imperavi\actions\UploadFileAction',
             'url' => 'http://my-site.com/files/', // Directory URL address, where files are stored.
             'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
             'uploadOnlyImage' => false, // For any kind of files uploading.
@@ -247,7 +247,7 @@ public function actions()
 {
     return [
         'file-upload' => [
-            'class' => 'vova07\imperavi\actions\UploadAction',
+            'class' => 'vova07\imperavi\actions\UploadFileAction',
             'url' => 'http://my-site.com/files/', // Directory URL address, where files are stored.
             'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
             'uploadOnlyImage' => false, // For any kind of files uploading.
@@ -344,7 +344,7 @@ public function actions()
             'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
         ],
         'file-upload' => [
-            'class' => 'vova07\imperavi\actions\UploadAction',
+            'class' => 'vova07\imperavi\actions\UploadFileAction',
             'url' => 'http://my-site.com/files/', // Directory URL address, where files are stored.
             'path' => '@alias/to/my/path', // Or absolute path to directory where files are stored.
             'uploadOnlyImage' => false, // For any kind of files uploading.
