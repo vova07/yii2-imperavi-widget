@@ -7729,7 +7729,7 @@
 						var node2 = this.selection.getMarker(2);
 						this.selection.setMarker(this.range, node2, false);
 						// concrete5 start - https://github.com/concrete5/concrete5/issues/5406
-						if (this.utils.browser('chrome'))
+						if (this.utils.browser('webkit'))
 						{
 						    this.caret.set(node1, 0, node2, 0);
 						}
