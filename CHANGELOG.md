@@ -2,10 +2,21 @@
 
 All notable changes to `yii2-imperavi-widget` will be documented in this file.
 
+## 2.0.4
+
+### Changed
+- Fix for all webkit-based browsers. (bzz445)
+- Fix the file name for Ukrainian language. (vova07)
+
+## 2.0.3
+
+### Changed
+- Minor documentation fixes. (vova07)
+
 ## 2.0.2
 
 ### Changed
-- Minor documentation fixes
+- Minor documentation fixes. (vova07)
 
 ## 2.0.1
 
