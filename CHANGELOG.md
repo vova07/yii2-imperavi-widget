@@ -2,6 +2,11 @@
 
 All notable changes to `yii2-imperavi-widget` will be documented in this file.
 
+## 2.0.5
+
+### Changed
+- Fix Ukrainian code inside of `uk.js` file. (do6po)
+
 ## 2.0.4
 
 ### Changed
