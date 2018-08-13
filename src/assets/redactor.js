@@ -2108,8 +2108,8 @@
 					html = html.replace(new RegExp('</li><br\\s?/?>', 'gi'), '</li>');
 
 					// remove empty attributes
-					html = html.replace(/<(.*?)rel="\s*?"(.*?[^>]?)>/gi, '<$1$2">');
-					html = html.replace(/<(.*?)style="\s*?"(.*?[^>]?)>/gi, '<$1$2">');
+                    html = html.replace(/<(.*?)rel="\s*?"(.*?[^>]?)>/gi, '<$1$2>');
+                    html = html.replace(/<(.*?)style="\s*?"(.*?[^>]?)>/gi, '<$1$2>');
 					html = html.replace(/="">/gi, '>');
 					html = html.replace(/""">/gi, '">');
 					html = html.replace(/"">/gi, '">');
