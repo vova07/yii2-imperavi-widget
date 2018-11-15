@@ -2,6 +2,11 @@
 
 All notable changes to `yii2-imperavi-widget` will be documented in this file.
 
+## 2.0.7
+
+### Changes
+- Fix the issue #130 add a custom clips throw settings (bscheshirwork) 
+
 ## 2.0.6
 
 ### Changes

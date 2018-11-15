@@ -49,6 +49,12 @@ echo \vova07\imperavi\Widget::widget([
             'clips',
             'fullscreen',
         ],
+        'clips' => [
+            ['Lorem ipsum...', 'Lorem...'],
+            ['red', '<span class="label-red">red</span>'],
+            ['green', '<span class="label-green">green</span>'],
+            ['blue', '<span class="label-blue">blue</span>'],
+        ],
     ],
 ]);
 ```
@@ -66,6 +72,12 @@ echo $form->field($model, 'content')->widget(Widget::className(), [
             'clips',
             'fullscreen',
         ],
+        'clips' => [
+            ['Lorem ipsum...', 'Lorem...'],
+            ['red', '<span class="label-red">red</span>'],
+            ['green', '<span class="label-green">green</span>'],
+            ['blue', '<span class="label-blue">blue</span>'],
+        ],
     ],
 ]);
 ```
@@ -81,6 +93,12 @@ echo \vova07\imperavi\Widget::widget([
         'plugins' => [
             'clips',
             'fullscreen',
+        ],
+        'clips' => [
+            ['Lorem ipsum...', 'Lorem...'],
+            ['red', '<span class="label-red">red</span>'],
+            ['green', '<span class="label-green">green</span>'],
+            ['blue', '<span class="label-blue">blue</span>'],
         ],
     ],
 ]);
