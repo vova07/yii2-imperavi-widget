@@ -51,7 +51,9 @@ echo \vova07\imperavi\Widget::widget([
         ],
         'clips' => [
             ['Lorem ipsum...', 'Lorem...'],
-            ['Another red label', '<b class="label-blue">Another red label</b>']
+            ['red', '<span class="label-red">red</span>'],
+            ['green', '<span class="label-green">green</span>'],
+            ['blue', '<span class="label-blue">blue</span>'],
         ],
     ],
 ]);
@@ -72,7 +74,9 @@ echo $form->field($model, 'content')->widget(Widget::className(), [
         ],
         'clips' => [
             ['Lorem ipsum...', 'Lorem...'],
-            ['Another red label', '<b class="label-blue">Another red label</b>']
+            ['red', '<span class="label-red">red</span>'],
+            ['green', '<span class="label-green">green</span>'],
+            ['blue', '<span class="label-blue">blue</span>'],
         ],
     ],
 ]);
@@ -92,7 +96,9 @@ echo \vova07\imperavi\Widget::widget([
         ],
         'clips' => [
             ['Lorem ipsum...', 'Lorem...'],
-            ['Another red label', '<b class="label-blue">Another red label</b>']
+            ['red', '<span class="label-red">red</span>'],
+            ['green', '<span class="label-green">green</span>'],
+            ['blue', '<span class="label-blue">blue</span>'],
         ],
     ],
 ]);
