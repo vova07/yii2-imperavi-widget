@@ -2,10 +2,15 @@
 
 All notable changes to `yii2-imperavi-widget` will be documented in this file.
 
+## 2.0.8
+
+### Changed
+- Add `Slovak` language support. (snickom)
+
 ## 2.0.7
 
 ### Changed
-- Fix the issue #130 add a custom clips throw settings (bscheshirwork) 
+- Fix the issue #130 add a custom clips throw settings. (bscheshirwork) 
 
 ## 2.0.6
 
