@@ -2,6 +2,11 @@
 
 All notable changes to `yii2-imperavi-widget` will be documented in this file.
 
+## 2.0.9
+
+### Changed
+- Completed `Ukrainian` translation. (Sensetivity)
+
 ## 2.0.8
 
 ### Changed
