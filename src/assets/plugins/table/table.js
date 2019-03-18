@@ -264,7 +264,7 @@
 				var $table = $(this.selection.getParent()).closest('table');
 
 				if (!this.utils.isRedactorParent($table)) return false;
-				if ($table.size() === 0) return false;
+				if ($table.length === 0) return false;
 
 				return $table;
 			},
@@ -347,7 +347,7 @@
 
 				this.buffer.set();
 
-				if ($table.find('thead').size() !== 0)
+				if ($table.find('thead').length !== 0)
 				{
 					this.table.deleteHead();
 					return;
@@ -371,7 +371,7 @@
 				if (!$table) return;
 
 				var $thead = $table.find('thead');
-				if ($thead.size() === 0) return;
+				if ($thead.length === 0) return;
 
 				this.buffer.set();
 
