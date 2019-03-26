@@ -2,6 +2,11 @@
 
 All notable changes to `yii2-imperavi-widget` will be documented in this file.
 
+## 2.0.11
+
+### Changed
+- Fixed `table.js` bug by replacing `size()` with `length`. (bocceli)
+
 ## 2.0.10
 
 ### Changed
