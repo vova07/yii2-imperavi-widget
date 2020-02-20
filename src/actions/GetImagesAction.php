@@ -86,12 +86,11 @@ class GetImagesAction extends Action
         $files = [];
 
         foreach (FileHelper::findFiles($this->path, $this->options) as $path) {
-            $file = basename($path);
-            $url = $this->url . urlencode($file);
+            $url = $this->url . str_replace($this->path, '', $path)
 
             $files[] = [
-                'id' => $file,
-                'title' => $file,
+                'id' => $url,
+                'title' => $url,
                 'thumb' => $url,
                 'image' => $url,
             ];
