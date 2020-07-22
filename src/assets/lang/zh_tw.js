@@ -6,7 +6,7 @@ $.Redactor.opts.langs['zh_tw'] = {
 	table: '表格',
 	link: '連結',
 	link_insert: '插入連結',
-	link_edit: 'Edit link',
+	link_edit: '編輯連結',
 	unlink: '移除連結',
 	formatting: '樣式',
 	paragraph: '段落',
@@ -65,11 +65,11 @@ $.Redactor.opts.langs['zh_tw'] = {
 	fullscreen: '全銀幕',
 	deleted: '刪除線',
 	anchor: '錨點',
-	link_new_tab: 'Open link in new tab',
-	underline: 'Underline',
-	alignment: 'Alignment',
-	filename: 'Name (optional)',
-	edit: 'Edit',
-	center: 'Center'
+	link_new_tab: '從新標籤頁打開',
+	underline: '下劃線',
+	alignment: '對齊方式',
+	filename: '文件名(可選)',
+	edit: '編輯',
+	center: '居中'
 };
 })( jQuery );
