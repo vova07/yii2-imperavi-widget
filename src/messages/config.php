@@ -11,7 +11,7 @@
 return [
     'sourcePath' => dirname(__DIR__),
     'messagePath' => __DIR__,
-    'languages' => ['de', 'en', 'es', 'pt-BR', 'ru', 'ro'],
+    'languages' => ['de', 'en', 'es', 'pt-BR', 'ru', 'ro', 'zh-CN', 'zh-TW'],
     'translator' => 'Yii::t',
     'sort' => false,
     'overwrite' => true,
