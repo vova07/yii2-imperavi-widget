@@ -1305,7 +1305,7 @@
 					if(this.opts.codemirror) {
 						var $el = (this.build.isTextarea()) ? this.$element : this.$textarea;
 						console.log($el);
-						// var editor = CodeMirror.fromTextArea($el[0]);
+						var editor = CodeMirror.fromTextArea($el[0]);
 					}
 				},
 				setCodeAndCall: function()
