@@ -37,7 +37,7 @@ class Asset extends AssetBundle
      * @inheritdoc
      */
     public $js = [
-        'redactor.min.js',
+        'redactor.js',
     ];
 
     /**
