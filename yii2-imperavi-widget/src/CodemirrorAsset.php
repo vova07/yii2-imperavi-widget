@@ -17,10 +17,13 @@ class CodemirrorAsset extends AssetBundle
         'codemirror/codemirror.js',
         'codemirror/mode/htmlmixed/htmlmixed.js',
         'codemirror/mode/javascript/javascript.js',
+        'codemirror/mode/xml/xml.js',
+        'codemirror/mode/css/css.js',
     ];
 
     public $css = [
-        'codemirror/codemirror.css'
+        'codemirror/codemirror.css',
+        'codemirror/theme/ayu-mirage.css',
     ];
 
     public $depends = [
