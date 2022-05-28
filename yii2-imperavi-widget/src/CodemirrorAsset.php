@@ -16,6 +16,7 @@ class CodemirrorAsset extends AssetBundle
     public $js = [
         'codemirror/codemirror.js',
         'codemirror/mode/htmlmixed/htmlmixed.js',
+        'codemirror/mode/javascript/javascript.js',
     ];
 
     public $css = [
