@@ -1248,6 +1248,7 @@
 					this.build.createContainerBox();
 					this.build.loadContent();
 					this.build.loadEditor();
+					this.build.addCodeMirror();
 					this.build.enableEditor();
 					this.build.setCodeAndCall();
 				},
@@ -1298,6 +1299,14 @@
 					this.$editor.addClass('redactor-editor');
 
 					this.$textarea.hide();
+				},
+				addCodeMirror: function() 
+				{
+					if(this.opts.codemirror) {
+						var $el = (this.build.isTextarea()) ? this.$element : this.$textarea;
+						console.log(this.opts);
+						var editor = CodeMirror.fromTextArea($el[0], this.opts.codemirror);
+					}
 				},
 				setCodeAndCall: function()
 				{
@@ -2936,7 +2945,7 @@
 					{
 						this.$textarea.next('.CodeMirror').each(function(i, el)
 						{
-							el.CodeMirror.setValue(html);
+							(el.CodeMirror !== undefined) ? el.CodeMirror.setValue(html) : '';
 						});
 					}
 
