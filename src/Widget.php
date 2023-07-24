@@ -211,8 +211,12 @@ class Widget extends BaseWidget
     {
         $view = $this->getView();
         /** @var Asset $asset */
-        $asset = Yii::$container->get(Asset::className());
+        $asset = Yii::$container->get(Asset::class);
         $asset = $asset::register($view);
+
+        if (isset($this->settings['codemirror']) && $this->settings['codemirror'] !== false) {
+            CodemirrorAsset::register($view);
+        }
 
         if (isset($this->settings['lang'])) {
             $asset->addLanguage($this->settings['lang']);
